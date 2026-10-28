@@ -1,0 +1,184 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { getWhatsAppUrl } from '@/data/siteData';
+
+const naskah = getNaskahById('114');
+if (!naskah) {
+  throw new Error("Naskah ID 114 not found");
+}
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Cara Pesan', url: '/cara-pesan/' },
+  { name: 'Syarat & Ketentuan Pemesanan', url: '/syarat-pemesanan/' }
+];
+
+const waTermsUrl = getWhatsAppUrl({
+  notes: "Konsultasi syarat pemesanan dan ketentuan pembayaran",
+  sourcePage: "/syarat-pemesanan/"
+});
+
+const faqItems = naskah.faqs.map((f, i) => ({
+  id: `faq-114-${i}`,
+  question: f.question,
+  answer: f.answer,
+  category: 'pemesanan' as const
+}));
+---
+
+<BaseLayout
+  title={naskah.seoTitle || "Ketentuan Pemesanan dan Pembayaran | Tote Bag"}
+  description={naskah.metaDescription}
+  canonicalUrl={naskah.canonical}
+  jsonLd={naskah.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Header -->
+  <header class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">KEBIJAKAN BISNIS &amp; TRANSAKSI</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          {naskah.h1}
+        </h1>
+        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
+          Ketentuan resmi mengenai skema pembayaran down payment (DP), prosedur persetujuan desain (approval), kebijakan revisi, garansi cacat produksi, serta kelengkapan administrasi pengadaan korporat.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Direct Answer Box -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-4 bg-light border border-success-subtle shadow-sm mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="badge bg-success text-white">Prinsip Transaksi B2B</span>
+          <span class="text-muted small">Kepastian Hukum &amp; Keamanan Kedua Pihak</span>
+        </div>
+        <p class="fs-5 text-dark mb-0" style="line-height: 1.8;">
+          {naskah.directAnswer}
+        </p>
+      </div>
+
+      <!-- 5 Pilar Kebijakan Pemesanan -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">5 Pokok Ketentuan Pemesanan</h2>
+          <p class="text-muted small">Transparansi hak dan kewajiban antara pemesan dan produsen.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-6">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="badge bg-success text-white">01</span>
+                <h3 class="h5 fw-bold mb-0">Skema Pembayaran (DP &amp; Pelunasan)</h3>
+              </div>
+              <p class="small text-muted mb-3">
+                Transaksi dilakukan melalui rekening bank resmi atas nama usaha.
+              </p>
+              <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0 border-top pt-3">
+                <li><strong>Down Payment (DP) 50%:</strong> Dibayarkan setelah quotation dan digital mockup disetujui untuk pemesanan bahan kain dan penjadwalan antrean produksi.</li>
+                <li><strong>Pelunasan 50%:</strong> Dibayarkan setelah seluruh pesanan selesai diproduksi, lolos inspeksi QC, dan siap dikirim (disertai foto/video dokumentasi kargo).</li>
+                <li><strong>Instansi / BUMN:</strong> Mekanisme termin khusus (TOP / Term of Payment) dapat didiskusikan dengan melampirkan Purchase Order (PO) resmi.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="badge bg-success text-white">02</span>
+                <h3 class="h5 fw-bold mb-0">Persetujuan Desain &amp; Sample Fisik</h3>
+              </div>
+              <p class="small text-muted mb-3">
+                Mencegah kesalahan spesifikasi sebelum kain dipotong.
+              </p>
+              <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0 border-top pt-3">
+                <li><strong>Digital Approval Mockup:</strong> Merinci dimensi tas, penempatan logo dalam centimeter, warna bahan, dan jenis aksesoris yang disetujui tertulis.</li>
+                <li><strong>Sample Fisik (Proofing):</strong> Untuk pesanan volume tertentu (di atas 500 pcs), kami menyediakan opsi pembuatan 1 unit sample fisik sebelum produksi massal.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="badge bg-success text-white">03</span>
+                <h3 class="h5 fw-bold mb-0">Ketentuan Perubahan &amp; Pembatalan</h3>
+              </div>
+              <p class="small text-muted mb-3">
+                Kondisi penyesuaian pesanan di tengah proses kerja.
+              </p>
+              <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0 border-top pt-3">
+                <li><strong>Revisi Desain:</strong> Bebas biaya selama master film sablon atau cetak DTF belum diproses.</li>
+                <li><strong>Perubahan Spesifikasi:</strong> Penambahan jumlah unit atau aksesoris akan disesuaikan melalui addendum penawaran harga resmi.</li>
+                <li><strong>Pembatalan Sepihak:</strong> Jika pembatalan diajukan setelah bahan kain dipotong, nilai DP yang telah dibayarkan dialokasikan untuk mengganti bahan yang telah terpotong.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="badge bg-success text-white">04</span>
+                <h3 class="h5 fw-bold mb-0">Garansi Kualitas &amp; Retur Barang</h3>
+              </div>
+              <p class="small text-muted mb-3">
+                Jaminan komitmen terhadap mutu hasil akhir produk.
+              </p>
+              <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0 border-top pt-3">
+                <li><strong>Cakupan Garansi:</strong> Jahitan lepas/robek, sablon mengelupas akibat cacat pengeringan, resleting macet, atau ketidaksesuaian ukuran ekstrem dari toleransi (+/- 1 cm).</li>
+                <li><strong>Prosedur Klaim:</strong> Sampaikan dokumentasi foto/video unboxing maksimal dalam 7 hari kerja setelah barang diterima ekspedisi. Kami mengganti atau memperbaiki unit yang cacat secara gratis.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">Pertanyaan Seputar Syarat Pemesanan</h2>
+          <p class="text-muted small">Jawaban atas pertanyaan umum seputar kebijakan pembayaran dan garansi.</p>
+        </div>
+        <div class="max-w-75 mx-auto">
+          <FAQAccordion items={faqItems} defaultOpen={0} />
+        </div>
+      </div>
+
+      <!-- CTA Box -->
+      <div class="p-4 p-md-5 rounded-4 text-white text-center shadow" style="background: linear-gradient(135deg, #1B4D3E 0%, #0d2820 100%);">
+        <h2 class="h3 fw-bold mb-3">Siap Memulai Pemesanan dengan Kepastian Mutu?</h2>
+        <p class="max-w-75 mx-auto text-white-50 mb-4" style="line-height: 1.7;">
+          Konsultasikan spesifikasi dan dapatkan draf Surat Penawaran Resmi (Quotation) lengkap dengan rincian jadwal pengerjaan hari ini.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href={waTermsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-warning btn-lg fw-bold">
+            Konsultasikan Pesanan via WA
+          </a>
+          <a href="/permintaan-penawaran/" class="btn btn-outline-light btn-lg">
+            Form Permintaan Penawaran
+          </a>
+        </div>
+      </div>
+
+      <!-- Related Navigation -->
+      <div class="mt-4 text-center">
+        <p class="small text-muted">
+          Lihat panduan lainnya: <a href="/cara-pesan/" class="text-decoration-underline text-success">Alur Cara Pesan</a> &bull; <a href="/pengiriman/" class="text-decoration-underline text-success">Ekspedisi &amp; Pengiriman</a> &bull; <a href="/panduan-file-desain/" class="text-decoration-underline text-success">Ketentuan File Desain</a> &bull; <a href="/kontak/" class="text-decoration-underline text-success">Kontak Kami</a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

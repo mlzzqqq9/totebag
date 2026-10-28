@@ -1,0 +1,206 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { getWhatsAppUrl, businessProfile } from '@/data/siteData';
+
+const naskah = getNaskahById('83');
+if (!naskah) {
+  throw new Error("Naskah ID 83 not found");
+}
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Layanan Kota', url: '/layanan/' },
+  { name: 'Vendor Tote Bag Malang', url: '/tote-bag-custom-malang/' }
+];
+
+const waMalangUrl = getWhatsAppUrl({
+  notes: "Halo Tim ToteBag Malang, saya ingin konsultasi produksi tote bag custom di Malang",
+  sourcePage: "/tote-bag-custom-malang/"
+});
+
+const faqItems = naskah.faqs.map((f, i) => ({
+  id: `faq-83-${i}`,
+  question: f.question,
+  answer: f.answer,
+  category: 'pemesanan' as const
+}));
+---
+
+<BaseLayout
+  title={naskah.seoTitle || "Vendor Tote Bag Custom di Malang | Tote Bag"}
+  description={naskah.metaDescription}
+  canonicalUrl={naskah.canonical}
+  jsonLd={naskah.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Header -->
+  <header class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">WORKSHOP &amp; KONVEKSI LOKAL</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          {naskah.h1}
+        </h1>
+        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
+          Produsen dan vendor konveksi tas tote bag custom berbasis workshop di Malang, Jawa Timur. Melayani pemesanan instansi pemerintah, BUMN, kampus perguruan tinggi, korporasi swasta, hingga event kreatif dengan jangkauan pengiriman kargo ke seluruh Indonesia.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Direct Answer Box (AEO GEO Optimized) -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-4 bg-light border border-success-subtle shadow-sm mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="badge bg-success text-white">Prinsip Pengadaan Vendor Malang</span>
+          <span class="text-muted small">Transparansi Kapasitas &amp; Distribusi Logistik</span>
+        </div>
+        <p class="fs-5 text-dark mb-0" style="line-height: 1.8;">
+          {naskah.directAnswer}
+        </p>
+      </div>
+
+      <!-- Workshop Profile & Keunggulan Vendor Malang -->
+      <div class="row g-4 mb-5 align-items-center">
+        <div class="col-12 col-lg-6">
+          <span class="text-success fw-bold text-uppercase small tracking-wide">Workshop Mandiri</span>
+          <h2 class="h3 fw-bold mt-1 mb-3">Keuntungan Bermitra Langsung dengan Produsen di Malang</h2>
+          <p class="text-muted" style="line-height: 1.7;">
+            Workshop kami berlokasi di {businessProfile.district}, Kota Malang. Dengan rantai produksi mandiri (cutting kain, meja sablon manual, mesin cetak DTF industri, dan penjahit terampil), kami memberikan kendali mutu ketat tanpa perantara calo atau pihak ketiga.
+          </p>
+          <ul class="list-unstyled d-flex flex-column gap-2 text-dark">
+            <li class="d-flex align-items-start gap-2">
+              <span class="text-success fw-bold">✓</span>
+              <span><strong>Harga Produsen Tangan Pertama:</strong> Efisiensi biaya produksi langsung dari konveksi kain.</span>
+            </li>
+            <li class="d-flex align-items-start gap-2">
+              <span class="text-success fw-bold">✓</span>
+              <span><strong>Uji Fisik &amp; Pembuatan Sample:</strong> Klien dapat melihat langsung katalog kain atau memesan sample fisik sebelum produksi massal.</span>
+            </li>
+            <li class="d-flex align-items-start gap-2">
+              <span class="text-success fw-bold">✓</span>
+              <span><strong>Aksesibilitas Malang Raya:</strong> Pengambilan langsung ke workshop atau pengiriman kurir lokal instan untuk area Kota Malang, Kota Batu, dan Kabupaten Malang.</span>
+            </li>
+            <li class="d-flex align-items-start gap-2">
+              <span class="text-success fw-bold">✓</span>
+              <span><strong>Legalitas &amp; Dokumen B2B:</strong> Menyediakan invoice resmi, faktur penawaran, dan kelengkapan administrasi pengadaan korporat.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm">
+            <h3 class="h5 fw-bold mb-3 border-bottom pb-2">Informasi Workshop &amp; Kontak Resmi</h3>
+            <div class="d-flex flex-column gap-3 small">
+              <div>
+                <strong class="text-dark d-block">Nama Brand Workshop:</strong>
+                <span class="text-muted">{businessProfile.name}</span>
+              </div>
+              <div>
+                <strong class="text-dark d-block">Alamat Workshop:</strong>
+                <span class="text-muted">{businessProfile.streetAddress}, {businessProfile.district}, {businessProfile.city}, {businessProfile.province} {businessProfile.postalCode}</span>
+              </div>
+              <div>
+                <strong class="text-dark d-block">Kapasitas Produksi:</strong>
+                <span class="text-muted">15.000 – 30.000 pcs / bulan (tergantung spesifikasi bahan &amp; kerumitan cetak)</span>
+              </div>
+              <div>
+                <strong class="text-dark d-block">Layanan Pengiriman:</strong>
+                <span class="text-muted">Lokal Malang (Kurir Workshop/Instant) &bull; Luar Kota (KAI Logistik, Baraka Kargo, Indah Cargo, JNE Trucking)</span>
+              </div>
+              <div>
+                <strong class="text-dark d-block">Hotline WhatsApp:</strong>
+                <a href={waMalangUrl} target="_blank" rel="noopener noreferrer" class="text-success fw-bold text-decoration-none">
+                  +62 821-3108-7971 (Fast Response)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panduan Pemesanan Lintas Kota -->
+      <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm mb-5">
+        <h2 class="h3 fw-bold mb-3">Alur Pemesanan untuk Klien Luar Kota Malang</h2>
+        <p class="text-muted mb-4" style="line-height: 1.7;">
+          Meskipun workshop kami berada di Malang, lebih dari 65% pesanan kami berasal dari instansi dan perusahaan di Surabaya, Jakarta, Bandung, Yogyakarta, hingga luar pulau Jawa. Berikut mekanisme transparan pemesanan jarak jauh:
+        </p>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-3">
+            <div class="p-3 rounded-3 bg-light border h-100">
+              <span class="badge bg-success text-white mb-2">Tahap 1</span>
+              <h3 class="h6 fw-bold">Konsultasi Digital</h3>
+              <p class="small text-muted mb-0">Kirimkan file logo (vektor AI/PDF/PNG hi-res), estimasi kuantiti, dan deadline acara via WhatsApp atau email.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="p-3 rounded-3 bg-light border h-100">
+              <span class="badge bg-success text-white mb-2">Tahap 2</span>
+              <h3 class="h6 fw-bold">Digital Proofing &amp; Sample</h3>
+              <p class="small text-muted mb-0">Tim desainer membuat simulasi tata letak visual 1:1. Untuk order volume besar, sample fisik dapat dikirim via ekspedisi kilat.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="p-3 rounded-3 bg-light border h-100">
+              <span class="badge bg-success text-white mb-2">Tahap 3</span>
+              <h3 class="h6 fw-bold">Produksi &amp; Update Berkala</h3>
+              <p class="small text-muted mb-0">Setelah DP disetujui, produksi berjalan dengan dokumentasi progres foto/video pengerjaan sablon dan jahitan.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="p-3 rounded-3 bg-light border h-100">
+              <span class="badge bg-success text-white mb-2">Tahap 4</span>
+              <h3 class="h6 fw-bold">Packing &amp; Kargo Terlacak</h3>
+              <p class="small text-muted mb-0">Barang dikemas plastik per lusin, dibungkus karung kedap air, dan dikirim via ekspedisi kargo resmi dengan nomor resi aktif.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">Pertanyaan Seputar Vendor Tote Bag Malang</h2>
+          <p class="text-muted small">Klarifikasi spesifikasi teknis dan kebijakan operasional vendor.</p>
+        </div>
+        <div class="max-w-75 mx-auto">
+          <FAQAccordion items={faqItems} defaultOpen={0} />
+        </div>
+      </div>
+
+      <!-- CTA Box -->
+      <div class="p-4 p-md-5 rounded-4 text-white text-center shadow" style="background: linear-gradient(135deg, #1B4D3E 0%, #0d2820 100%);">
+        <h2 class="h3 fw-bold mb-3">Siap Memulai Pengadaan Tote Bag Custom di Malang?</h2>
+        <p class="max-w-75 mx-auto text-white-50 mb-4" style="line-height: 1.7;">
+          Dapatkan penawaran harga pabrik resmi, konsultasi pemilihan bahan yang paling efisien, dan jadwal pengerjaan yang terjamin tepat waktu.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href={waMalangUrl} target="_blank" rel="noopener noreferrer" class="btn btn-warning btn-lg fw-bold">
+            Hubungi Workshop via WA
+          </a>
+          <a href="/cara-pesan/" class="btn btn-outline-light btn-lg">
+            Pelajari 6 Langkah Cara Pesan
+          </a>
+        </div>
+      </div>
+
+      <!-- Related Navigation -->
+      <div class="mt-4 text-center">
+        <p class="small text-muted">
+          Eksplorasi informasi lainnya: <a href="/layanan/malang/" class="text-decoration-underline text-success">Layanan Area Malang</a> &bull; <a href="/harga-tote-bag-custom/" class="text-decoration-underline text-success">Estimasi Harga</a> &bull; <a href="/panduan-produksi-tote-bag/" class="text-decoration-underline text-success">Standar QC Produksi</a> &bull; <a href="/kontak/" class="text-decoration-underline text-success">Alamat Workshop Lengkap</a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

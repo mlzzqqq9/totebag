@@ -1,0 +1,61 @@
+---
+import type { FAQItem } from '@/data/siteData';
+
+interface Props {
+  items: FAQItem[];
+  accordionId?: string;
+}
+
+const { items, accordionId = "mainFaqAccordion" } = Astro.props;
+
+// Schema FAQPage
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": items.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+---
+
+<div class="accordion accordion-custom" id={accordionId}>
+  {items.map((item, index) => {
+    const headingId = `heading-${accordionId}-${index}`;
+    const collapseId = `collapse-${accordionId}-${index}`;
+    const isFirst = index === 0;
+
+    return (
+      <div class="accordion-item">
+        <h3 class="accordion-header" id={headingId}>
+          <button 
+            class={`accordion-button ${isFirst ? '' : 'collapsed'}`} 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target={`#${collapseId}`} 
+            aria-expanded={isFirst ? "true" : "false"} 
+            aria-controls={collapseId}
+          >
+            {item.question}
+          </button>
+        </h3>
+        <div 
+          id={collapseId} 
+          class={`accordion-collapse collapse ${isFirst ? 'show' : ''}`} 
+          aria-labelledby={headingId} 
+          data-bs-parent={`#${accordionId}`}
+        >
+          <div class="accordion-body">
+            {item.answer}
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

@@ -1,0 +1,43 @@
+---
+interface BreadcrumbItem {
+  name: string;
+  url?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+
+// Schema BreadcrumbList
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url ? (item.url.startsWith('http') ? item.url : `https://totebag.web.id${item.url}`) : undefined
+  }))
+};
+---
+
+<nav aria-label="Breadcrumb" class="py-2 mb-3">
+  <ol class="breadcrumb-custom">
+    {items.map((item, index) => {
+      const isLast = index === items.length - 1;
+      return (
+        <li class={`breadcrumb-item ${isLast ? 'active' : ''}`} aria-current={isLast ? 'page' : undefined}>
+          {isLast || !item.url ? (
+            <span>{item.name}</span>
+          ) : (
+            <a href={item.url}>{item.name}</a>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

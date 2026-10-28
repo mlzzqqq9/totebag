@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { businessProfile, getWhatsAppUrl } from '@/data/siteData';
+
+const waUrl = getWhatsAppUrl({
+  notes: "Bantuan dari halaman 404",
+  sourcePage: "/404"
+});
+---
+
+<BaseLayout
+  title="404 — Halaman Tidak Ditemukan | ToteBag.web.id"
+  description="Halaman yang Anda cari tidak ditemukan atau telah dipindahkan. Kembali ke beranda atau katalog tote bag custom kami."
+  canonicalUrl="https://totebag.web.id/404"
+>
+  <section class="section-space text-center py-5">
+    <div class="container py-4">
+      <div class="max-w-75 mx-auto">
+        <div class="display-1 fw-bold text-success opacity-75 mb-2">404</div>
+        <h1 class="h2 fw-bold text-dark mb-3">Halaman Tidak Ditemukan</h1>
+        <p class="text-muted fs-5 mb-5 max-w-75 mx-auto">
+          Tautan yang Anda tuju mungkin sudah dipindahkan atau alamat URL yang dimasukkan kurang tepat. Silakan gunakan navigasi di bawah ini untuk menemukan solusi tas yang Anda perlukan.
+        </p>
+
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="/" class="btn btn-brand btn-lg">
+            Kembali ke Beranda
+          </a>
+          <a href="/produk/" class="btn btn-brand-outline btn-lg">
+            Buka Katalog Produk
+          </a>
+          <a href={waUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
+            Hubungi Tim via WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

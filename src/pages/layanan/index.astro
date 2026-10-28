@@ -1,0 +1,217 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import { cityServices, businessProfile, getWhatsAppUrl } from '@/data/siteData';
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Layanan Pengiriman Kota', url: '/layanan/' }
+];
+
+const waHubUrl = getWhatsAppUrl({
+  notes: "Konsultasi pengiriman kargo antarkota untuk tote bag",
+  sourcePage: "/layanan/"
+});
+
+const serviceHubSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Layanan Pengadaan & Pengiriman Antarkota Tote Bag Custom",
+  "provider": {
+    "@id": "https://totebag.web.id/#organization"
+  },
+  "areaServed": cityServices.map(c => ({
+    "@type": "AdministrativeArea",
+    "name": `${c.cityName}, ${c.province}`
+  })),
+  "description": "Layanan produksi dan pengiriman tote bag custom B2B dari workshop Malang ke berbagai kota di Indonesia melalui jalur kargo darat, kereta api, dan udara."
+};
+---
+
+<BaseLayout
+  title="Layanan & Jangkauan Pengiriman Tote Bag Custom Seluruh Indonesia"
+  description="Informasi jangkauan area pengiriman tote bag custom ke berbagai kota (Malang, Surabaya, Jakarta, Bandung, Yogyakarta, Semarang). Cek estimasi waktu tiba, pilihan ekspedisi kargo, dan standar packing aman."
+  canonicalUrl="https://totebag.web.id/layanan/"
+  jsonLd={serviceHubSchema}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Header -->
+  <section class="section-space-sm pt-2">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-8">
+          <span class="badge-accent mb-2">JANGKAUAN LOGISTIK B2B</span>
+          <h1 class="hero-title mb-3" style="font-size: clamp(2.1rem, 3.8vw, 3.2rem);">
+            Layanan Pengadaan &amp; Distribusi Kota
+          </h1>
+          <p class="lead text-muted fs-5 mb-4">
+            Workshop terpusat di Kedungkandang, Kota Malang, terintegrasi dengan jaringan kargo darat tol Trans Jawa, ekspedisi kereta api logistik, serta kargo udara. Memastikan tote bag custom tiba tepat waktu di kantor, kampus, atau venue event Anda.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href={waHubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg d-flex align-items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+              </svg>
+              Konsultasi Rute &amp; Biaya Kargo
+            </a>
+            <a href="/cara-pesan/" class="btn btn-brand-outline btn-lg">
+              Alur Pemesanan B2B &rarr;
+            </a>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="p-4 rounded-4 bg-white border shadow-sm">
+            <h2 class="h5 fw-bold mb-3 text-dark">Jaminan Standar Logistik</h2>
+            <ul class="list-unstyled d-flex flex-column gap-3 mb-0 small text-muted">
+              <li class="d-flex align-items-start gap-2">
+                <svg class="text-success flex-shrink-0 mt-1" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>
+                <span><strong>Packing Anti Air:</strong> Lapisan inner wrap polybag kedap udara + karung tebal segel lakban keamanan.</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <svg class="text-success flex-shrink-0 mt-1" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>
+                <span><strong>Tracking Resi WhatsApp:</strong> Foto paket, timbangan riil, serta nomor resi resmi kargo dikirimkan langsung.</span>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <svg class="text-success flex-shrink-0 mt-1" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>
+                <span><strong>Kelengkapan Dokumen:</strong> Surat jalan (delivery order) &amp; faktur penagihan resmi untuk divisi keuangan/kepegawaian.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- City Grid Section -->
+  <section class="section-space pt-0">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+        <div>
+          <h2 class="h3 fw-bold mb-1">Pilih Kota Tujuan Distribusi</h2>
+          <p class="text-muted mb-0">Klik pada kota tujuan Anda untuk melihat rincian kecamatan, opsi kargo, dan proses ekspedisi.</p>
+        </div>
+        <div class="mt-3 mt-md-0 text-muted small">
+          Menampilkan <strong>{cityServices.length} Wilayah Rute Utama</strong>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        {cityServices.map((city) => (
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="custom-card h-100 d-flex flex-column p-4">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="badge-brand">{city.badge}</span>
+                <span class="badge bg-light text-dark border small">{city.leadTimeDelivery.split('(')[0]}</span>
+              </div>
+
+              <h3 class="h4 fw-bold mb-2 text-dark">
+                <a href={`/layanan/${city.slug}/`} class="text-decoration-none text-reset">
+                  {city.cityName}
+                </a>
+              </h3>
+              <p class="small text-muted mb-3 flex-grow-1">
+                {city.tagline}
+              </p>
+
+              <!-- Highlights -->
+              <div class="p-3 rounded-3 bg-light mb-3 small">
+                <div class="mb-2">
+                  <strong class="text-dark d-block">Jalur Rute:</strong>
+                  <span class="text-muted">{city.routeHighlight}</span>
+                </div>
+                <div class="mb-2">
+                  <strong class="text-dark d-block">Pilihan Ekspedisi:</strong>
+                  <span class="text-muted">{city.expeditions.map(e => e.name).join(', ')}</span>
+                </div>
+                <div>
+                  <strong class="text-dark d-block">Contoh Area Jangkauan:</strong>
+                  <span class="text-muted">{city.districts.slice(0, 3).map(d => d.split('(')[0].trim()).join(', ')}...</span>
+                </div>
+              </div>
+
+              <div class="mt-auto pt-2 d-flex gap-2">
+                <a href={`/layanan/${city.slug}/`} class="btn btn-brand-outline btn-sm flex-grow-1 text-center py-2">
+                  Detail Layanan {city.cityName} &rarr;
+                </a>
+                <a 
+                  href={getWhatsAppUrl({ notes: `Tanya pengiriman ke kota ${city.cityName}`, sourcePage: `/layanan/${city.slug}/` })} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="btn btn-whatsapp btn-sm d-flex align-items-center justify-content-center px-3"
+                  title="Tanya Ongkir via WhatsApp"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Step-by-step Standard Shipping -->
+  <section class="section-space bg-surface-alt border-top border-bottom">
+    <div class="container">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="badge-brand mb-2">SOP LOGISTIK B2B</span>
+        <h2 class="h3 fw-bold">Alur Pengiriman Paket Tote Bag ke Kota Anda</h2>
+        <p class="text-muted">Prosedur standar untuk memastikan keakuratan jumlah unit, kebersihan kain, dan keamanan fisik tas selama perjalanan antarkota.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-md-3">
+          <div class="p-4 bg-white rounded-4 border h-100 text-center">
+            <div class="badge rounded-circle bg-brand text-white p-3 mb-3 fs-5 fw-bold" style="width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;">1</div>
+            <h3 class="h6 fw-bold mb-2">Final Quality Control</h3>
+            <p class="small text-muted mb-0">Tas disortir dan diperiksa kerapian jahitan, kebersihan dari sisa benang, dan presisi warna sablon/DTF.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="p-4 bg-white rounded-4 border h-100 text-center">
+            <div class="badge rounded-circle bg-brand text-white p-3 mb-3 fs-5 fw-bold" style="width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;">2</div>
+            <h3 class="h6 fw-bold mb-2">Double-Layer Wrapping</h3>
+            <p class="small text-muted mb-0">Tas dibungkus plastik kedap udara (inner polybag) per 25 pcs, lalu dimasukkan ke dalam karung kargo berlapis lakban tebal.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="p-4 bg-white rounded-4 border h-100 text-center">
+            <div class="badge rounded-circle bg-brand text-white p-3 mb-3 fs-5 fw-bold" style="width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;">3</div>
+            <h3 class="h6 fw-bold mb-2">Timbang &amp; Terbit Resi</h3>
+            <p class="small text-muted mb-0">Paket diserahkan ke mitra ekspedisi kargo resmi. Foto timbangan dan nomor resi digital diteruskan ke kontak WhatsApp Anda.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="p-4 bg-white rounded-4 border h-100 text-center">
+            <div class="badge rounded-circle bg-brand text-white p-3 mb-3 fs-5 fw-bold" style="width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;">4</div>
+            <h3 class="h6 fw-bold mb-2">Serah Terima Lokasi</h3>
+            <p class="small text-muted mb-0">Kurir mengantar paket langsung ke alamat kantor, kampus, atau hotel tempat acara berlangsung dengan surat jalan resmi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Bottom -->
+  <section class="section-space">
+    <div class="container">
+      <div class="bg-brand text-white rounded-4 p-4 p-lg-5 text-center">
+        <h2 class="h3 fw-bold mb-3">Kota Anda Belum Tercantum di Atas?</h2>
+        <p class="lead fs-6 text-white-50 max-w-700 mx-auto mb-4">
+          Kami melayani pengiriman ke seluruh kota dan kabupaten di Indonesia (Sumatera, Kalimantan, Sulawesi, Bali, Nusa Tenggara, hingga Papua) menggunakan jaringan ekspedisi darat, laut (kapal RORO/kontainer), dan udara.
+        </p>
+        <a href={waHubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg d-inline-flex align-items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+          </svg>
+          Konsultasi Pengiriman Kota Lainnya
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

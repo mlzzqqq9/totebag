@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://totebag.web.id/sitemap.xml

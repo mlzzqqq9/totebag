@@ -1,0 +1,482 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getBlogArticles, type NaskahItem } from '@/utils/naskah';
+import { authors, products, getWhatsAppUrl } from '@/data/siteData';
+
+export async function getStaticPaths() {
+  const blogList = getBlogArticles();
+  return blogList.map(item => ({
+    params: { slug: item.slug },
+    props: { naskah: item }
+  }));
+}
+
+interface Props {
+  naskah: NaskahItem;
+}
+
+const { naskah } = Astro.props;
+const author = authors['m-maulana-ishaq'] || authors['ahmad-fauzi'] || {
+  name: 'M. Maulana Ishaq',
+  role: 'SEO Specialist & Web Developer | Senior Marketing',
+  slug: 'm-maulana-ishaq',
+  bio: 'SEO Specialist dan Web Developer yang saat ini memegang peranan sebagai Senior Marketing. Berfokus pada perancangan arsitektur katalog produk digital dan pengadaan tote bag custom B2B.',
+  imageUrl: '/media/author-fauzi.svg'
+};
+
+const relatedProducts = products.slice(0, 3);
+
+// Other related articles for sidebar
+const allArticles = getBlogArticles();
+const relatedArticles = allArticles.filter(a => a.slug !== naskah.slug).slice(0, 4);
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Blog', url: '/blog/' },
+  { name: naskah.h1, url: naskah.url }
+];
+
+const waArticleUrl = getWhatsAppUrl({
+  notes: `Inquiry dari artikel: ${naskah.h1}`,
+  sourcePage: naskah.url
+});
+
+const formatDate = (dateStr: string) => {
+  try {
+    const [year, month, day] = dateStr.split('-');
+    const months = [
+      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ];
+    return `${parseInt(day, 10)} ${months[parseInt(month, 10) - 1]} ${year}`;
+  } catch (e) {
+    return dateStr;
+  }
+};
+
+const formattedDate = formatDate(naskah.jadwal);
+
+// Dynamic selection of 2 distinct contextual images per article (Zero Duplicates)
+function getArticleImages(art: typeof naskah) {
+  const text = (art.h1 + ' ' + art.keyword + ' ' + art.cluster).toLowerCase();
+  
+  let img1 = {
+    src: '/media/canvas-hero.svg',
+    alt: `Dokumentasi produk ${art.h1}`,
+    caption: `Foto 1: Model dan spesifikasi ${art.h1.toLowerCase()} produksi workshop ToteBag Malang.`
+  };
+  
+  if (text.includes('blacu')) {
+    img1 = {
+      src: '/media/product-blacu-standard.svg',
+      alt: `Kain blacu super grade A untuk ${art.h1}`,
+      caption: `Foto 1: Serat alami kain blacu unbleached ramah lingkungan untuk ${art.h1.toLowerCase()}.`
+    };
+  } else if (text.includes('spunbond')) {
+    img1 = {
+      src: '/media/product-spunbond-press.svg',
+      alt: `Tas goodie bag spunbond custom untuk ${art.h1}`,
+      caption: `Foto 1: Opsi bahan spunbond higienis dan ekonomis untuk ${art.h1.toLowerCase()}.`
+    };
+  } else if (text.includes('cordura') || text.includes('dinir')) {
+    img1 = {
+      src: '/media/fabric-dinir-cordura.svg',
+      alt: `Tote bag bahan dinir D300 D600 dan cordura tahan air untuk ${art.h1}`,
+      caption: `Foto 1: Karakter bahan poliester dinir D600 & cordura waterproof untuk ${art.h1.toLowerCase()}.`
+    };
+  } else if (text.includes('mika')) {
+    img1 = {
+      src: '/media/fabric-mika-transparan.svg',
+      alt: `Tote bag mika transparan PVC untuk ${art.h1}`,
+      caption: `Foto 1: Tampilan modern tote bag mika bening tahan air untuk ${art.h1.toLowerCase()}.`
+    };
+  } else if (text.includes('denim') || text.includes('satin')) {
+    img1 = {
+      src: '/media/fabric-denim-satin.svg',
+      alt: `Tote bag bahan denim jeans dan satin printing untuk ${art.h1}`,
+      caption: `Foto 1: Pilihan material kasual denim dan satin cetak sublimasi untuk ${art.h1.toLowerCase()}.`
+    };
+  } else if (text.includes('ukuran') || text.includes('pola') || text.includes('dimensi')) {
+    img1 = {
+      src: '/media/blog-sizing-guide.svg',
+      alt: `Panduan ukuran dan proporsi dimensi ${art.h1}`,
+      caption: `Foto 1: Proporsi standar ukuran, panjang tali, dan alas gusset untuk ${art.h1.toLowerCase()}.`
+    };
+  } else if (text.includes('sablon') || text.includes('cetak') || text.includes('dtf') || text.includes('bordir')) {
+    img1 = {
+      src: '/media/blog-printing-guide.svg',
+      alt: `Teknik cetak sablon logo pada ${art.h1}`,
+      caption: `Foto 1: Penerapan sablon manual dan digital DTF presisi untuk ${art.h1.toLowerCase()}.`
+    };
+  } else if (text.includes('seminar') || text.includes('kampus') || text.includes('event')) {
+    img1 = {
+      src: '/media/portfolio-seminar-malang.svg',
+      alt: `Paket tote bag seminar kit untuk ${art.h1}`,
+      caption: `Foto 1: Contoh tote bag seminar kit berlogo untuk kebutuhan ${art.h1.toLowerCase()}.`
+    };
+  } else if (text.includes('perusahaan') || text.includes('b2b') || text.includes('kantor')) {
+    img1 = {
+      src: '/media/portfolio-corporate-surabaya.svg',
+      alt: `Merchandise tote bag perusahaan untuk ${art.h1}`,
+      caption: `Foto 1: Desain representatif tote bag korporat untuk ${art.h1.toLowerCase()}.`
+    };
+  }
+
+  // Secondary Image Pool (Detail Teknis & Standar Pengerjaan Workshop)
+  const secondaryPool = [
+    {
+      src: '/media/process-sewing-stitch.svg',
+      alt: `Standar jahitan double stitch dan obras benang nilon pada ${art.h1}`,
+      caption: `Foto 2: Detail jahitan ganda (double-stitch) dan sambungan obras nilon untuk memastikan kekuatan tas menahan beban.`
+    },
+    {
+      src: '/media/process-screen-printing.svg',
+      alt: `Proses sablon manual dan press DTF tahan cuci pada ${art.h1}`,
+      caption: `Foto 2: Proses aplikasi sablon dan cetak logo dengan presisi warna tinggi serta daya tahan cuci prima.`
+    },
+    {
+      src: '/media/process-quality-control.svg',
+      alt: `Pemeriksaan quality control zero defect sebelum pengiriman ${art.h1}`,
+      caption: `Foto 2: Tahapan inspeksi quality control ketat untuk menjamin kerapian dan akurasi sebelum dikirim ke pemesan.`
+    },
+    {
+      src: '/media/process-packing-shipping.svg',
+      alt: `Pengemasan plastik rapi dan packing kargo antarkota untuk ${art.h1}`,
+      caption: `Foto 2: Standar pengemasan individual seal dan ekspedisi kargo aman untuk pengiriman ke seluruh Indonesia.`
+    }
+  ];
+
+  const numId = parseInt(art.id, 10) || 0;
+  let img2 = secondaryPool[numId % secondaryPool.length];
+  if (img2.src === img1.src) {
+    img2 = secondaryPool[(numId + 1) % secondaryPool.length];
+  }
+
+  return { img1, img2 };
+}
+
+const { img1, img2 } = getArticleImages(naskah);
+
+// Format FAQs for FAQAccordion component
+const faqItems = naskah.faqs.map((f, idx) => ({
+  id: `faq-article-${idx}`,
+  question: f.question,
+  answer: f.answer,
+  category: 'umum' as const
+}));
+---
+
+<BaseLayout
+  title={naskah.seoTitle || `${naskah.h1} | Tote Bag`}
+  description={naskah.metaDescription}
+  canonicalUrl={naskah.canonical}
+  ogType="article"
+  ogImage={img1.src}
+  jsonLd={naskah.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <article class="section-space-sm pt-2">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Main Article Content (col-12 col-lg-8) -->
+        <div class="col-12 col-lg-8">
+          <header class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge-brand">{naskah.cluster}</span>
+              <span class="small text-muted">•</span>
+              <span class="small text-muted">{naskah.readTime}</span>
+            </div>
+
+            <h1 class="hero-title mb-3" style="font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.25;">
+              {naskah.h1}
+            </h1>
+
+            <div class="d-flex flex-wrap align-items-center gap-2 gap-md-3 pt-2 pb-3 border-top border-bottom small text-muted">
+              <div>
+                Ditulis oleh: <a href={`/penulis/${author.slug}/`} class="fw-bold text-dark text-decoration-none">{author.name}</a>
+              </div>
+              <span class="d-none d-sm-inline">•</span>
+              <div>
+                Jadwal Publikasi: <time datetime={naskah.jadwal} class="fw-semibold text-dark">{formattedDate}</time>
+              </div>
+              <span>•</span>
+              <div>
+                Target: <span class="fw-semibold text-dark">{naskah.targetPembaca || 'Pengadaan B2B'}</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- Foto 1: Contextual Featured Illustration with Alt Text & Caption -->
+          <figure class="my-4 p-2 rounded-4 bg-white border shadow-sm">
+            <img 
+              src={img1.src} 
+              alt={img1.alt} 
+              loading="eager" 
+              decoding="async"
+              class="img-fluid rounded-3 w-100" 
+              style="max-height: 420px; object-fit: cover;"
+            />
+            <figcaption class="text-center text-muted small mt-2 pt-1 pb-1">
+              <span class="fw-semibold text-dark">{img1.caption}</span>
+              <span class="d-block text-secondary" style="font-size: 0.78rem;">Alt text: &ldquo;{img1.alt}&rdquo;</span>
+            </figcaption>
+          </figure>
+
+          <!-- Direct Answer Callout Box (AEO Direct Answer) -->
+          {naskah.directAnswer && (
+            <div class="p-4 rounded-4 bg-surface-alt border-start border-4 border-success mb-4 shadow-sm">
+              <div class="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
+                <span class="badge bg-success text-white">Ringkasan Inti</span>
+                <span class="fs-6">Poin Utama Panduan:</span>
+              </div>
+              <p class="mb-0 text-muted" style="line-height: 1.75; font-size: 1.02rem;">
+                {naskah.directAnswer}
+              </p>
+            </div>
+          )}
+
+          <!-- Table of Contents (if available) -->
+          {naskah.toc && naskah.toc.length > 0 && (
+            <nav class="p-4 rounded-4 bg-light border mb-4" aria-label="Daftar Isi">
+              <div class="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Daftar Pembahasan:</span>
+              </div>
+              <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
+                {naskah.toc.map((tocItem, i) => (
+                  <li class={tocItem.level === 3 ? 'ps-3' : ''}>
+                    <a href={`#${tocItem.id}`} class="text-decoration-none text-success fw-medium">
+                      {i + 1}. {tocItem.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          <!-- Article Body HTML rendered from Markdown -->
+          <div class="article-content-body d-flex flex-column gap-3 text-muted" style="line-height: 1.85; font-size: 1.05rem;">
+            <Fragment set:html={naskah.bodyHtml} />
+          </div>
+
+          <!-- Foto 2: Secondary Distinct Technical / Workshop Illustration with Alt Text & Caption -->
+          <figure class="my-5 p-2 rounded-4 bg-white border shadow-sm">
+            <img 
+              src={img2.src} 
+              alt={img2.alt} 
+              loading="lazy" 
+              decoding="async"
+              class="img-fluid rounded-3 w-100" 
+              style="max-height: 380px; object-fit: cover;"
+            />
+            <figcaption class="text-center text-muted small mt-2 pt-1 pb-1">
+              <span class="fw-semibold text-dark">{img2.caption}</span>
+              <span class="d-block text-secondary" style="font-size: 0.78rem;">Alt text: &ldquo;{img2.alt}&rdquo;</span>
+            </figcaption>
+          </figure>
+
+          <!-- FAQ Accordion section if questions exist -->
+          {faqItems.length > 0 && (
+            <section class="mt-5 pt-4 border-top">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <span class="badge-accent">TANYA JAWAB</span>
+                <h2 class="h4 fw-bold text-dark mb-0">Pertanyaan yang Sering Diajukan</h2>
+              </div>
+              <FAQAccordion items={faqItems} accordionId={`faqAccordion-${naskah.id}`} />
+            </section>
+          )}
+
+          <!-- Editorial Verification Note (Transparency) -->
+          <div class="p-3 rounded-3 bg-light border mt-4 text-muted small">
+            <strong>Catatan Verifikasi Spesifikasi:</strong> Sebelum melakukan pemesanan massal untuk kebutuhan instansi atau event, Anda dapat meminta foto fisik kain, sampel jahit, dan simulasi penempatan logo secara cuma-cuma melalui layanan konsultasi WhatsApp kami.
+          </div>
+
+          <!-- Bottom Article CTA Banner -->
+          <div class="p-4 p-lg-5 rounded-4 bg-brand-dark text-white mt-5 position-relative overflow-hidden">
+            <div class="position-relative z-1">
+              <span class="badge bg-warning text-dark fw-bold mb-2">KONSULTASI GRATIS</span>
+              <h3 class="h4 fw-bold mb-2 text-white">Butuh Bantuan Memilih Tote Bag yang Tepat?</h3>
+              <p class="small text-white-50 mb-3" style="max-width: 580px;">
+                Diskusikan dimensi tas, jenis sablon, dan estimasi biaya bersama tim spesialis produksi kami. Dapatkan surat penawaran harga resmi (Quotation) dan preview mockup gratis via WhatsApp.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <a href={waArticleUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp d-inline-flex align-items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/></svg>
+                  Konsultasi Spesifikasi via WhatsApp
+                </a>
+                <a href="/cara-pesan/" class="btn btn-outline-light">
+                  Lihat Alur Pemesanan &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar on Desktop (col-12 col-lg-4) -->
+        <div class="col-12 col-lg-4">
+          <div class="sticky-sidebar d-flex flex-column gap-4" style="top: 85px;">
+            <!-- Author Card -->
+            <div class="p-4 rounded-4 bg-white border shadow-sm">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <img 
+                  src={author.imageUrl} 
+                  alt={author.name} 
+                  width="54" 
+                  height="54" 
+                  class="rounded-circle border"
+                />
+                <div>
+                  <h3 class="h6 fw-bold mb-0">
+                    <a href={`/penulis/${author.slug}/`} class="text-decoration-none text-reset">
+                      {author.name}
+                    </a>
+                  </h3>
+                  <span class="small text-muted" style="font-size: 0.76rem; display: block; line-height: 1.3;">{author.role}</span>
+                </div>
+              </div>
+              <p class="small text-muted mb-3" style="line-height: 1.5; font-size: 0.8rem;">
+                {author.bio}
+              </p>
+
+              <!-- Social links -->
+              {author.socials && (
+                <div class="d-flex align-items-center gap-2 mb-3 pt-2 border-top">
+                  {author.socials.instagram && (
+                    <a href={author.socials.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-light btn-sm p-1 border text-muted d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;" aria-label="Instagram">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#E1306C" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg>
+                    </a>
+                  )}
+                  {author.socials.x && (
+                    <a href={author.socials.x} target="_blank" rel="noopener noreferrer" class="btn btn-light btn-sm p-1 border text-muted d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;" aria-label="X">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#000000" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
+                    </a>
+                  )}
+                  {author.socials.linkedin && (
+                    <a href={author.socials.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-light btn-sm p-1 border text-muted d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;" aria-label="LinkedIn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#0A66C2" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
+                    </a>
+                  )}
+                  <a href={`/penulis/${author.slug}/`} class="small text-success text-decoration-none ms-auto fw-semibold" style="font-size: 0.75rem;">
+                    Profil &rarr;
+                  </a>
+                </div>
+              )}
+
+              <div class="pt-2 border-top">
+                <span class="small text-muted d-block mb-1 fw-semibold" style="font-size: 0.75rem;">Keahlian:</span>
+                <span class="badge bg-light text-dark border me-1 mb-1" style="font-size: 0.7rem;">SEO &amp; Web</span>
+                <span class="badge bg-light text-dark border me-1 mb-1" style="font-size: 0.7rem;">Senior Marketing</span>
+                <span class="badge bg-light text-dark border me-1 mb-1" style="font-size: 0.7rem;">Katalog B2B</span>
+              </div>
+            </div>
+
+            <!-- Recommended Products Widget -->
+            <div class="p-4 rounded-4 bg-white border shadow-sm">
+              <h3 class="h6 fw-bold mb-3 d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span>Pilihan Bahan Siap Produksi:</span>
+              </h3>
+              <div class="d-flex flex-column gap-3">
+                {relatedProducts.map(prod => (
+                  <div class="d-flex align-items-center gap-3 p-2 rounded-3 hover-bg-light">
+                    <div style="width: 58px; height: 50px;" class="rounded bg-light flex-shrink-0 overflow-hidden border">
+                      <img src={prod.imageUrl} alt={prod.name} class="w-100 h-100 object-fit-contain" />
+                    </div>
+                    <div class="flex-grow-1">
+                      <a href={`/produk/${prod.slug}/`} class="small fw-bold text-dark text-decoration-none d-block">
+                        {prod.name}
+                      </a>
+                      <span class="small text-muted">{prod.material}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div class="pt-3 mt-2 border-top text-center">
+                <a href="/produk/" class="small fw-bold text-success text-decoration-none">
+                  Lihat Semua Katalog Produk &rarr;
+                </a>
+              </div>
+            </div>
+
+            <!-- Other Related Articles -->
+            {relatedArticles.length > 0 && (
+              <div class="p-4 rounded-4 bg-white border shadow-sm">
+                <h3 class="h6 fw-bold mb-3">Panduan Terkait Lainnya:</h3>
+                <div class="d-flex flex-column gap-2">
+                  {relatedArticles.map(art => (
+                    <a href={art.url} class="text-decoration-none text-dark small py-2 border-bottom hover-text-success d-block">
+                      <div class="text-muted" style="font-size: 0.72rem;">{art.cluster}</div>
+                      <div class="fw-semibold text-truncate">{art.h1}</div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-content-body :global(h2) {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #173F38;
+    margin-top: 1.8rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(23, 63, 56, 0.1);
+  }
+
+  .article-content-body :global(h3) {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2b3330;
+    margin-top: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .article-content-body :global(p) {
+    margin-bottom: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .article-content-body :global(ul),
+  .article-content-body :global(ol) {
+    padding-left: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .article-content-body :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .article-content-body :global(a) {
+    color: #173F38;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .article-content-body :global(a:hover) {
+    color: #C18755;
+  }
+
+  .article-content-body :global(strong) {
+    color: #1a221f;
+  }
+
+  .hover-bg-light:hover {
+    background: rgba(23, 63, 56, 0.04);
+  }
+
+  .hover-text-success:hover .fw-semibold {
+    color: #173F38;
+  }
+</style>

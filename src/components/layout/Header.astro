@@ -1,0 +1,515 @@
+---
+import { businessProfile, getWhatsAppUrl } from '@/data/siteData';
+
+const currentPath = Astro.url.pathname;
+const isHome      = currentPath === '/';
+const isProduk    = currentPath.startsWith('/produk');
+const isCustom    = currentPath.startsWith('/tote-bag-custom');
+const isSolusi    = currentPath.startsWith('/tote-bag-perusahaan') || currentPath.startsWith('/tote-bag-seminar') || currentPath.startsWith('/layanan');
+const isPortfolio = currentPath.startsWith('/portofolio');
+const isCaraPesan = currentPath.startsWith('/cara-pesan');
+const isBlog      = currentPath.startsWith('/blog');
+const isTentang   = currentPath.startsWith('/tentang-kami');
+const isKontak    = currentPath.startsWith('/kontak');
+
+const waUrl = getWhatsAppUrl({ notes: "Penawaran via header", sourcePage: currentPath });
+---
+
+<!-- ===== STICKY HEADER ===== -->
+<header id="siteHeader">
+  <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-xl">
+
+      <!-- LOGO -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/" aria-label="ToteBag - Beranda">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="32" height="32" aria-hidden="true">
+          <rect width="36" height="36" rx="8" fill="#173F38"/>
+          <path d="M12 16 C12 9, 24 9, 24 16" fill="none" stroke="#C18755" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M8 15 L28 15 L26 31 C25.8 32 25 33 24 33 L12 33 C11 33 10.2 32 10 31 Z" fill="#FBF9F4" stroke="#DFE3DE" stroke-width="1"/>
+          <line x1="10" y1="19" x2="26" y2="19" stroke="#173F38" stroke-width="1" stroke-dasharray="2 1.5"/>
+        </svg>
+        <span class="brand-wordmark">Tote<strong>Bag</strong></span>
+      </a>
+
+      <!-- HAMBURGER (mobile only) -->
+      <button
+        class="navbar-toggler ms-auto border-0 p-2"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#mobileDrawer"
+        aria-controls="mobileDrawer"
+        aria-label="Buka menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#173F38" stroke-width="2.2" stroke-linecap="round">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
+
+      <!-- DESKTOP NAV (lg+) -->
+      <div class="collapse navbar-collapse" id="desktopNav">
+        <ul class="navbar-nav mx-auto align-items-center">
+
+          <!-- 1. Beranda -->
+          <li class="nav-item">
+            <a href="/" class={`nav-link nav-item-link ${isHome ? 'active' : ''}`}>Beranda</a>
+          </li>
+
+          <!-- 2. Katalog & Custom (Dropdown) -->
+          <li class="nav-item dropdown dropdown-hover">
+            <a
+              class={`nav-link nav-item-link dropdown-toggle ${isProduk || isCustom ? 'active' : ''}`}
+              href="/produk/"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Katalog Produk
+            </a>
+            <ul class="dropdown-menu nav-dropdown shadow-lg">
+              <li class="dropdown-header text-uppercase fw-bold text-muted small px-3 py-1">Pilihan Bahan</li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2" href="/produk/"><span class="dropdown-bullet"></span>Semua Katalog Produk</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2" href="/produk/tote-bag-canvas/"><span class="dropdown-bullet"></span>Tote Bag Canvas</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2" href="/produk/tote-bag-dinir-cordura/"><span class="dropdown-bullet"></span>Dinir D600 &amp; Cordura</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2" href="/produk/tote-bag-blacu/"><span class="dropdown-bullet"></span>Tote Bag Blacu</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2" href="/produk/tote-bag-spunbond/"><span class="dropdown-bullet"></span>Tote Bag Spunbond</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2" href="/produk/tote-bag-mika/"><span class="dropdown-bullet"></span>Mika Transparan PVC</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2" href="/produk/tote-bag-denim/"><span class="dropdown-bullet"></span>Denim Jeans Custom</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2" href="/produk/tote-bag-satin/"><span class="dropdown-bullet"></span>Satin Full Print Sublimasi</a></li>
+              <li><hr class="dropdown-divider my-2"></li>
+              <li class="dropdown-header text-uppercase fw-bold text-muted small px-3 py-1">Custom &amp; Spesifikasi</li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center justify-content-between" href="/tote-bag-custom/">
+                  <span>Custom Sablon &amp; DTF</span>
+                  <span class="badge bg-success-subtle text-success small">Populer</span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/tote-bag-wanita/">
+                  Tas Tote Bag Wanita &amp; Model
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/jenis-bahan-tote-bag/">
+                  Panduan Karakteristik Bahan
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 3. Layanan & Solusi (Dropdown) -->
+          <li class="nav-item dropdown dropdown-hover">
+            <a
+              class={`nav-link nav-item-link dropdown-toggle ${isSolusi || isCaraPesan ? 'active' : ''}`}
+              href="/layanan/"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Layanan &amp; Solusi
+            </a>
+            <ul class="dropdown-menu nav-dropdown shadow-lg">
+              <li class="dropdown-header text-uppercase fw-bold text-muted small px-3 py-1">Solusi Pengadaan B2B</li>
+              <li><a class="dropdown-item" href="/tote-bag-perusahaan/">Pengadaan Perusahaan &amp; HRD</a></li>
+              <li><a class="dropdown-item" href="/tote-bag-seminar/">Seminar, Kampus &amp; Event</a></li>
+              <li><hr class="dropdown-divider my-2"></li>
+              <li class="dropdown-header text-uppercase fw-bold text-muted small px-3 py-1">Panduan &amp; Standar</li>
+              <li><a class="dropdown-item" href="/harga-tote-bag-custom/">Estimasi Biaya &amp; Harga</a></li>
+              <li><a class="dropdown-item" href="/panduan-produksi-tote-bag/">Alur Produksi &amp; Standar QC</a></li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center justify-content-between" href="/cara-pesan/">
+                  <span>Alur &amp; Cara Pesan</span>
+                  <span class="badge bg-light text-dark border small">6 Langkah</span>
+                </a>
+              </li>
+              <li><a class="dropdown-item" href="/layanan/">Jangkauan Pengiriman Kargo Kota</a></li>
+            </ul>
+          </li>
+
+          <!-- 4. Portofolio -->
+          <li class="nav-item">
+            <a href="/portofolio/" class={`nav-link nav-item-link ${isPortfolio ? 'active' : ''}`}>Portofolio</a>
+          </li>
+
+          <!-- 5. Blog -->
+          <li class="nav-item">
+            <a href="/blog/" class={`nav-link nav-item-link ${isBlog ? 'active' : ''}`}>Blog</a>
+          </li>
+
+          <!-- 6. Tentang Kami (Dropdown) -->
+          <li class="nav-item dropdown dropdown-hover">
+            <a
+              class={`nav-link nav-item-link dropdown-toggle ${isTentang || isKontak ? 'active' : ''}`}
+              href="/tentang-kami/"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Tentang
+            </a>
+            <ul class="dropdown-menu nav-dropdown dropdown-menu-end shadow-lg">
+              <li><a class="dropdown-item" href="/tentang-kami/">Profil Workshop &amp; Kapasitas</a></li>
+              <li><a class="dropdown-item" href="/tote-bag-custom-malang/">Vendor Tote Bag di Malang</a></li>
+              <li><a class="dropdown-item" href="/tote-bag/">Panduan Fundamental Tote Bag</a></li>
+              <li><a class="dropdown-item" href="/panduan-perawatan-tote-bag/">Panduan Perawatan Bahan</a></li>
+              <li><a class="dropdown-item" href="/faq/">FAQ Pemesanan</a></li>
+              <li><hr class="dropdown-divider my-2"></li>
+              <li><a class="dropdown-item fw-semibold" href="/kontak/">Kontak &amp; Alamat Workshop</a></li>
+            </ul>
+          </li>
+
+        </ul>
+
+        <!-- CTA Button -->
+        <a href={waUrl} target="_blank" rel="noopener noreferrer" class="btn-wa-header d-flex align-items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+          </svg>
+          Minta Penawaran
+        </a>
+      </div>
+
+    </div>
+  </nav>
+</header>
+
+<!-- ===== MOBILE OFFCANVAS (rendered outside sticky header) ===== -->
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="mobileDrawer"
+  aria-labelledby="mobileDrawerLabel"
+  style="width: 290px; background: #FBF9F4;"
+>
+  <div class="offcanvas-header border-bottom">
+    <div class="d-flex align-items-center gap-2" id="mobileDrawerLabel">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="28" height="28">
+        <rect width="36" height="36" rx="8" fill="#173F38"/>
+        <path d="M12 16 C12 9, 24 9, 24 16" fill="none" stroke="#C18755" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M8 15 L28 15 L26 31 C25.8 32 25 33 24 33 L12 33 C11 33 10.2 32 10 31 Z" fill="#FBF9F4" stroke="#DFE3DE" stroke-width="1"/>
+      </svg>
+      <span class="fw-bold" style="color:#173F38">ToteBag</span>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column p-0">
+    <nav class="flex-grow-1 overflow-auto px-3 pt-3 pb-2">
+
+      <a href="/" class={`mobile-link ${isHome ? 'active' : ''}`}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Beranda</span>
+      </a>
+
+      <div class="mobile-section-label">Katalog &amp; Custom</div>
+      <a href="/produk/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>Semua Produk</span>
+      </a>
+      <a href="/produk/tote-bag-canvas/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Canvas Premium
+      </a>
+      <a href="/produk/tote-bag-dinir-cordura/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Dinir &amp; Cordura
+      </a>
+      <a href="/produk/tote-bag-blacu/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Blacu Natural
+      </a>
+      <a href="/produk/tote-bag-spunbond/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Spunbond Eco
+      </a>
+      <a href="/produk/tote-bag-mika/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Mika Transparan
+      </a>
+      <a href="/produk/tote-bag-denim/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Denim Jeans
+      </a>
+      <a href="/produk/tote-bag-satin/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Satin Full Print
+      </a>
+      <a href="/tote-bag-custom/" class={`mobile-link mobile-sub ${isCustom ? 'active' : ''}`}>
+        <span class="sub-dot"></span> Custom Sablon &amp; DTF
+      </a>
+      <a href="/tote-bag-wanita/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Tas Tote Bag Wanita
+      </a>
+      <a href="/jenis-bahan-tote-bag/" class="mobile-link mobile-sub">
+        <span class="sub-dot"></span> Panduan Karakteristik Bahan
+      </a>
+
+      <div class="mobile-section-label mt-2">Layanan &amp; Solusi</div>
+      <a href="/tote-bag-perusahaan/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01"/></svg>
+        <span>Pengadaan Perusahaan &amp; HRD</span>
+      </a>
+      <a href="/tote-bag-seminar/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        <span>Seminar, Event &amp; Kampus</span>
+      </a>
+      <a href="/harga-tote-bag-custom/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+        <span>Estimasi Biaya &amp; Harga</span>
+      </a>
+      <a href="/panduan-produksi-tote-bag/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        <span>Alur Produksi &amp; Garansi</span>
+      </a>
+      <a href="/cara-pesan/" class={`mobile-link ${isCaraPesan ? 'active' : ''}`}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <span>Alur &amp; Cara Pesan</span>
+      </a>
+      <a href="/layanan/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Jangkauan Pengiriman Kota</span>
+      </a>
+
+      <div class="mobile-section-label mt-2">Portofolio &amp; Informasi</div>
+      <a href="/portofolio/" class={`mobile-link ${isPortfolio ? 'active' : ''}`}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+        <span>Portofolio Produksi</span>
+      </a>
+      <a href="/blog/" class={`mobile-link ${isBlog ? 'active' : ''}`}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
+        <span>Blog &amp; Panduan Tekstil</span>
+      </a>
+      <a href="/tote-bag/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span>Fundamental Tote Bag</span>
+      </a>
+      <a href="/panduan-perawatan-tote-bag/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Panduan Perawatan Bahan</span>
+      </a>
+      <a href="/faq/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>FAQ Pemesanan</span>
+      </a>
+      <a href="/tote-bag-custom-malang/" class="mobile-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Vendor Tote Bag di Malang</span>
+      </a>
+      <a href="/tentang-kami/" class={`mobile-link ${isTentang ? 'active' : ''}`}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Tentang Workshop Kami</span>
+      </a>
+      <a href="/kontak/" class={`mobile-link ${isKontak ? 'active' : ''}`}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>Kontak &amp; Alamat</span>
+      </a>
+
+    </nav>
+
+
+    <div class="p-3 border-top">
+      <p class="text-muted small mb-2" style="font-size:0.75rem">Konsultasi langsung via WhatsApp:</p>
+      <a
+        href={waUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="d-flex align-items-center justify-content-center gap-2 w-100 py-2 px-3 rounded-3 text-white fw-semibold text-decoration-none"
+        style="background:#25D366; font-size:0.875rem;"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+        </svg>
+        {businessProfile.whatsappFormatted}
+      </a>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  /* ===== HEADER SHELL ===== */
+  #siteHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1030;
+    background: rgba(251, 249, 244, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(23, 63, 56, 0.12);
+    box-shadow: 0 2px 14px rgba(23, 63, 56, 0.05);
+  }
+
+  #mainNav {
+    min-height: 62px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* ===== BRAND ===== */
+  .navbar-brand {
+    text-decoration: none;
+    color: #173F38;
+  }
+
+  .brand-wordmark {
+    font-size: 1.1rem;
+    color: #173F38;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  /* ===== DESKTOP NAV LINKS ===== */
+  .nav-item-link {
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: #3a3a3a !important;
+    padding: 8px 10px !important;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: color 0.18s, background 0.18s;
+  }
+
+  .nav-item-link:hover,
+  .nav-item-link.active {
+    color: #173F38 !important;
+    background: rgba(23, 63, 56, 0.08);
+  }
+
+  /* ===== DROPDOWN ===== */
+  .nav-dropdown {
+    min-width: 250px;
+    border: 1px solid rgba(23, 63, 56, 0.12) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 32px rgba(23, 63, 56, 0.12) !important;
+    padding: 8px 0 !important;
+    margin-top: 6px !important;
+    background: #FFFFFF;
+    animation: dropFade 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (min-width: 992px) {
+    .dropdown-hover:hover > .nav-dropdown {
+      display: block;
+      margin-top: 2px !important;
+    }
+  }
+
+  .nav-dropdown .dropdown-header {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #8c9792;
+  }
+
+  .nav-dropdown .dropdown-item {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #2e3532;
+    padding: 8px 18px;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+  }
+
+  .nav-dropdown .dropdown-item:hover {
+    background: rgba(23, 63, 56, 0.08);
+    color: #173F38;
+    padding-left: 21px;
+  }
+
+  .dropdown-bullet {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #C18755;
+    opacity: 0.6;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+
+  .dropdown-item:hover .dropdown-bullet {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+
+  @keyframes dropFade {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== CTA BUTTON ===== */
+  .btn-wa-header {
+    background: #173F38;
+    color: #fff !important;
+    text-decoration: none;
+    font-size: 0.83rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    white-space: nowrap;
+    margin-left: 12px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-wa-header:hover {
+    background: #0f2c26;
+    transform: translateY(-1px);
+  }
+
+  /* ===== MOBILE LINKS ===== */
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #2b3330;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.18s ease;
+  }
+
+  .mobile-link svg {
+    flex-shrink: 0;
+    color: #173F38;
+    opacity: 0.75;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .mobile-link:hover,
+  .mobile-link.active {
+    background: rgba(23, 63, 56, 0.08);
+    color: #173F38;
+  }
+
+  .mobile-link:hover svg,
+  .mobile-link.active svg {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .mobile-sub {
+    padding-left: 28px;
+    font-size: 0.84rem;
+    color: #55605b;
+  }
+
+  .sub-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #C18755;
+    flex-shrink: 0;
+    margin-right: 2px;
+  }
+
+  .mobile-section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8c9792;
+    padding: 14px 12px 4px;
+  }
+
+  /* ===== TOGGLER (only mobile) ===== */
+  .navbar-toggler {
+    box-shadow: none !important;
+  }
+
+  .navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+  }
+</style>

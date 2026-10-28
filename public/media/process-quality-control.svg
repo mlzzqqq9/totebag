@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgQc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B473E"/>
+      <stop offset="100%" stop-color="#102B25"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bgQc)"/>
+  <!-- Inspection Board Visual -->
+  <g transform="translate(180, 70)">
+    <!-- Clipboard -->
+    <rect x="70" y="30" width="300" height="300" rx="16" fill="#FFFFFF" stroke="#C18755" stroke-width="4"/>
+    <rect x="160" y="10" width="120" height="35" rx="8" fill="#173F38" stroke="#C18755" stroke-width="2"/>
+    <!-- Checklist items -->
+    <circle cx="120" cy="90" r="14" fill="#173F38"/>
+    <path d="M 114 90 L 118 95 L 126 85" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <line x1="150" y1="90" x2="330" y2="90" stroke="#444444" stroke-width="6" stroke-linecap="round"/>
+
+    <circle cx="120" cy="140" r="14" fill="#173F38"/>
+    <path d="M 114 140 L 118 145 L 126 135" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <line x1="150" y1="140" x2="310" y2="140" stroke="#444444" stroke-width="6" stroke-linecap="round"/>
+
+    <circle cx="120" cy="190" r="14" fill="#173F38"/>
+    <path d="M 114 190 L 118 195 L 126 185" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <line x1="150" y1="190" x2="340" y2="190" stroke="#444444" stroke-width="6" stroke-linecap="round"/>
+
+    <circle cx="120" cy="240" r="14" fill="#173F38"/>
+    <path d="M 114 240 L 118 245 L 126 235" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <line x1="150" y1="240" x2="300" y2="240" stroke="#444444" stroke-width="6" stroke-linecap="round"/>
+    
+    <!-- Quality Seal Stamp -->
+    <g transform="translate(250, 210) rotate(-12)">
+      <circle cx="50" cy="50" r="46" fill="#C18755" opacity="0.95"/>
+      <circle cx="50" cy="50" r="40" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="6,3"/>
+      <text x="50" y="47" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" text-anchor="middle">QC PASSED</text>
+      <text x="50" y="63" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="9" font-weight="700" text-anchor="middle">ZERO DEFECT</text>
+    </g>
+  </g>
+  <text x="400" y="420" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700" text-anchor="middle">QUALITY CONTROL MENYELURUH 100% SEBELUM KIRIM</text>
+  <text x="400" y="445" fill="#D9A873" font-family="'Inter', sans-serif" font-size="13" text-anchor="middle">Pengecekan dimensi, ketepatan posisi logo, kebersihan sisa benang, dan uji kekuatan jahit</text>
+</svg>

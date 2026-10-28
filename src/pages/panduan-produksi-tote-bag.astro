@@ -1,0 +1,324 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { getWhatsAppUrl, products } from '@/data/siteData';
+
+const naskah = getNaskahById('65');
+if (!naskah) {
+  throw new Error("Naskah ID 65 not found");
+}
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Produksi & Quality Control', url: '/panduan-produksi-tote-bag/' }
+];
+
+const waConsultUrl = getWhatsAppUrl({
+  notes: "Konsultasi standar produksi dan quality control tote bag",
+  sourcePage: "/panduan-produksi-tote-bag/"
+});
+
+const faqItems = naskah.faqs.map((f, i) => ({
+  id: `faq-65-${i}`,
+  question: f.question,
+  answer: f.answer,
+  category: 'umum' as const
+}));
+---
+
+<BaseLayout
+  title={naskah.seoTitle || "Proses Pembuatan Tote Bag dari Desain hingga Finishing | Tote Bag"}
+  description={naskah.metaDescription}
+  canonicalUrl={naskah.canonical}
+  jsonLd={naskah.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Header -->
+  <header class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">STANDAR PRODUKSI &amp; QC</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          {naskah.h1}
+        </h1>
+        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
+          Transparansi tahapan produksi workshop konveksi kami di Malang: dari pembuatan pola presisi, aplikasi teknik sablon DTF, kerapian jahitan double-stitch, hingga tahapan quality control sebelum pengiriman kargo.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- 5 Tahapan Produksi Visual Stepper -->
+  <section class="py-3">
+    <div class="container">
+      <div class="row g-4 mb-5">
+        <div class="col-12 col-md-4 col-lg-2-4">
+          <div class="p-3 rounded-4 bg-white border h-100 shadow-sm text-center">
+            <div class="badge bg-success-subtle text-success fw-bold mb-2">TAHAP 01</div>
+            <h3 class="h6 fw-bold mb-1">Pola &amp; Cutting</h3>
+            <p class="small text-muted mb-0" style="font-size: 0.78rem;">
+              Kain digelar bertumpuk dan dipotong presisi menggunakan mesin vertikal cutting knife.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 col-lg-2-4">
+          <div class="p-3 rounded-4 bg-white border h-100 shadow-sm text-center">
+            <div class="badge bg-success-subtle text-success fw-bold mb-2">TAHAP 02</div>
+            <h3 class="h6 fw-bold mb-1">Cetak Sablon/DTF</h3>
+            <p class="small text-muted mb-0" style="font-size: 0.78rem;">
+              Panel kain depan disablon manual rubber atau dipress digital DTF sebelum dijahit menjadi tas utuh.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 col-lg-2-4">
+          <div class="p-3 rounded-4 bg-white border h-100 shadow-sm text-center">
+            <div class="badge bg-success-subtle text-success fw-bold mb-2">TAHAP 03</div>
+            <h3 class="h6 fw-bold mb-1">Lini Jahit Ahli</h3>
+            <p class="small text-muted mb-0" style="font-size: 0.78rem;">
+              Penyatuan badan tas, pemasangan tali webbing silang (X-stitch), furing, dan ritsleting YKK.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 col-lg-2-4">
+          <div class="p-3 rounded-4 bg-white border h-100 shadow-sm text-center">
+            <div class="badge bg-success-subtle text-success fw-bold mb-2">TAHAP 04</div>
+            <h3 class="h6 fw-bold mb-1">Inspeksi QC</h3>
+            <p class="small text-muted mb-0" style="font-size: 0.78rem;">
+              Pembersihan sisa benang (trimming), pengecekan akurasi ukuran, dan kekuatan sambungan tali.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 col-lg-2-4">
+          <div class="p-3 rounded-4 bg-white border h-100 shadow-sm text-center">
+            <div class="badge bg-success-subtle text-success fw-bold mb-2">TAHAP 05</div>
+            <h3 class="h6 fw-bold mb-1">Packing &amp; Kargo</h3>
+            <p class="small text-muted mb-0" style="font-size: 0.78rem;">
+              Pengemasan plastik tebal bersegel dan kardus bergelombang aman untuk ekspedisi luar kota.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <section class="section-space pt-0">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Content Column (col-12 col-lg-8) -->
+        <div class="col-12 col-lg-8">
+
+          <!-- Direct Answer Callout Box -->
+          {naskah.directAnswer && (
+            <div class="p-4 rounded-4 bg-surface-alt border-start border-4 border-success mb-4 shadow-sm">
+              <div class="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
+                <span class="badge bg-success text-white">Ringkasan Kualitas</span>
+                <span class="fs-6">Kunci Menilai Kualitas Produksi:</span>
+              </div>
+              <p class="mb-0 text-muted fs-6" style="line-height: 1.8;">
+                {naskah.directAnswer}
+              </p>
+            </div>
+          )}
+
+          <!-- Quick Navigation / Table of Contents -->
+          {naskah.toc && naskah.toc.length > 0 && (
+            <div class="p-4 rounded-4 bg-light border mb-4">
+              <div class="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Daftar Pembahasan Produksi:</span>
+              </div>
+              <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
+                {naskah.toc.map((item, idx) => (
+                  <li class={item.level === 3 ? 'ps-3' : ''}>
+                    <a href={`#${item.id}`} class="text-decoration-none text-success fw-medium">
+                      {idx + 1}. {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- Dynamic HTML Content parsed from Naskah -->
+          <div class="article-content-body d-flex flex-column gap-3 text-muted" style="line-height: 1.85; font-size: 1.05rem;">
+            <Fragment set:html={naskah.bodyHtml} />
+          </div>
+
+          <!-- FAQ Accordion -->
+          {faqItems.length > 0 && (
+            <div class="mt-5 pt-4 border-top">
+              <span class="badge-accent mb-2">TANYA JAWAB PRODUKSI</span>
+              <h2 class="h4 fw-bold text-dark mb-3">Pertanyaan yang Sering Diajukan Seputar QC</h2>
+              <FAQAccordion items={faqItems} accordionId="faqAccordion65" />
+            </div>
+          )}
+
+          <!-- Bottom Action Banner -->
+          <div class="p-4 p-lg-5 rounded-4 bg-brand-dark text-white mt-5">
+            <span class="badge bg-warning text-dark fw-bold mb-2">KUNJUNGAN WORKSHOP</span>
+            <h3 class="h4 fw-bold mb-2 text-white">Lihat Langsung Proses Produksi Kami di Malang</h3>
+            <p class="small text-white-50 mb-4" style="max-width: 600px;">
+              Bagi instansi atau perusahaan yang ingin meninjau lini penjahit dan melihat sampel fisik bahan sebelum tender, silakan jadwalkan kunjungan ke workshop kami di Kedungkandang, Malang.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href={waConsultUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp d-inline-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/></svg>
+                Jadwalkan Kunjungan via WhatsApp
+              </a>
+              <a href="/tentang-kami/" class="btn btn-outline-light">
+                Profil &amp; Legalitas Usaha
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sticky Sidebar (col-12 col-lg-4) -->
+        <div class="col-12 col-lg-4">
+          <div class="sticky-sidebar d-flex flex-column gap-4" style="top: 85px;">
+
+            <!-- QC Standards Card -->
+            <div class="p-4 rounded-4 bg-white border shadow-sm">
+              <h3 class="h6 fw-bold mb-3 d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>3 Komitmen Quality Control:</span>
+              </h3>
+              <ul class="list-unstyled mb-0 d-flex flex-column gap-3 small text-muted">
+                <li class="pb-2 border-bottom">
+                  <strong class="text-dark d-block">1. Jahitan Bartack / X-Stitch</strong>
+                  Pangkal tali tas dijahit silang ganda agar tidak mudah lepas saat membawa beban buku/laptop.
+                </li>
+                <li class="pb-2 border-bottom">
+                  <strong class="text-dark d-block">2. Kerapian Pinggiran Obras</strong>
+                  Semua tepian dalam kain diobras rapi sehingga serat benang tidak rontok saat dicuci.
+                </li>
+                <li class="pt-1">
+                  <strong class="text-dark d-block">3. Presisi Warna Sablon</strong>
+                  Akurasi warna tinta disesuaikan dengan sampel proofing mockup yang telah disetujui.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Material Categories Card -->
+            <div class="p-4 rounded-4 bg-white border shadow-sm">
+              <h3 class="h6 fw-bold mb-3">Koleksi Bahan Produksi:</h3>
+              <div class="d-flex flex-column gap-2 small">
+                {products.map(prod => (
+                  <a href={`/produk/${prod.slug}/`} class="text-decoration-none d-flex align-items-center justify-content-between p-2 rounded-3 hover-bg-light">
+                    <div>
+                      <div class="fw-semibold text-dark">{prod.name}</div>
+                      <div class="text-muted" style="font-size: 0.75rem;">{prod.material}</div>
+                    </div>
+                    <span class="text-success">&rarr;</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <!-- Related Pages -->
+            <div class="p-4 rounded-4 bg-white border shadow-sm">
+              <h3 class="h6 fw-bold mb-3">Halaman Terkait:</h3>
+              <div class="d-flex flex-column gap-2 small">
+                <a href="/cara-pesan/" class="text-decoration-none text-dark py-1 hover-text-success border-bottom">
+                  &bull; Alur 6 Langkah Pemesanan
+                </a>
+                <a href="/tote-bag-custom/" class="text-decoration-none text-dark py-1 hover-text-success border-bottom">
+                  &bull; Kustomisasi Sablon, DTF &amp; Bordir
+                </a>
+                <a href="/harga-tote-bag-custom/" class="text-decoration-none text-dark py-1 hover-text-success border-bottom">
+                  &bull; Faktor Penentu Harga Tas
+                </a>
+                <a href="/kontak/" class="text-decoration-none text-dark py-1 hover-text-success">
+                  &bull; Alamat Workshop Malang
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .article-content-body :global(h2) {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #173F38;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(23, 63, 56, 0.1);
+  }
+
+  .article-content-body :global(h3) {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2b3330;
+    margin-top: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .article-content-body :global(p) {
+    margin-bottom: 1.1rem;
+    line-height: 1.85;
+  }
+
+  .article-content-body :global(ul),
+  .article-content-body :global(ol) {
+    padding-left: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .article-content-body :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .article-content-body :global(a) {
+    color: #173F38;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .article-content-body :global(a:hover) {
+    color: #C18755;
+  }
+
+  .col-lg-2-4 {
+    flex: 0 0 auto;
+    width: 20%;
+  }
+
+  @media (max-width: 991.98px) {
+    .col-lg-2-4 {
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .col-lg-2-4 {
+      width: 100%;
+    }
+  }
+
+  .hover-bg-light:hover {
+    background: rgba(23, 63, 56, 0.05);
+  }
+
+  .hover-text-success:hover {
+    color: #173F38 !important;
+  }
+</style>

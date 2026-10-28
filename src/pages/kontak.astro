@@ -1,0 +1,196 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { businessProfile, categories } from '@/data/siteData';
+
+const naskah = getNaskahById('116');
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Kontak', url: '/kontak/' }
+];
+---
+
+<BaseLayout
+  title={naskah?.seoTitle || "Kontak Vendor Tote Bag Custom Malang | Tote Bag"}
+  description={naskah?.metaDescription || "Hubungi tim ToteBag.web.id untuk konsultasi spesifikasi kain, simulasi mockup logo, dan permintaan penawaran harga resmi (RFQ) via WhatsApp."}
+  canonicalUrl={naskah?.canonical || "https://totebag.web.id/kontak/"}
+  jsonLd={naskah?.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <section class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">HUBUNGI KAMI</span>
+        </div>
+        <h1 class="hero-title mb-3">{naskah?.h1 || "Kontak Vendor Tote Bag Custom Malang"}</h1>
+        <p class="lead text-muted fs-5">
+          Konsultasikan kebutuhan tote bag custom untuk pengadaan perusahaan, seminar, maupun event Anda. Tim kami siap merespon pertanyaan spesifikasi teknis dan estimasi jadwal produksi.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space pt-0">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Direct Contact Details -->
+        <div class="col-12 col-lg-5">
+          <div class="p-4 p-lg-5 rounded-4 bg-surface-alt border h-100 d-flex flex-column">
+            <h2 class="h4 fw-bold mb-4">Saluran Komunikasi Resmi</h2>
+
+            <div class="d-flex flex-column gap-4 mb-4">
+              <!-- WhatsApp -->
+              <div class="d-flex align-items-start gap-3">
+                <div class="p-2 rounded bg-success text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong class="d-block text-dark">WhatsApp Resmi:</strong>
+                  <a href={`https://wa.me/${businessProfile.whatsappNumber}`} target="_blank" rel="noopener noreferrer" class="fs-5 fw-bold text-success text-decoration-none">
+                    {businessProfile.whatsappFormatted}
+                  </a>
+                  <span class="d-block small text-muted">Respon cepat jam kerja (Senin - Sabtu, 08.00 - 17.00 WIB)</span>
+                </div>
+              </div>
+
+              <!-- Basis Operasional -->
+              <div class="d-flex align-items-start gap-3">
+                <div class="p-2 rounded bg-white text-dark shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#173F38" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong class="d-block text-dark">Basis Operasional:</strong>
+                  <span class="text-muted">Kedungkandang, Kota Malang, Jawa Timur (65136)</span>
+                  <span class="d-block small text-muted">Workshop produksi garmen &amp; sablon terintegrasi</span>
+                </div>
+              </div>
+
+              <!-- Ekspedisi -->
+              <div class="d-flex align-items-start gap-3">
+                <div class="p-2 rounded bg-white text-dark shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#173F38" viewBox="0 0 16 16">
+                    <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-4 0H.5A.5.5 0 0 1 0 11.5z"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong class="d-block text-dark">Jangkauan Ekspedisi:</strong>
+                  <span class="text-muted">Layanan antarkota ke seluruh Jawa, Sumatra, Bali, NTB, Kalimantan, dan Sulawesi via kargo terpercaya.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Direct chat button -->
+            <a href={`https://wa.me/${businessProfile.whatsappNumber}?text=Halo%20tim%20ToteBag.web.id,%20saya%20ingin%20konsultasi%20pengadaan%20tote%20bag.`} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp w-100 py-3 mt-auto">
+              Chat Langsung via WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive RFQ Brief Form (Formats directly to WhatsApp without fake backend) -->
+        <div class="col-12 col-lg-7">
+          <div class="p-4 p-lg-5 rounded-4 bg-white border">
+            <h2 class="h4 fw-bold mb-2">Formulir Penyusun Brief Penawaran</h2>
+            <p class="small text-muted mb-4">
+              Isi formulir di bawah ini untuk merangkum kebutuhan Anda secara otomatis menjadi pesan WhatsApp yang siap dikirimkan ke tim produksi kami.
+            </p>
+
+            <form id="rfqBriefForm" class="d-flex flex-column gap-3">
+              <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                  <label for="rfqName" class="form-label small fw-semibold text-dark">Nama Anda / PIC *</label>
+                  <input type="text" class="form-control" id="rfqName" placeholder="Contoh: Budi Santoso" required />
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label for="rfqOrg" class="form-label small fw-semibold text-dark">Instansi / Perusahaan / Kampus</label>
+                  <input type="text" class="form-control" id="rfqOrg" placeholder="Contoh: PT Teknologi Nusantara / BEM" />
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                  <label for="rfqMaterial" class="form-label small fw-semibold text-dark">Pilihan Bahan Kain *</label>
+                  <select class="form-select" id="rfqMaterial" required>
+                    <option value="" disabled selected>Pilih jenis bahan...</option>
+                    {categories.map(cat => (
+                      <option value={cat.title}>{cat.title}</option>
+                    ))}
+                    <option value="Belum Yakin (Butuh Rekomendasi)">Belum Yakin (Butuh Saran Tim)</option>
+                  </select>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label for="rfqQty" class="form-label small fw-semibold text-dark">Perkiraan Kuantiti (pcs) *</label>
+                  <input type="text" class="form-control" id="rfqQty" placeholder="Contoh: 150 pcs" required />
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                  <label for="rfqDeadline" class="form-label small fw-semibold text-dark">Target Tanggal Acara / Deadline</label>
+                  <input type="text" class="form-control" id="rfqDeadline" placeholder="Contoh: 20 November 2026" />
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label for="rfqCity" class="form-label small fw-semibold text-dark">Kota Pengiriman *</label>
+                  <input type="text" class="form-control" id="rfqCity" placeholder="Contoh: Surabaya / Jakarta / Malang" required />
+                </div>
+              </div>
+
+              <div>
+                <label for="rfqNotes" class="form-label small fw-semibold text-dark">Catatan Desain &amp; Kebutuhan Tambahan</label>
+                <textarea class="form-control" id="rfqNotes" rows="3" placeholder="Contoh: Sablon logo 2 warna, mau pakai resleting YKK dan saku dalam, ukuran 35x40 cm."></textarea>
+              </div>
+
+              <div class="form-text small text-muted">
+                Dengan menekan tombol di bawah, rincian brief akan otomatis terbuka di aplikasi WhatsApp Anda untuk dikirimkan langsung ke nomor resmi kami.
+              </div>
+
+              <button type="submit" class="btn btn-brand w-100 py-3 mt-2 d-flex align-items-center justify-content-center gap-2 fs-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+                </svg>
+                <span>Kirimkan Brief ke WhatsApp Tim Produksi</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  document.getElementById('rfqBriefForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('rfqName').value.trim();
+    const org = document.getElementById('rfqOrg').value.trim();
+    const material = document.getElementById('rfqMaterial').value;
+    const qty = document.getElementById('rfqQty').value.trim();
+    const deadline = document.getElementById('rfqDeadline').value.trim();
+    const city = document.getElementById('rfqCity').value.trim();
+    const notes = document.getElementById('rfqNotes').value.trim();
+
+    let text = `Halo tim ToteBag.web.id,\n`;
+    text += `Saya ingin meminta penawaran harga dan konsultasi produksi tote bag custom:\n\n`;
+    text += `*Nama / PIC:* ${name}\n`;
+    if (org) text += `*Instansi/Organisasi:* ${org}\n`;
+    text += `*Pilihan Bahan:* ${material}\n`;
+    text += `*Jumlah (Qty):* ${qty}\n`;
+    if (deadline) text += `*Target Deadline Acara:* ${deadline}\n`;
+    text += `*Kota Pengiriman:* ${city}\n`;
+    if (notes) text += `*Catatan Tambahan:* ${notes}\n`;
+    text += `\nMohon info ketersediaan jadwal produksi dan estimasi biayanya. Terima kasih.`;
+
+    const encoded = encodeURIComponent(text);
+    const waUrl = `https://wa.me/6282131087971?text=${encoded}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+  });
+</script>

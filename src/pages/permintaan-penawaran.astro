@@ -1,0 +1,182 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { getWhatsAppUrl, businessProfile } from '@/data/siteData';
+
+const naskah = getNaskahById('112');
+if (!naskah) {
+  throw new Error("Naskah ID 112 not found");
+}
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Cara Pesan', url: '/cara-pesan/' },
+  { name: 'Permintaan Penawaran (RFQ)', url: '/permintaan-penawaran/' }
+];
+
+const waRfqUrl = getWhatsAppUrl({
+  notes: "Pengajuan Permintaan Penawaran Harga Resmi (RFQ)",
+  sourcePage: "/permintaan-penawaran/"
+});
+
+const faqItems = naskah.faqs.map((f, i) => ({
+  id: `faq-112-${i}`,
+  question: f.question,
+  answer: f.answer,
+  category: 'pemesanan' as const
+}));
+---
+
+<BaseLayout
+  title={naskah.seoTitle || "Cara Mengajukan Permintaan Penawaran Tote Bag | Tote Bag"}
+  description={naskah.metaDescription}
+  canonicalUrl={naskah.canonical}
+  jsonLd={naskah.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Header -->
+  <header class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">PANDUAN PROCUREMENT &amp; B2B</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          {naskah.h1}
+        </h1>
+        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
+          Panduan ringkas bagi tim procurement, HRD, dan panitia event untuk menyusun Request for Quotation (RFQ) tote bag custom agar penawaran harga resmi dapat diterbitkan cepat, transparan, dan akurat.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Direct Answer Box -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-4 bg-light border border-success-subtle shadow-sm mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="badge bg-success text-white">Ringkasan Pengajuan Penawaran</span>
+          <span class="text-muted small">Standard Operational Procedure (SOP)</span>
+        </div>
+        <p class="fs-5 text-dark mb-0" style="line-height: 1.8;">
+          {naskah.directAnswer}
+        </p>
+      </div>
+
+      <!-- 6 Komponen Wajib RFQ -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">6 Data Kunci dalam Dokumen Penawaran</h2>
+          <p class="text-muted small">Kelengkapan poin berikut mempercepat terbitnya surat penawaran harga resmi (Quotation).</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-4">
+            <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+              <span class="badge bg-success-subtle text-success border mb-2">01. Kuantiti</span>
+              <h3 class="h5 fw-bold mb-2">Jumlah Pesanan (Qty)</h3>
+              <p class="small text-muted mb-0">Sebutkan angka riil atau estimasi bertahap (misal: 100 pcs, 300 pcs, 500 pcs) untuk kalkulasi skala ekonomis bahan dan biaya film cetak.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+              <span class="badge bg-success-subtle text-success border mb-2">02. Material</span>
+              <h3 class="h5 fw-bold mb-2">Jenis Bahan &amp; Warna</h3>
+              <p class="small text-muted mb-0">Tentukan preferensi kain: Canvas Marsoto, Blacu Super, Spunbond 75-100 gsm, Drill, atau Kulit Sintetis beserta warna kain yang diinginkan.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+              <span class="badge bg-success-subtle text-success border mb-2">03. Pola &amp; Ukuran</span>
+              <h3 class="h5 fw-bold mb-2">Dimensi Tas (P x T x L)</h3>
+              <p class="small text-muted mb-0">Contoh standar: 30x40 cm (flat/tanpa lebar samping) atau 35x40x10 cm (dengan gusset alas dan samping) untuk muatan laptop/map.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+              <span class="badge bg-success-subtle text-success border mb-2">04. Branding</span>
+              <h3 class="h5 fw-bold mb-2">Teknik Cetak &amp; Desain</h3>
+              <p class="small text-muted mb-0">Lampirkan logo (vektor/PNG), jumlah warna sablon manual, atau kebutuhan cetak digital full-color DTF serta penempatan (1 sisi / 2 sisi).</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+              <span class="badge bg-success-subtle text-success border mb-2">05. Aksesoris</span>
+              <h3 class="h5 fw-bold mb-2">Fitur Tambahan</h3>
+              <p class="small text-muted mb-0">Ritsleting (zipper), kancing magnet, furing bagian dalam, kantong saku gantung, atau label woven brand bila diperlukan.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+              <span class="badge bg-success-subtle text-success border mb-2">06. Logistik</span>
+              <h3 class="h5 fw-bold mb-2">Deadline &amp; Kota Tujuan</h3>
+              <p class="small text-muted mb-0">Tanggal maksimal barang wajib tiba di lokasi dan alamat pengiriman untuk perhitungan durasi ekspedisi kargo kargo terpercaya.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Format Pesan WhatsApp / Email Copyable -->
+      <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm mb-5">
+        <h2 class="h3 fw-bold mb-2">Template Pengajuan Penawaran Cepat via WhatsApp</h2>
+        <p class="text-muted mb-4 small">
+          Anda dapat menyalin template ringkas berikut dan mengirimkannya langsung ke tim layanan kami:
+        </p>
+
+        <div class="p-4 rounded-3 bg-light border font-monospace text-dark mb-4" style="font-size: 0.9rem; line-height: 1.8;">
+          Halo Tim ToteBag.web.id,<br>
+          Saya ingin mengajukan permintaan penawaran harga resmi (Quotation) untuk pengadaan tote bag:<br>
+          &bull; <strong>Nama Perusahaan / Instansi:</strong> [Nama Instansi Anda]<br>
+          &bull; <strong>Peruntukan:</strong> [Seminar Kit / Souvenir Kantor / Merchandise]<br>
+          &bull; <strong>Jumlah Pesanan:</strong> [Contoh: 250 pcs]<br>
+          &bull; <strong>Pilihan Bahan:</strong> [Contoh: Canvas Marsoto Broken White]<br>
+          &bull; <strong>Ukuran Tas:</strong> [Contoh: 30 x 40 x 8 cm]<br>
+          &bull; <strong>Desain Logo:</strong> [Contoh: Sablon 2 warna 1 sisi / DTF full color]<br>
+          &bull; <strong>Fitur Tambahan:</strong> [Contoh: Ritsleting + Kantong Dalam]<br>
+          &bull; <strong>Kota Tujuan Pengiriman:</strong> [Nama Kota Anda]<br>
+          &bull; <strong>Batas Waktu Penerimaan (Deadline):</strong> [Tanggal/Bulan/Tahun]<br>
+          Mohon informasi estimasi biaya dan durasi pengerjaan. Terima kasih.
+        </div>
+
+        <div class="d-flex flex-wrap gap-3">
+          <a href={waRfqUrl} target="_blank" rel="noopener noreferrer" class="btn btn-success fw-bold px-4">
+            Kirimkan Rincian RFQ via WhatsApp
+          </a>
+          <a href="/cara-pesan/" class="btn btn-outline-secondary px-4">
+            Lihat Alur 6 Langkah Pemesanan
+          </a>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">Pertanyaan Seputar Permintaan Penawaran</h2>
+          <p class="text-muted small">Klarifikasi prosedur penerbitan quotation dan syarat administrasi.</p>
+        </div>
+        <div class="max-w-75 mx-auto">
+          <FAQAccordion items={faqItems} defaultOpen={0} />
+        </div>
+      </div>
+
+      <!-- Related Navigation -->
+      <div class="p-4 rounded-4 bg-light border text-center">
+        <p class="small text-muted mb-0">
+          Halaman terkait: <a href="/panduan-file-desain/" class="text-decoration-underline text-success">Panduan Menyiapkan File Desain</a> &bull; <a href="/syarat-pemesanan/" class="text-decoration-underline text-success">Ketentuan Pembayaran &amp; DP</a> &bull; <a href="/pengiriman/" class="text-decoration-underline text-success">Standar Pengemasan &amp; Kargo</a> &bull; <a href="/kontak/" class="text-decoration-underline text-success">Kontak Workshop</a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

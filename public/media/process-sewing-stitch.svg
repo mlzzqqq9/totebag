@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgSewing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#19433B"/>
+      <stop offset="100%" stop-color="#0E2521"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bgSewing)"/>
+  <!-- Decorative stitches -->
+  <line x1="50" y1="50" x2="750" y2="50" stroke="#C18755" stroke-width="4" stroke-dasharray="14,10"/>
+  <line x1="50" y1="450" x2="750" y2="450" stroke="#C18755" stroke-width="4" stroke-dasharray="14,10"/>
+  <!-- Sewing Machine & Fabric Visual -->
+  <g transform="translate(180, 110)">
+    <!-- Fabric Layers -->
+    <path d="M 0 170 L 320 170 L 440 240 L 120 240 Z" fill="#2A6155" stroke="#FFFFFF" stroke-width="2"/>
+    <path d="M 0 185 L 320 185 L 440 255 L 120 255 Z" fill="#1C453C" stroke="#FFFFFF" stroke-width="2"/>
+    <!-- Double stitch lines on fabric -->
+    <line x1="100" y1="180" x2="400" y2="242" stroke="#D9A873" stroke-width="3" stroke-dasharray="8,6"/>
+    <line x1="105" y1="190" x2="405" y2="252" stroke="#D9A873" stroke-width="3" stroke-dasharray="8,6"/>
+    <!-- Sewing Foot & Needle -->
+    <rect x="230" y="30" width="22" height="120" rx="4" fill="#E0E0E0" stroke="#777777" stroke-width="2"/>
+    <polygon points="230,150 252,150 241,175" fill="#C0C0C0"/>
+    <line x1="241" y1="175" x2="241" y2="210" stroke="#FFFFFF" stroke-width="3"/>
+    <!-- Thread Spool Badge -->
+    <circle cx="380" cy="70" r="38" fill="#173F38" stroke="#C18755" stroke-width="2"/>
+    <text x="380" y="65" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">DOUBLE</text>
+    <text x="380" y="82" fill="#D9A873" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" text-anchor="middle">STITCH</text>
+  </g>
+  <text x="400" y="420" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700" text-anchor="middle">STANDAR JAHITAN RAPI &amp; KUAT BENANG NILON</text>
+  <text x="400" y="445" fill="#D9A873" font-family="'Inter', sans-serif" font-size="13" text-anchor="middle">Tiap sambungan diobras ganda dan pangkal tali dijahit silang (box-cross stitch)</text>
+</svg>

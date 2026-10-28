@@ -1,0 +1,179 @@
+---
+// ClientSlider.astro - Showcase Klien & Brand Partner Resmi dengan Auto-Scroll Otomatis
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  title = "Dipercaya 100+ Institusi, BUMN & Korporasi Nasional",
+  subtitle = "Dokumentasi pengerjaan pesanan tas dan goodie bag korporat, BUMN, perbankan, dan universitas ternama."
+} = Astro.props;
+
+const clientImages = [
+  { src: "/media/klien-1.png", alt: "Klien Pemerintahan, PLN, OJK, dan BUMN" },
+  { src: "/media/klien-2.png", alt: "Klien Perbankan Nasional: Bank Indonesia, BNI, BRI, BSI, Mandiri" },
+  { src: "/media/klien-3.png", alt: "Klien Pendidikan: Universitas Brawijaya, UMM, Bosowa, UNTAG" },
+  { src: "/media/klien-4.png", alt: "Klien Korporasi & Rekanan Swasta" },
+  { src: "/media/klien-5.png", alt: "Klien Tambang & Industri: PAMA, Kharisma, Honda, IBS" },
+  { src: "/media/klien-6.png", alt: "Klien Organisasi & UMKM: PERADI, Kuliner, Properti" },
+  { src: "/media/klien-7.png", alt: "Klien Rekanan Lebih dari 100+ Brand Nasional" }
+];
+---
+
+<section class="section-space-sm bg-surface-alt py-5 border-top border-bottom overflow-hidden">
+  <div class="container">
+    <div class="text-center max-w-75 mx-auto mb-4">
+      <span class="badge-accent">DOKUMENTASI KLIEN RESMI</span>
+      <h2 class="h3 fw-bold text-dark mt-2 mb-2" style="letter-spacing: -0.02em;">
+        {title}
+      </h2>
+      <p class="text-muted small mb-0" style="line-height: 1.6;">
+        {subtitle}
+      </p>
+    </div>
+  </div>
+
+  <!-- Continuous Infinite Auto-Scrolling Marquee Track -->
+  <div class="marquee-slider-container position-relative">
+    <div class="marquee-track">
+      <!-- Original Set -->
+      {clientImages.map(img => (
+        <div class="marquee-item">
+          <div class="client-banner-wrap">
+            <img 
+              src={img.src} 
+              alt={img.alt} 
+              loading="lazy" 
+              decoding="async"
+            />
+          </div>
+        </div>
+      ))}
+      <!-- Duplicate Set for Seamless Continuous Infinite Scrolling -->
+      {clientImages.map(img => (
+        <div class="marquee-item" aria-hidden="true">
+          <div class="client-banner-wrap">
+            <img 
+              src={img.src} 
+              alt={img.alt} 
+              loading="lazy" 
+              decoding="async"
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Client Trust Logos Strip -->
+    <div class="mt-4 pt-3 border-top d-flex flex-wrap align-items-center justify-content-center gap-2 gap-md-3 text-muted small">
+      <span class="fw-semibold text-dark me-1">Target Pasar &amp; Rekanan:</span>
+      <span class="client-pill">PLN (Persero)</span>
+      <span class="client-pill">Universitas Brawijaya</span>
+      <span class="client-pill">Bank Indonesia</span>
+      <span class="client-pill">Bank Mandiri</span>
+      <span class="client-pill">SMK Telkom Malang</span>
+      <span class="client-pill">PT Putra Perkasa Abadi</span>
+      <span class="client-pill">KIDECO</span>
+      <span class="client-pill">PAMA Nusantara</span>
+      <span class="client-pill">Kejaksaan Agung RI</span>
+    </div>
+  </div>
+</section>
+
+<style>
+.marquee-slider-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: marqueeScroll 38s linear infinite;
+  will-change: transform;
+}
+
+.marquee-slider-container:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 12px));
+  }
+}
+
+.marquee-item {
+  flex: 0 0 460px;
+}
+
+@media (max-width: 768px) {
+  .marquee-item {
+    flex: 0 0 340px;
+  }
+}
+@media (max-width: 480px) {
+  .marquee-item {
+    flex: 0 0 280px;
+  }
+}
+
+.client-banner-wrap {
+  width: 100%;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(23, 63, 56, 0.1);
+  box-shadow: 0 4px 14px rgba(23, 63, 56, 0.05);
+  padding: 14px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.client-banner-wrap:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(23, 63, 56, 0.1);
+}
+.client-banner-wrap img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  display: block;
+}
+@media (max-width: 768px) {
+  .client-banner-wrap img {
+    height: 140px;
+  }
+}
+@media (max-width: 479px) {
+  .client-banner-wrap img {
+    height: 120px;
+  }
+}
+
+.client-pill {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: #ffffff;
+  border: 1px solid rgba(23, 63, 56, 0.12);
+  border-radius: 50rem;
+  color: #173F38;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.client-pill:hover {
+  background: rgba(23, 63, 56, 0.06);
+  border-color: #173F38;
+}
+</style>

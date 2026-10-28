@@ -1,0 +1,232 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { getWhatsAppUrl } from '@/data/siteData';
+
+const naskah = getNaskahById('115');
+if (!naskah) {
+  throw new Error("Naskah ID 115 not found");
+}
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Layanan Pengiriman', url: '/layanan/' },
+  { name: 'Pengiriman & Pengemasan', url: '/pengiriman/' }
+];
+
+const waShippingUrl = getWhatsAppUrl({
+  notes: "Cek estimasi biaya kargo dan jadwal pengiriman tote bag",
+  sourcePage: "/pengiriman/"
+});
+
+const faqItems = naskah.faqs.map((f, i) => ({
+  id: `faq-115-${i}`,
+  question: f.question,
+  answer: f.answer,
+  category: 'pemesanan' as const
+}));
+---
+
+<BaseLayout
+  title={naskah.seoTitle || "Pengiriman dan Pengemasan Tote Bag | Tote Bag"}
+  description={naskah.metaDescription}
+  canonicalUrl={naskah.canonical}
+  jsonLd={naskah.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Header -->
+  <header class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">LOGISTIK &amp; DISTRIBUSI KARGO</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          {naskah.h1}
+        </h1>
+        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
+          Standar pengemasan tahan cuaca, pemilihan rekanan ekspedisi kargo terpercaya, serta estimasi durasi pengiriman dari workshop Malang ke berbagai kota di seluruh Indonesia.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Direct Answer Box -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-4 bg-light border border-success-subtle shadow-sm mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="badge bg-success text-white">Standar Logistik Terpercaya</span>
+          <span class="text-muted small">Proteksi Pengiriman Antarkota</span>
+        </div>
+        <p class="fs-5 text-dark mb-0" style="line-height: 1.8;">
+          {naskah.directAnswer}
+        </p>
+      </div>
+
+      <!-- 3 Lapis Standar Pengemasan Workshop -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">3 Tahap Pengemasan Standar Kargo</h2>
+          <p class="text-muted small">Menjamin pesanan tote bag Anda tiba dalam kondisi bersih, rapi, dan kering.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+              <span class="badge bg-success-subtle text-success border mb-2 w-fit">Lapisan 1</span>
+              <h3 class="h5 fw-bold mb-2">Plastik Pelindung Per Lusin</h3>
+              <p class="small text-muted mb-0">
+                Tote bag dilipat rapi dan dikelompokkan per 10-12 pcs dalam kantong plastik benang tertutup rapat untuk mencegah gesekan dan debu mikro.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+              <span class="badge bg-success-subtle text-success border mb-2 w-fit">Lapisan 2</span>
+              <h3 class="h5 fw-bold mb-2">Moisture Barrier (Anti Air)</h3>
+              <p class="small text-muted mb-0">
+                Bagian dalam karung kargo dilapisi plastik poly sheet tebal untuk melindungi barang dari kelembapan dan percikan air hujan selama transit ekspedisi.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+              <span class="badge bg-success-subtle text-success border mb-2 w-fit">Lapisan 3</span>
+              <h3 class="h5 fw-bold mb-2">Karung Kargo &amp; Label Manifest</h3>
+              <p class="small text-muted mb-0">
+                Dibungkus karung tenun tebal dengan jahitan rapat, dilakban penuh, serta ditempeli label manifest pengiriman resmi (Nama Penerima, Kota, No Koli, dan Kontak PIC).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ekspedisi & Estimasi Waktu Tempuh -->
+      <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm mb-5">
+        <h2 class="h3 fw-bold mb-3">Pilihan Rekanan Ekspedisi &amp; Estimasi Durasi</h2>
+        <p class="text-muted mb-4">
+          Kami bermitra dengan penyedia jasa kargo bereputasi untuk menekan ongkos kirim pesanan partai besar tanpa mengorbankan kecepatan:
+        </p>
+
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Wilayah Tujuan</th>
+                <th>Opsi Ekspedisi Rekomendasi</th>
+                <th>Estimasi Waktu Sampai</th>
+                <th>Karakteristik Layanan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold">Malang Raya &amp; Sekitarnya</td>
+                <td>Kurir Workshop / Instant Pick-up</td>
+                <td>Hari yang sama (Same Day)</td>
+                <td>Pengambilan langsung ke workshop atau diantar kurir.</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Jawa Timur (Surabaya, Sidoarjo, dll)</td>
+                <td>KAI Logistik (Kalog) / Baraka Kargo</td>
+                <td>1 – 2 Hari Kerja</td>
+                <td>Tarif hemat dan jadwal pemberangkatan setiap hari.</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">DKI Jakarta, Jawa Barat, Banten</td>
+                <td>Indah Logistik / JNE Trucking (JTR)</td>
+                <td>2 – 3 Hari Kerja</td>
+                <td>Pengiriman door-to-door langsung ke kantor pemesan.</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Jawa Tengah &amp; D.I. Yogyakarta</td>
+                <td>Kalog Kereta Api / Sadana Kargo</td>
+                <td>1 – 2 Hari Kerja</td>
+                <td>Sangat stabil dan minim risiko macet jalan raya.</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Luar Pulau (Sumatra, Bali, Kalimantan, Sulawesi)</td>
+                <td>Indah Cargo Laut / Kargo Udara Port-to-Port</td>
+                <td>4 – 7 Hari (Laut) / 1-2 Hari (Udara)</td>
+                <td>Fleksibel sesuai budget dan urgensi tanggal acara.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Checklist Unboxing bagi Pemesan -->
+      <div class="p-4 p-md-5 rounded-4 bg-light border border-success-subtle mb-5">
+        <h2 class="h4 fw-bold text-success mb-3">Panduan Saat Menerima Paket Kargo di Lokasi</h2>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <div class="bg-white rounded-3 p-3 border">
+              <strong class="d-block text-dark mb-1">1. Periksa Jumlah Koli / Karung</strong>
+              <span class="small text-muted">Pastikan jumlah karung yang diterima kurir sama dengan angka koli pada surat jalan / resi (misal: 1 dari 3 koli).</span>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="bg-white rounded-3 p-3 border">
+              <strong class="d-block text-dark mb-1">2. Periksa Kondisi Luar Kemasan</strong>
+              <span class="small text-muted">Bila ada karung yang sobek parah di jalan, minta kurir mencatat di lembar serah terima barang ekspedisi.</span>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="bg-white rounded-3 p-3 border">
+              <strong class="d-block text-dark mb-1">3. Rekam Video Singkat Unboxing</strong>
+              <span class="small text-muted">Dokumentasi video pembukaan kemasan mempermudah klaim asuransi atau garansi retur apabila ditemukan cacat.</span>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="bg-white rounded-3 p-3 border">
+              <strong class="d-block text-dark mb-1">4. Konfirmasi Penerimaan ke Tim Kami</strong>
+              <span class="small text-muted">Beri tahu admin WhatsApp kami bahwa barang telah sampai dengan selamat agar status order dapat ditutup.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">Pertanyaan Seputar Pengiriman &amp; Ekspedisi</h2>
+          <p class="text-muted small">Informasi seputar resi, tracking kargo, dan biaya pengiriman.</p>
+        </div>
+        <div class="max-w-75 mx-auto">
+          <FAQAccordion items={faqItems} defaultOpen={0} />
+        </div>
+      </div>
+
+      <!-- CTA Box -->
+      <div class="p-4 p-md-5 rounded-4 text-white text-center shadow" style="background: linear-gradient(135deg, #1B4D3E 0%, #0d2820 100%);">
+        <h2 class="h3 fw-bold mb-3">Ingin Simulasi Biaya Kirim Kargo ke Kota Anda?</h2>
+        <p class="max-w-75 mx-auto text-white-50 mb-4" style="line-height: 1.7;">
+          Sampaikan estimasi jumlah tas dan kota tujuan pengiriman. Kami akan carikan opsi ekspedisi kargo yang paling ekonomis dan tepat waktu.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href={waShippingUrl} target="_blank" rel="noopener noreferrer" class="btn btn-warning btn-lg fw-bold">
+            Cek Ongkos Kargo via WA
+          </a>
+          <a href="/layanan/" class="btn btn-outline-light btn-lg">
+            Lihat Jangkauan Kota Layanan
+          </a>
+        </div>
+      </div>
+
+      <!-- Related Navigation -->
+      <div class="mt-4 text-center">
+        <p class="small text-muted">
+          Lihat panduan lainnya: <a href="/syarat-pemesanan/" class="text-decoration-underline text-success">Ketentuan Pemesanan</a> &bull; <a href="/panduan-produksi-tote-bag/" class="text-decoration-underline text-success">Alur &amp; Standar QC</a> &bull; <a href="/cara-pesan/" class="text-decoration-underline text-success">Alur 6 Langkah Pemesanan</a> &bull; <a href="/kontak/" class="text-decoration-underline text-success">Kontak Kami</a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

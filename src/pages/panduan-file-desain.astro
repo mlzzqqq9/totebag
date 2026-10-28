@@ -1,0 +1,184 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { getWhatsAppUrl } from '@/data/siteData';
+
+const naskah = getNaskahById('113');
+if (!naskah) {
+  throw new Error("Naskah ID 113 not found");
+}
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Panduan Produksi', url: '/panduan-produksi-tote-bag/' },
+  { name: 'Panduan File Desain', url: '/panduan-file-desain/' }
+];
+
+const waDesignUrl = getWhatsAppUrl({
+  notes: "Kirim file logo / desain untuk dicek kelayakan cetak",
+  sourcePage: "/panduan-file-desain/"
+});
+
+const faqItems = naskah.faqs.map((f, i) => ({
+  id: `faq-113-${i}`,
+  question: f.question,
+  answer: f.answer,
+  category: 'pemesanan' as const
+}));
+---
+
+<BaseLayout
+  title={naskah.seoTitle || "Panduan Menyiapkan Desain Sebelum Pemesanan | Tote Bag"}
+  description={naskah.metaDescription}
+  canonicalUrl={naskah.canonical}
+  jsonLd={naskah.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Header -->
+  <header class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">PRA-CETAK &amp; SPESIFIKASI FILE</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          {naskah.h1}
+        </h1>
+        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
+          Panduan teknis persiapan artwork, resolusi gambar, format file vektor, serta batas area cetak untuk memastikan hasil sablon, DTF, maupun bordir tote bag Anda tajam dan presisi.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Direct Answer Box -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-4 bg-light border border-success-subtle shadow-sm mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="badge bg-success text-white">Prinsip File Siap Cetak (Print-Ready)</span>
+          <span class="text-muted small">Quality Control Desain Pra-Produksi</span>
+        </div>
+        <p class="fs-5 text-dark mb-0" style="line-height: 1.8;">
+          {naskah.directAnswer}
+        </p>
+      </div>
+
+      <!-- Format File & Resolusi -->
+      <div class="row g-4 mb-5">
+        <div class="col-12 col-md-6">
+          <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+            <span class="badge bg-success-subtle text-success border mb-2 w-fit">Format Vektor (Sangat Direkomendasikan)</span>
+            <h2 class="h4 fw-bold mb-3">Adobe Illustrator, PDF, EPS &amp; SVG</h2>
+            <p class="text-muted small mb-3">
+              Format vektor adalah pilihan terbaik untuk sablon manual maupun bordir karena tidak mengalami pecah piksel saat diperbesar atau diperkecil.
+            </p>
+            <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0 border-top pt-3">
+              <li><strong>Convert Fonts to Outlines / Curves:</strong> Wajib mengubah seluruh teks menjadi path kurva agar tidak terjadi missing font.</li>
+              <li><strong>Spot Color / Color Separation:</strong> Pisahkan warna ke layer terpisah jika memesan sablon manual 2-4 warna.</li>
+              <li><strong>Ketebalan Garis Minimal:</strong> Garis tertipis minimal 0.5 pt (0.2 mm) agar tinta terserap sempurna di serat kain.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white">
+            <span class="badge bg-primary-subtle text-primary border mb-2 w-fit">Format Bitmap / Raster</span>
+            <h2 class="h4 fw-bold mb-3">PNG Transparan &amp; PSD High-Res</h2>
+            <p class="text-muted small mb-3">
+              Untuk gambar ilustrasi kompleks, foto, atau gradasi warna-warni yang akan dicetak menggunakan teknologi Direct to Film (DTF).
+            </p>
+            <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0 border-top pt-3">
+              <li><strong>Resolusi Minimal:</strong> 300 DPI pada ukuran skala aktual (100% ukuran cetak nyata).</li>
+              <li><strong>Latar Belakang Transparan:</strong> Hapus background putih jika latar tas tidak ingin ikut tercetak.</li>
+              <li><strong>Mode Warna:</strong> Gunakan profil warna CMYK untuk meminimalisir deviasi warna antara layar monitor dan hasil fisik kain.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Area Cetak & Safe Zone -->
+      <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm mb-5">
+        <h2 class="h3 fw-bold mb-3">Panduan Proporsi Ukuran &amp; Batas Aman Area Cetak</h2>
+        <p class="text-muted mb-4" style="line-height: 1.7;">
+          Agar hasil cetak tidak terpotong oleh jahitan pinggir atau tertutup oleh lipatan handle saat tas dijinjing, perhatikan batas margin berikut:
+        </p>
+
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Standar Cetak</th>
+                <th>Dimensi Artwork</th>
+                <th>Ukuran Tas Ideal</th>
+                <th>Jarak Margin Aman</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold">Area Logo Kecil / Saku</td>
+                <td>8 x 8 cm s/d 10 x 10 cm</td>
+                <td>Semua ukuran tas / bagian saku luar</td>
+                <td>Minimal 2.5 cm dari jahitan bibir saku</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Area Sedang (Format A4)</td>
+                <td>20 x 28 cm</td>
+                <td>Tas 30 x 40 cm (Standard)</td>
+                <td>Minimal 4 cm dari jahitan handle &amp; alas bawah</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Area Luas (Format A3)</td>
+                <td>28 x 38 cm</td>
+                <td>Tas 35 x 42 cm atau lebih besar</td>
+                <td>Minimal 5 cm dari bibir atas resleting</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Layanan Digital Mockup Gratis -->
+      <div class="p-4 p-md-5 rounded-4 bg-light border mb-5">
+        <div class="row align-items-center g-4">
+          <div class="col-12 col-lg-8">
+            <span class="badge bg-success text-white mb-2">Fasilitas Workshop</span>
+            <h2 class="h3 fw-bold mb-2">Belum Memiliki Desain Siap Cetak?</h2>
+            <p class="text-muted mb-0" style="line-height: 1.7;">
+              Kirimkan logo atau konsep kasar Anda. Tim desainer kami siap membantu memeriksa resolusi, mengubah warna menjadi CMYK, dan membuatkan <strong>simulasi digital mockup gratis (tampak depan, samping, dan proporsi jinjing)</strong> sebelum proses produksi massal dijalankan.
+            </p>
+          </div>
+          <div class="col-12 col-lg-4 text-lg-end">
+            <a href={waDesignUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg">
+              Kirim File via WA untuk Dicek
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">Pertanyaan Seputar Penyiapan Desain</h2>
+          <p class="text-muted small">Jawaban teknis pra-cetak langsung dari tim produksi.</p>
+        </div>
+        <div class="max-w-75 mx-auto">
+          <FAQAccordion items={faqItems} defaultOpen={0} />
+        </div>
+      </div>
+
+      <!-- Related Navigation -->
+      <div class="p-4 rounded-4 bg-light border text-center">
+        <p class="small text-muted mb-0">
+          Panduan selanjutnya: <a href="/permintaan-penawaran/" class="text-decoration-underline text-success">Cara Mengajukan Penawaran</a> &bull; <a href="/syarat-pemesanan/" class="text-decoration-underline text-success">Ketentuan Pemesanan &amp; DP</a> &bull; <a href="/panduan-produksi-tote-bag/" class="text-decoration-underline text-success">Alur Produksi &amp; Garansi</a> &bull; <a href="/kontak/" class="text-decoration-underline text-success">Kontak Tim Teknis</a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

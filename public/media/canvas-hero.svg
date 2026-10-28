@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgCanvasHero" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EBE7DE"/>
+      <stop offset="100%" stop-color="#DCD5C5"/>
+    </linearGradient>
+    <filter id="shadowH" x="-10%" y="-10%" width="125%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#173F38" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="600" height="450" fill="url(#bgCanvasHero)" rx="16"/>
+  <!-- Decorative minimal geometric studio circles -->
+  <circle cx="500" cy="90" r="120" fill="#C18755" opacity="0.08"/>
+  <ellipse cx="300" cy="390" rx="150" ry="16" fill="#173F38" opacity="0.12"/>
+
+  <!-- Handles -->
+  <g filter="url(#shadowH)">
+    <path d="M220 205 C220 80, 380 80, 380 205" fill="none" stroke="#0E2E29" stroke-width="14" stroke-linecap="round"/>
+    <path d="M220 205 C220 80, 380 80, 380 205" fill="none" stroke="#173F38" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Bag Body -->
+  <g filter="url(#shadowH)">
+    <path d="M185 190 L415 190 L398 385 C396 392 388 396 380 396 L220 396 C212 396 204 392 202 385 Z" fill="#173F38"/>
+  </g>
+
+  <!-- Gusset Fold -->
+  <path d="M185 190 L215 195 L226 394 L202 385 Z" fill="#0E2E29" opacity="0.35"/>
+  <line x1="195" y1="200" x2="405" y2="200" stroke="#C18755" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- Custom Logo Mockup -->
+  <g transform="translate(260, 245)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="none" stroke="#C18755" stroke-width="3"/>
+    <path d="M20 40 L40 22 L60 40 L40 58 Z" fill="#C18755"/>
+    <text x="40" y="105" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">CANVAS B2B</text>
+    <text x="40" y="122" font-family="'Inter', sans-serif" font-size="10" font-weight="500" fill="#C18755" text-anchor="middle">CUSTOM VENDOR</text>
+  </g>
+</svg>

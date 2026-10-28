@@ -1,0 +1,166 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { faqs, getWhatsAppUrl } from '@/data/siteData';
+
+const naskah = getNaskahById('111');
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'FAQ Pemesanan', url: '/faq/' }
+];
+
+const waFaqUrl = getWhatsAppUrl({
+  notes: "Pertanyaan langsung seputar pemesanan tote bag",
+  sourcePage: "/faq/"
+});
+
+// Categorized FAQs
+const faqsPemesanan = faqs.filter(f => f.category === 'pemesanan');
+const faqsBahan = faqs.filter(f => f.category === 'bahan');
+const faqsDesain = faqs.filter(f => f.category === 'desain');
+const faqsUmum = faqs.filter(f => f.category === 'umum');
+---
+
+<BaseLayout
+  title={naskah?.seoTitle || "FAQ Pemesanan Tote Bag Custom — Pertanyaan Umum & Jawaban"}
+  description={naskah?.metaDescription || "Jawaban lengkap atas pertanyaan seputar pemesanan tote bag custom: MOQ, waktu produksi, sampel fisik, format logo, dan pengiriman kargo."}
+  canonicalUrl="https://totebag.web.id/faq/"
+  jsonLd={naskah?.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <section class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">PUSAT BANTUAN &amp; INFORMASI</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          {naskah?.h1 || "FAQ Pemesanan Tote Bag Custom"}
+        </h1>
+        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
+          Temukan jawaban cepat atas pertanyaan seputar alur pesanan, batas minimum order (MOQ), sampel fisik, pemilihan bahan, dan mekanisme pengiriman luar kota.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Hub Sections -->
+  <section class="section-space pt-0">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-12 col-lg-8">
+
+          <!-- Kategori 1: Alur & Pemesanan -->
+          <div class="mb-5">
+            <h2 class="h5 fw-bold text-dark mb-3 d-flex align-items-center gap-2 pb-2 border-bottom">
+              <span class="badge bg-success text-white">01</span>
+              <span>Seputar Pemesanan &amp; Ketentuan MOQ</span>
+            </h2>
+            <FAQAccordion items={faqsPemesanan} accordionId="faqGroupPemesanan" />
+          </div>
+
+          <!-- Kategori 2: Bahan & Spesifikasi -->
+          <div class="mb-5">
+            <h2 class="h5 fw-bold text-dark mb-3 d-flex align-items-center gap-2 pb-2 border-bottom">
+              <span class="badge bg-success text-white">02</span>
+              <span>Karakteristik Kain &amp; Kustomisasi Ukuran</span>
+            </h2>
+            <FAQAccordion items={faqsBahan} accordionId="faqGroupBahan" />
+          </div>
+
+          <!-- Kategori 3: Desain & Sablon -->
+          <div class="mb-5">
+            <h2 class="h5 fw-bold text-dark mb-3 d-flex align-items-center gap-2 pb-2 border-bottom">
+              <span class="badge bg-success text-white">03</span>
+              <span>Format Logo &amp; Teknik Cetak Sablon/DTF</span>
+            </h2>
+            <FAQAccordion items={faqsDesain} accordionId="faqGroupDesain" />
+          </div>
+
+          <!-- Kategori 4: Pengiriman -->
+          <div class="mb-5">
+            <h2 class="h5 fw-bold text-dark mb-3 d-flex align-items-center gap-2 pb-2 border-bottom">
+              <span class="badge bg-success text-white">04</span>
+              <span>Pengiriman Kargo &amp; Ekspedisi Luar Kota</span>
+            </h2>
+            <FAQAccordion items={faqsUmum} accordionId="faqGroupUmum" />
+          </div>
+
+          <!-- Editorial text from Naskah 111 if available -->
+          {naskah?.bodyHtml && (
+            <div class="p-4 rounded-4 bg-light border mt-4">
+              <h3 class="h6 fw-bold mb-2">Panduan Tambahan Sebelum Meminta Penawaran:</h3>
+              <div class="article-content-body small text-muted">
+                <Fragment set:html={naskah.bodyHtml} />
+              </div>
+            </div>
+          )}
+
+          <!-- CTA Box -->
+          <div class="p-4 p-lg-5 rounded-4 bg-brand-dark text-white mt-5">
+            <span class="badge bg-warning text-dark fw-bold mb-2">RESPONS CEPAT</span>
+            <h3 class="h4 fw-bold mb-2 text-white">Punya Pertanyaan Lain yang Belum Terjawab?</h3>
+            <p class="small text-white-50 mb-3" style="max-width: 580px;">
+              Tim kami siap membantu Anda menghitung kebutuhan tas, merekomendasikan bahan paling hemat, dan membuatkan surat penawaran resmi via WhatsApp.
+            </p>
+            <a href={waFaqUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp d-inline-flex align-items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/></svg>
+              Tanya Tim Kami via WhatsApp
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-12 col-lg-4">
+          <div class="sticky-sidebar d-flex flex-column gap-4" style="top: 85px;">
+            <div class="p-4 rounded-4 bg-white border shadow-sm">
+              <h3 class="h6 fw-bold mb-3">Langkah Mudah Selanjutnya:</h3>
+              <ol class="ps-3 mb-0 small text-muted d-flex flex-column gap-2">
+                <li>Siapkan perkiraan jumlah tas &amp; tanggal deadline.</li>
+                <li>Siapkan file logo (vektor AI/CDR/PDF atau PNG transparan).</li>
+                <li>Konsultasikan bahan pilihan Anda melalui WhatsApp.</li>
+                <li>Dapatkan preview mockup digital gratis.</li>
+              </ol>
+              <div class="pt-3 mt-3 border-top">
+                <a href="/cara-pesan/" class="small fw-bold text-success text-decoration-none d-block">
+                  Pelajari 6 Langkah Alur Pemesanan &rarr;
+                </a>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-4 bg-white border shadow-sm">
+              <h3 class="h6 fw-bold mb-3">Halaman Terkait:</h3>
+              <div class="d-flex flex-column gap-2 small">
+                <a href="/tote-bag/" class="text-decoration-none text-dark py-1 hover-text-success border-bottom">
+                  &bull; Panduan Fundamental Tote Bag
+                </a>
+                <a href="/jenis-bahan-tote-bag/" class="text-decoration-none text-dark py-1 hover-text-success border-bottom">
+                  &bull; Karakteristik &amp; Pilihan Kain
+                </a>
+                <a href="/tentang-kami/" class="text-decoration-none text-dark py-1 hover-text-success border-bottom">
+                  &bull; Profil Workshop Malang
+                </a>
+                <a href="/kontak/" class="text-decoration-none text-dark py-1 hover-text-success">
+                  &bull; Hubungi Workshop Kami
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hover-text-success:hover {
+    color: #173F38 !important;
+  }
+</style>

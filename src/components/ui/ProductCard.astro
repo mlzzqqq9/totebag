@@ -1,0 +1,99 @@
+---
+import type { Product } from '@/data/siteData';
+import { getWhatsAppUrl } from '@/data/siteData';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+
+const waUrl = getWhatsAppUrl({
+  productName: product.name,
+  categoryName: product.categoryName,
+  sourcePage: `/produk/${product.slug}/`
+});
+---
+
+<article class="custom-card product-card-refined h-100 d-flex flex-column">
+  <div class="product-img-wrapper">
+    <img 
+      src={product.imageUrl} 
+      alt={product.altText} 
+      loading="lazy" 
+      width="400" 
+      height="300"
+    />
+    <span class="badge-brand position-absolute top-0 start-0 m-3 shadow-sm">
+      {product.categoryName}
+    </span>
+  </div>
+
+  <div class="p-3 p-sm-4 d-flex flex-column flex-grow-1">
+    <h3 class="h6 fw-bold mb-2">
+      <a href={`/produk/${product.slug}/`} class="text-decoration-none text-reset stretched-title">
+        {product.name}
+      </a>
+    </h3>
+
+    <p class="small text-muted mb-3 flex-grow-1" style="font-size: 0.82rem; line-height: 1.5;">
+      {product.highlight}
+    </p>
+
+    <!-- Specs snippet -->
+    <div class="py-2 border-top border-bottom mb-3" style="font-size: 0.78rem;">
+      <div class="d-flex justify-content-between mb-1">
+        <span class="text-muted">Bahan:</span>
+        <span class="fw-semibold text-end text-dark">{product.material}</span>
+      </div>
+      <div class="d-flex justify-content-between">
+        <span class="text-muted">Dimensi:</span>
+        <span class="fw-semibold text-end text-dark">{product.dimensions}</span>
+      </div>
+    </div>
+
+    <!-- Actions (Ramping, Proporsional, & Bersih) -->
+    <div class="d-flex align-items-center gap-2 pt-1 mt-auto">
+      <a 
+        href={`/produk/${product.slug}/`} 
+        class="btn btn-brand-outline card-action-btn flex-grow-1 text-center"
+      >
+        Detail
+      </a>
+      <a 
+        href={waUrl} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="btn btn-brand card-action-btn flex-grow-1 text-center d-inline-flex align-items-center justify-content-center gap-1" 
+        aria-label={`Minta penawaran ${product.name} via WhatsApp`}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+        </svg>
+        <span>Minta RFQ</span>
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .product-card-refined {
+    border-radius: 14px;
+    background: #FFFFFF;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .card-action-btn {
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    padding: 0.42rem 0.65rem !important;
+    border-radius: 8px !important;
+    white-space: nowrap !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.01em;
+  }
+
+  .stretched-title:hover {
+    color: var(--brand-primary, #173F38) !important;
+  }
+</style>

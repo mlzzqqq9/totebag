@@ -1,0 +1,261 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import ProductCard from '@/components/ui/ProductCard.astro';
+import { cityServices, products, getWhatsAppUrl } from '@/data/siteData';
+
+export async function getStaticPaths() {
+  return cityServices.map(city => ({
+    params: { slug: city.slug },
+    props: { city }
+  }));
+}
+
+const { city } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Layanan Pengiriman', url: '/layanan/' },
+  { name: city.cityName, url: `/layanan/${city.slug}/` }
+];
+
+const waCityUrl = getWhatsAppUrl({
+  notes: `Konsultasi pemesanan & pengiriman kargo ke kota ${city.cityName}`,
+  sourcePage: `/layanan/${city.slug}/`
+});
+
+const featuredProducts = products.slice(0, 3);
+
+// Service Schema
+const cityServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": city.title,
+  "serviceType": "Custom Tote Bag Manufacturing & Logistics Distribution",
+  "provider": {
+    "@id": "https://totebag.web.id/#organization"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": city.cityName,
+    "containedInPlace": {
+      "@type": "AdministrativeArea",
+      "name": city.province
+    }
+  },
+  "description": city.overview
+};
+---
+
+<BaseLayout
+  title={`${city.title} — Vendor B2B`}
+  description={city.tagline}
+  canonicalUrl={`https://totebag.web.id/layanan/${city.slug}/`}
+  jsonLd={cityServiceSchema}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Section -->
+  <section class="section-space-sm pt-2">
+    <div class="container">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-12 col-lg-7">
+          <span class="badge-accent mb-2">{city.badge.toUpperCase()}</span>
+          <h1 class="hero-title mb-3" style="font-size: clamp(2rem, 3.5vw, 2.9rem);">
+            {city.title}
+          </h1>
+          <p class="lead text-muted fs-5 mb-4">
+            {city.overview}
+          </p>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a href={waCityUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg d-flex align-items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+              </svg>
+              Minta Penawaran + Cek Ongkir {city.cityName}
+            </a>
+            <a href="/cara-pesan/" class="btn btn-brand-outline btn-lg">
+              Alur Pemesanan &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-5">
+          <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm">
+            <h2 class="h5 fw-bold mb-3 text-dark border-bottom pb-2">Ringkasan Distribusi {city.cityName}</h2>
+            <div class="d-flex flex-column gap-3 small">
+              <div>
+                <span class="text-muted d-block">Estimasi Waktu Tiba:</span>
+                <strong class="text-success fs-6">{city.leadTimeDelivery}</strong>
+              </div>
+              <div>
+                <span class="text-muted d-block">Rute Utama Ekspedisi:</span>
+                <span class="fw-semibold text-dark">{city.routeHighlight}</span>
+              </div>
+              <div>
+                <span class="text-muted d-block">Rekomendasi Pemesanan:</span>
+                <span class="fw-semibold text-dark">Mulai {city.minOrderRecommendation}</span>
+              </div>
+              <div>
+                <span class="text-muted d-block">Opsi Pengambilan Mandiri:</span>
+                <span class="badge bg-light text-dark border">
+                  {city.pickupAvailable ? 'Tersedia di Workshop Malang' : 'Pengiriman Kargo Langsung ke Lokasi'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Area Jangkauan Kecamatan -->
+  <section class="section-space pt-0">
+    <div class="container">
+      <div class="p-4 p-lg-5 rounded-4 bg-surface-alt border">
+        <div class="row g-4 align-items-center">
+          <div class="col-12 col-lg-4">
+            <span class="badge-brand mb-2">CAKUPAN WILAYAH</span>
+            <h2 class="h3 fw-bold mb-2">Area Jangkauan di {city.cityName}</h2>
+            <p class="text-muted small mb-0">
+              Pengiriman menjangkau seluruh kecamatan utama, kawasan pusat bisnis, perkantoran, universitas, hingga venue hotel konvensi di {city.cityName}.
+            </p>
+          </div>
+          <div class="col-12 col-lg-8">
+            <div class="row g-2">
+              {city.districts.map(district => (
+                <div class="col-12 col-md-6">
+                  <div class="p-3 rounded-3 bg-white border d-flex align-items-center gap-2">
+                    <svg class="text-success flex-shrink-0" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                    </svg>
+                    <span class="small fw-semibold text-dark">{district}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilihan Ekspedisi & Kargo -->
+  <section class="section-space pt-0">
+    <div class="container">
+      <div class="text-center max-w-700 mx-auto mb-4">
+        <span class="badge-brand mb-2">MITRA LOGISTIK</span>
+        <h2 class="h3 fw-bold">Pilihan Ekspedisi Pengiriman ke {city.cityName}</h2>
+        <p class="text-muted">Kami fleksibel menggunakan ekspedisi kargo yang paling efisien, aman, atau sesuai dengan langganan logistik kantor Anda.</p>
+      </div>
+
+      <div class="row g-4">
+        {city.expeditions.map(exp => (
+          <div class="col-12 col-md-4">
+            <div class="p-4 rounded-4 bg-white border h-100 d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-light text-dark border small">{exp.type}</span>
+                <span class="text-success small fw-semibold">{exp.eta}</span>
+              </div>
+              <h3 class="h5 fw-bold mb-2 text-dark">{exp.name}</h3>
+              <p class="small text-muted flex-grow-1 mb-0">{exp.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Proses Pengiriman Step-by-Step -->
+  <section class="section-space bg-surface-alt border-top border-bottom">
+    <div class="container">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="badge-brand mb-2">PROSES LOGISTIK</span>
+        <h2 class="h3 fw-bold">Alur Pengiriman dari Workshop Malang ke {city.cityName}</h2>
+        <p class="text-muted">Setiap pesanan melewati standar operasional ketat untuk menjamin tas dalam kondisi prima saat Anda terima.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        {city.shippingProcess.map(proc => (
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="p-4 rounded-4 bg-white border h-100 text-center">
+              <div class="badge rounded-circle bg-brand text-white p-3 mb-3 fs-5 fw-bold" style="width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;">
+                {proc.step}
+              </div>
+              <h3 class="h6 fw-bold mb-2 text-dark">{proc.title}</h3>
+              <p class="small text-muted mb-0">{proc.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Packing Standard Box -->
+      <div class="mt-5 p-4 rounded-4 bg-white border">
+        <h3 class="h6 fw-bold mb-3 text-dark d-flex align-items-center gap-2">
+          <svg class="text-success" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>
+          Standar Pengemasan Aman untuk Rute ke {city.cityName}:
+        </h3>
+        <div class="row g-2">
+          {city.packingStandard.map(item => (
+            <div class="col-12 col-md-6">
+              <div class="small text-muted d-flex align-items-center gap-2">
+                <span class="text-success">✔</span>
+                <span>{item}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilihan Produk Terpopuler untuk Pengiriman ke Kota Ini -->
+  <section class="section-space">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+        <div>
+          <span class="badge-brand mb-2">KATALOG REKOMENDASI</span>
+          <h2 class="h3 fw-bold mb-1">Pilihan Bahan Tote Bag Paling Diminati di {city.cityName}</h2>
+          <p class="text-muted mb-0">Tersedia bahan Canvas, Blacu, dan Spunbond dengan opsi sablon manual atau cetak DTF full color.</p>
+        </div>
+        <a href="/produk/" class="btn btn-brand-outline btn-sm mt-3 mt-md-0">
+          Lihat Semua Produk &rarr;
+        </a>
+      </div>
+
+      <div class="row g-4">
+        {featuredProducts.map(prod => (
+          <div class="col-12 col-md-4">
+            <ProductCard product={prod} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="section-space pt-0">
+    <div class="container">
+      <div class="p-4 p-lg-5 rounded-4 bg-brand text-white text-center">
+        <h2 class="h3 fw-bold mb-3">Siap Memesan Tote Bag Custom untuk Wilayah {city.cityName}?</h2>
+        <p class="lead fs-6 text-white-50 max-w-700 mx-auto mb-4">
+          Sampaikan estimasi kuantiti, kebutuhan bahan, serta tanggal penggunaan acara Anda. Tim kami akan segera menghitungkan estimasi biaya produksi serta tarif kargo terbaik.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href={waCityUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg d-inline-flex align-items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+            </svg>
+            Konsultasi WhatsApp Langsung
+          </a>
+          <a href="/layanan/" class="btn btn-outline-light btn-lg">
+            &larr; Lihat Kota Lainnya
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

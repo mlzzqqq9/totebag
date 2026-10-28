@@ -1,0 +1,141 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import ProductCard from '@/components/ui/ProductCard.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { categories, products, blacuFaqs, getWhatsAppUrl } from '@/data/siteData';
+
+const category = categories.find(c => c.slug === 'tote-bag-blacu')!;
+const categoryProducts = products.filter(p => p.categorySlug === 'tote-bag-blacu');
+const categoryFaqs = blacuFaqs;
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Katalog Produk', url: '/produk/' },
+  { name: category.title, url: `/produk/${category.slug}/` }
+];
+
+const categoryWaUrl = getWhatsAppUrl({
+  categoryName: category.title,
+  sourcePage: `/produk/${category.slug}/`
+});
+---
+
+<BaseLayout
+  title={`${category.title} — Pilihan Alami untuk Seminar & Event`}
+  description="Penyedia tote bag blacu super grade A untuk seminar kampus, workshop, dan souvenir natural. Biaya efisien, jahitan rapi, dan sablon presisi."
+  canonicalUrl={`https://totebag.web.id/produk/${category.slug}/`}
+  categoryName={category.title}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <section class="section-space-sm pt-2">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-12 col-lg-7">
+          <span class="badge-accent mb-2">KATEGORI MATERIAL</span>
+          <h1 class="hero-title mb-3">{category.title}</h1>
+          <p class="lead text-muted fs-5 mb-4">
+            {category.tagline}
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href={categoryWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg">
+              Minta Penawaran Tote Bag Blacu
+            </a>
+            <a href="/tote-bag-seminar/" class="btn btn-brand-outline btn-lg">
+              Solusi Seminar Kit
+            </a>
+          </div>
+        </div>
+        <div class="col-12 col-lg-5">
+          <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
+            <img 
+              src={category.imageUrl} 
+              alt="Tote Bag Blacu Custom Seminar" 
+              width="600" 
+              height="450" 
+              class="w-100 h-100 object-fit-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-12 col-lg-6">
+          <h2 class="section-title mb-3">Keunggulan &amp; Karakteristik Blacu Super</h2>
+          <p class="text-muted mb-3">{category.overview}</p>
+          <p class="text-muted mb-4">{category.materialDescription}</p>
+
+          <h3 class="h5 fw-bold mb-3">Kelebihan Utama Kain Blacu:</h3>
+          <ul class="list-unstyled d-flex flex-column gap-2 text-muted">
+            {category.benefits.map(b => (
+              <li class="d-flex align-items-start gap-2">
+                <span class="badge rounded-circle bg-success text-white p-1">✓</span>
+                <span class="fw-medium text-dark">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <div class="p-4 p-lg-5 rounded-4 bg-white border h-100">
+            <h3 class="h4 fw-bold mb-3">Kesesuaian Penggunaan</h3>
+            <p class="text-muted small mb-4">
+              Kain blacu sangat pas untuk acara yang mengusung tema kesederhanaan, alam, maupun efisiensi anggaran:
+            </p>
+            <div class="row g-3">
+              {category.recommendedUses.map(use => (
+                <div class="col-12 col-sm-6">
+                  <div class="p-3 rounded-3 bg-light border">
+                    <div class="fw-bold text-dark small">{use}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-4 pt-4 border-top">
+              <div class="fw-bold small text-muted mb-1">Catatan Kualitas Blacu Kami:</div>
+              <p class="small text-muted mb-0">Kami hanya menggunakan blacu super grade A dengan tenunan rapat yang tidak mudah berserabut saat dicuci atau dipakai harian.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space">
+    <div class="container">
+      <div class="mb-4">
+        <span class="badge-accent mb-2">PILIHAN MODEL</span>
+        <h2 class="section-title mb-2">Model Tote Bag Blacu</h2>
+        <p class="section-subtitle mb-0">Pilihan model flat standar dan kombinasi saku fungsional.</p>
+      </div>
+
+      <div class="row g-4">
+        {categoryProducts.map(prod => (
+          <div class="col-12 col-md-6">
+            <ProductCard product={prod} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="max-w-75 mx-auto mb-4 text-center">
+        <h2 class="section-title mb-2">FAQ Tote Bag Blacu</h2>
+        <p class="section-subtitle mx-auto">Jawaban pertanyaan teknis seputar kain blacu.</p>
+      </div>
+      <div class="max-w-75 mx-auto">
+        <FAQAccordion items={categoryFaqs} accordionId="blacuFaq" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

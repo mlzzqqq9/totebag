@@ -1,0 +1,100 @@
+---
+import { businessProfile, categories } from '@/data/siteData';
+---
+
+<footer class="site-footer pt-5 pb-4 mt-auto">
+  <div class="container">
+    <div class="row g-4 pb-4">
+      <!-- Col 1: Brand Info -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="30" height="30" aria-hidden="true">
+            <rect width="36" height="36" rx="8" fill="#FFFFFF"/>
+            <path d="M12 16 C12 9, 24 9, 24 16" fill="none" stroke="#C18755" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M8 15 L28 15 L26 31 C25.8 32 25 33 24 33 L12 33 C11 33 10.2 32 10 31 Z" fill="#173F38" stroke="#173F38" stroke-width="1"/>
+          </svg>
+          <span class="fs-4 fw-bold text-white">Tote Bag</span>
+        </div>
+        <p class="small text-white-50 pe-lg-4 mb-3">
+          Penyedia tote bag custom untuk kebutuhan pengadaan perusahaan, instansi pemerintah, kampus, dan event. Berbasis di Kota Malang dengan jangkauan pengiriman antarkota ke seluruh Indonesia.
+        </p>
+        <div class="d-flex flex-column gap-2 small">
+          <div class="text-white">
+            <strong>WhatsApp:</strong> 
+            <a href={`https://wa.me/${businessProfile.whatsappNumber}`} target="_blank" rel="noopener noreferrer" class="text-white text-decoration-underline ms-1">
+              {businessProfile.whatsappFormatted}
+            </a>
+          </div>
+          <div class="text-white-50">
+            <strong>Basis Workshop:</strong> Kedungkandang, Kota Malang, Jawa Timur (65136)
+          </div>
+          <div class="text-white-50">
+            <strong>Pengiriman:</strong> Surabaya, Jakarta, Bandung, Yogyakarta, Semarang, Denpasar, dan seluruh kota via kargo terpercaya.
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 2: Kategori Bahan -->
+      <div class="col-6 col-md-6 col-lg-2">
+        <h5>Pilihan Bahan</h5>
+        <ul class="list-unstyled d-flex flex-column gap-2 small mb-0">
+          {categories.map(cat => (
+            <li>
+              <a href={`/produk/${cat.slug}/`}>{cat.title}</a>
+            </li>
+          ))}
+          <li>
+            <a href="/produk/">Semua Katalog</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Solusi & Layanan -->
+      <div class="col-6 col-md-6 col-lg-3">
+        <h5>Layanan &amp; Pengiriman</h5>
+        <ul class="list-unstyled d-flex flex-column gap-2 small mb-0">
+          <li><a href="/layanan/">Jangkauan Pengiriman Kota</a></li>
+          <li><a href="/layanan/malang/">Layanan Kota Malang</a></li>
+          <li><a href="/layanan/surabaya/">Pengiriman Surabaya</a></li>
+          <li><a href="/layanan/jakarta/">Pengiriman Jakarta</a></li>
+          <li><a href="/tote-bag-perusahaan/">Tote Bag Perusahaan &amp; HRD</a></li>
+          <li><a href="/tote-bag-seminar/">Tote Bag Seminar &amp; Event</a></li>
+          <li><a href="/portofolio/">Portofolio Produksi</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Informasi & Bantuan -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <h5>Informasi &amp; Bantuan</h5>
+        <ul class="list-unstyled d-flex flex-column gap-2 small mb-3">
+          <li><a href="/cara-pesan/">Panduan &amp; Alur Pemesanan</a></li>
+          <li><a href="/permintaan-penawaran/">Permintaan Penawaran (RFQ)</a></li>
+          <li><a href="/panduan-file-desain/">Panduan Menyiapkan Desain</a></li>
+          <li><a href="/syarat-pemesanan/">Ketentuan Pemesanan &amp; DP</a></li>
+          <li><a href="/pengiriman/">Pengemasan &amp; Ekspedisi</a></li>
+          <li><a href="/faq/">FAQ Pemesanan</a></li>
+          <li><a href="/tentang-kami/">Tentang Kami</a></li>
+          <li><a href="/kontak/">Kontak &amp; Alamat Workshop</a></li>
+          <li><a href="/kebijakan-privasi/">Kebijakan Privasi</a></li>
+        </ul>
+        <div class="p-3 rounded-3" style="background: rgba(0, 0, 0, 0.15);">
+          <div class="fw-bold text-white small mb-1">Konsultasi Desain &amp; Mockup</div>
+          <p class="small text-white-50 mb-2">Punya file logo dan butuh simulasi preview tas? Hubungi tim via WhatsApp.</p>
+          <a href={`https://wa.me/${businessProfile.whatsappNumber}?text=Halo%20tim%20ToteBag.web.id,%20saya%20ingin%20konsultasi%20desain%20dan%20penawaran.`} target="_blank" rel="noopener noreferrer" class="btn btn-outline-light btn-sm w-100">
+            Kirim Brief via WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <div>
+        &copy; {new Date().getFullYear()} totebag.web.id. Hak cipta dilindungi undang-undang.
+      </div>
+      <div class="small text-white-50">
+        Vendor Tote Bag B2B Malang • Pengiriman Antarkota Terintegrasi
+      </div>
+    </div>
+  </div>
+</footer>

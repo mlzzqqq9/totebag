@@ -1,0 +1,298 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { getNaskahById } from '@/utils/naskah';
+import { getWhatsAppUrl, products } from '@/data/siteData';
+
+const naskah = getNaskahById('75');
+if (!naskah) {
+  throw new Error("Naskah ID 75 not found");
+}
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Katalog Produk', url: '/produk/' },
+  { name: 'Tas Tote Bag Wanita', url: '/tote-bag-wanita/' }
+];
+
+const waConsultUrl = getWhatsAppUrl({
+  notes: "Halo Tim ToteBag, saya ingin konsultasi pengadaan tas tote bag wanita custom",
+  sourcePage: "/tote-bag-wanita/"
+});
+
+const faqItems = naskah.faqs.map((f, i) => ({
+  id: `faq-75-${i}`,
+  question: f.question,
+  answer: f.answer,
+  category: 'umum' as const
+}));
+---
+
+<BaseLayout
+  title={naskah.seoTitle || "Tas Tote Bag Wanita: Model, Ukuran dan Tips Memilih | Tote Bag"}
+  description={naskah.metaDescription}
+  canonicalUrl={naskah.canonical}
+  jsonLd={naskah.schemaJson}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Hero Header -->
+  <header class="section-space-sm pt-2">
+    <div class="container">
+      <div class="max-w-75">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="badge-accent">LIFESTYLE &amp; WORKWEAR</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          {naskah.h1}
+        </h1>
+        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
+          Panduan komprehensif pemilihan tas tote bag wanita untuk kebutuhan kantor, kampus, retail brand, dan merchandise korporat. Temukan proporsi ukuran ergonomis, material elegan, serta opsi fitur fungsional.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Direct Answer Box (AEO GEO Optimized) -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-4 bg-light border border-success-subtle shadow-sm mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="badge bg-success text-white">Ringkasan Spesifikasi Penting</span>
+          <span class="text-muted small">Panduan Praktis Seleksi Produk</span>
+        </div>
+        <p class="fs-5 text-dark mb-0" style="line-height: 1.8;">
+          {naskah.directAnswer}
+        </p>
+      </div>
+
+      <!-- 3 Kategori Penggunaan Utama -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">Pilihan Model Berdasarkan Skenario Aktivitas</h2>
+          <p class="text-muted small">
+            Setiap aktivitas membutuhkan perpaduan material, ketahanan beban, dan fitur keamanan yang berbeda.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white hover-shadow transition">
+              <div class="badge bg-primary-subtle text-primary border mb-3 w-fit">Office &amp; Corporate</div>
+              <h3 class="h5 fw-bold mb-2">Workplace Tote Bag</h3>
+              <p class="text-muted small mb-3">
+                Dirancang untuk profesional aktif. Wajib memiliki penutup ritsleting, lapisan furing dalam, serta kompartemen busa pengaman gadget.
+              </p>
+              <ul class="list-unstyled small text-muted mb-4 border-top pt-3">
+                <li class="mb-2"><strong>Kapasitas:</strong> Laptop 14-15", dokumen A4, charger &amp; tumbler.</li>
+                <li class="mb-2"><strong>Rekomendasi Bahan:</strong> Canvas Marsoto tebal, Cordura, atau Semi-Leather.</li>
+                <li><strong>Panjang Tali:</strong> 60 cm (drop 28 cm) agar nyaman di pundak saat berblazer.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white hover-shadow transition">
+              <div class="badge bg-success-subtle text-success border mb-3 w-fit">Campus &amp; Daily Casual</div>
+              <h3 class="h5 fw-bold mb-2">College Lifestyle Tote</h3>
+              <p class="text-muted small mb-3">
+                Model santai bergaya kasual chic. Sangat fleksibel memuat binder kuliah, perlengkapan harian, dan pouch kosmetik dengan tampilan modern.
+              </p>
+              <ul class="list-unstyled small text-muted mb-4 border-top pt-3">
+                <li class="mb-2"><strong>Kapasitas:</strong> Binder B5/A4, tablet 11", makeup pouch, botol air.</li>
+                <li class="mb-2"><strong>Rekomendasi Bahan:</strong> Baby Canvas halus atau Blacu Super Grade A.</li>
+                <li><strong>Karakter Cetak:</strong> DTF full-color ilustrasi estetik atau sablon tipografi minimalis.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border rounded-4 p-4 shadow-sm bg-white hover-shadow transition">
+              <div class="badge bg-warning-subtle text-dark border mb-3 w-fit">Retail Merchandise</div>
+              <h3 class="h5 fw-bold mb-2">Beauty &amp; Fashion Souvenir</h3>
+              <p class="text-muted small mb-3">
+                Pilihan favorit brand skincare, kosmetik, atau fashion boutique untuk loyalty gift dan paket bundling promosi produk wanita.
+              </p>
+              <ul class="list-unstyled small text-muted mb-4 border-top pt-3">
+                <li class="mb-2"><strong>Kapasitas:</strong> Paket skincare, busana kemasan, personal daily kit.</li>
+                <li class="mb-2"><strong>Rekomendasi Bahan:</strong> Canvas Katun Natural, Blacu Twill, atau Drill.</li>
+                <li><strong>Aksen Tambahan:</strong> Kancing magnet, label woven brand, dan saku saku dalam gantung.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ergonomi Ukuran & Detail Teknis -->
+      <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm mb-5">
+        <h2 class="h3 fw-bold mb-3">Panduan Proporsi Ukuran &amp; Ergonomi Tali Bahu</h2>
+        <p class="text-muted mb-4">
+          Kenyamanan tote bag wanita sangat dipengaruhi oleh rasio dimensi badan tas dan panjang rentang tali (drop handle):
+        </p>
+
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th style="width: 20%;">Klasifikasi Ukuran</th>
+                <th style="width: 25%;">Dimensi (PxTxL Gusset)</th>
+                <th style="width: 25%;">Kesesuaian Muatan</th>
+                <th style="width: 30%;">Rekomendasi Panjang Tali</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold">Compact / Small</td>
+                <td>25 x 30 x 6 cm</td>
+                <td>Dompet panjang, smartphone, kunci, pouch makeup kecil.</td>
+                <td>Tali pendek jinjing (35 cm) atau selempang sling (100 cm).</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Standard Medium (Paling Populer)</td>
+                <td>30 x 38 x 8 cm</td>
+                <td>Dokumen format A4, buku bacaan, botol 600ml, tablet.</td>
+                <td>Tali pundak standar 55-60 cm (tetes bahu 26-28 cm).</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Large Commuter</td>
+                <td>35 x 42 x 10-12 cm</td>
+                <td>Laptop 14-15.6 inch, map kerja tebal, lunch box, payung lipat.</td>
+                <td>Tali lebar 3.8 cm dengan panjang 60-65 cm untuk distribusi beban.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Fitur Pengaman & Kompartemen -->
+      <div class="row g-4 mb-5">
+        <div class="col-12 col-md-6">
+          <div class="p-4 rounded-4 bg-light border h-100">
+            <h3 class="h5 fw-bold mb-3">Pilihan Penutup Tas yang Tersedia</h3>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex gap-3">
+                <span class="badge bg-success rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">✓</span>
+                <div>
+                  <h4 class="h6 fw-bold mb-1">Ritsleting / Zipper Metal &amp; Coil</h4>
+                  <p class="small text-muted mb-0">Proteksi maksimal mencegah barang tercecer dan menjaga privasi barang bawaan saat berada di transportasi umum atau area ramai.</p>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <span class="badge bg-success rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">✓</span>
+                <div>
+                  <h4 class="h6 fw-bold mb-1">Kancing Magnet (Magnetic Snap Button)</h4>
+                  <p class="small text-muted mb-0">Akses cepat dan mudah dibuka-tutup dengan satu tangan, memberikan siluet tas yang tetap rapi dan minimalis.</p>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <span class="badge bg-success rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">✓</span>
+                <div>
+                  <h4 class="h6 fw-bold mb-1">Velcro / Perekat Velcro</h4>
+                  <p class="small text-muted mb-0">Alternatif ekonomis untuk event promosi massal yang menginginkan penutup sederhana dengan biaya efisien.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-4 rounded-4 bg-light border h-100">
+            <h3 class="h5 fw-bold mb-3">Opsi Kompartemen &amp; Finishing Dalam</h3>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex gap-3">
+                <span class="badge bg-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">★</span>
+                <div>
+                  <h4 class="h6 fw-bold mb-1">Inner Pocket Gantung (Saku Dalam)</h4>
+                  <p class="small text-muted mb-0">Memudahkan pengguna menyimpan kunci kendaraan, kartu akses, atau handphone tanpa harus menggeledah dasar tas.</p>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <span class="badge bg-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">★</span>
+                <div>
+                  <h4 class="h6 fw-bold mb-1">Lapisan Furing Satin / Katun Torin</h4>
+                  <p class="small text-muted mb-0">Menambah kesan mewah pada interior tas dan menyembunyikan serat jahitan balik untuk tampilan kualitas premium.</p>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <span class="badge bg-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">★</span>
+                <div>
+                  <h4 class="h6 fw-bold mb-1">Gusset Alas Bawah &amp; Samping</h4>
+                  <p class="small text-muted mb-0">Memberikan ruang tampung ekstra serta membuat tas dapat berdiri tegak ketika diletakkan di atas meja.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kesalahan Umum Pengadaan -->
+      <div class="p-4 p-md-5 rounded-4 bg-white border border-danger-subtle mb-5">
+        <h2 class="h4 fw-bold text-danger mb-3">4 Hal Penting Dihindari Saat Pemesanan Custom</h2>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <div class="border rounded-3 p-3 bg-light">
+              <strong class="d-block text-dark mb-1">1. Mengabaikan Uji Muat Fisik</strong>
+              <span class="small text-muted">Hanya mengira-ngira ukuran tanpa mengukur laptop atau barang bawaan wajib peserta/karyawan secara riil.</span>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="border rounded-3 p-3 bg-light">
+              <strong class="d-block text-dark mb-1">2. Tali Terlalu Pendek</strong>
+              <span class="small text-muted">Tali jinjing digunakan di pundak sehingga tas tersangkut di ketiak saat pengguna mengenakan jaket/blazer tebal.</span>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="border rounded-3 p-3 bg-light">
+              <strong class="d-block text-dark mb-1">3. Tanpa Penguat Jahitan Tali</strong>
+              <span class="small text-muted">Jahitan tali hanya 1 garis lurus tanpa jahitan silang (cross-box stitch), rentan lepas bila memuat beban berat.</span>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="border rounded-3 p-3 bg-light">
+              <strong class="d-block text-dark mb-1">4. Menyetujui Sablon Tanpa Proof Ukuran</strong>
+              <span class="small text-muted">Posisi cetak logo terlalu tinggi atau terlalu rendah sehingga tertutup oleh lipatan saat tas dijinjing.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="mb-5">
+        <div class="text-center max-w-75 mx-auto mb-4">
+          <h2 class="h3 fw-bold mb-2">Pertanyaan Seputar Tas Tote Bag Wanita</h2>
+          <p class="text-muted small">Jawaban teknis langsung dari tim produksi konveksi ToteBag.</p>
+        </div>
+        <div class="max-w-75 mx-auto">
+          <FAQAccordion items={faqItems} defaultOpen={0} />
+        </div>
+      </div>
+
+      <!-- CTA Box -->
+      <div class="p-4 p-md-5 rounded-4 text-white text-center shadow" style="background: linear-gradient(135deg, #1B4D3E 0%, #0d2820 100%);">
+        <h2 class="h3 fw-bold mb-3">Konsultasikan Spesifikasi Tas Tote Bag Wanita Anda</h2>
+        <p class="max-w-75 mx-auto text-white-50 mb-4" style="line-height: 1.7;">
+          Diskusikan ukuran pola, contoh bahan kain, simulasi penempatan logo, hingga estimasi waktu produksi bersama spesialis kami di Malang. Kami siap mengirimkan sampel fisik sebelum pengerjaan massal.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href={waConsultUrl} target="_blank" rel="noopener noreferrer" class="btn btn-warning btn-lg fw-bold">
+            Konsultasi Spesifikasi via WA
+          </a>
+          <a href="/tote-bag-custom/" class="btn btn-outline-light btn-lg">
+            Lihat Layanan Custom
+          </a>
+        </div>
+      </div>
+
+      <!-- Related Navigation -->
+      <div class="mt-4 text-center">
+        <p class="small text-muted">
+          Lihat juga panduan lainnya: <a href="/tote-bag-custom/" class="text-decoration-underline text-success">Tote Bag Custom</a> &bull; <a href="/harga-tote-bag-custom/" class="text-decoration-underline text-success">Panduan Estimasi Harga</a> &bull; <a href="/panduan-produksi-tote-bag/" class="text-decoration-underline text-success">Alur Produksi Garansi</a> &bull; <a href="/kontak/" class="text-decoration-underline text-success">Hubungi Tim Kami</a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

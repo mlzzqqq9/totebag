@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgBlacuHero" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBF9F4"/>
+      <stop offset="100%" stop-color="#ECE5D6"/>
+    </linearGradient>
+    <filter id="shadowBlH2" x="-10%" y="-10%" width="125%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#3A3226" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="600" height="450" fill="url(#bgBlacuHero)" rx="16"/>
+  <ellipse cx="300" cy="385" rx="140" ry="14" fill="#3A3226" opacity="0.10"/>
+
+  <g filter="url(#shadowBlH2)">
+    <path d="M225 205 C225 90, 375 90, 375 205" fill="none" stroke="#D4CCBA" stroke-width="12" stroke-linecap="round"/>
+    <path d="M225 205 C225 90, 375 90, 375 205" fill="none" stroke="#F5EFE0" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#shadowBlH2)">
+    <path d="M195 190 L405 190 L395 380 C393 388 385 390 375 390 L225 390 C215 390 207 388 205 380 Z" fill="#F8F3E6" stroke="#DED6C4" stroke-width="2"/>
+  </g>
+  <line x1="205" y1="200" x2="395" y2="200" stroke="#B8AE9C" stroke-width="1.8" stroke-dasharray="3 3"/>
+
+  <g transform="translate(250, 240)">
+    <circle cx="50" cy="40" r="30" fill="none" stroke="#173F38" stroke-width="3"/>
+    <path d="M40 40 L50 28 L60 40 Z" fill="#173F38"/>
+    <text x="50" y="88" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700" fill="#173F38" text-anchor="middle" letter-spacing="1">BLACU NATURAL</text>
+    <text x="50" y="103" font-family="'Inter', sans-serif" font-size="9" font-weight="600" fill="#626D68" text-anchor="middle">SUPER GRADE A</text>
+  </g>
+</svg>

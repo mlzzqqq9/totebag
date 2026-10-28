@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4EFE6"/>
+      <stop offset="100%" stop-color="#E8E2D5"/>
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="125%" height="130%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#173F38" flood-opacity="0.14"/>
+    </filter>
+    <pattern id="canvasWeave" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M0 4 L8 4 M4 0 L4 8" stroke="#D3CDC0" stroke-width="0.8"/>
+    </pattern>
+  </defs>
+  <!-- Background Studio Surface -->
+  <rect width="600" height="450" fill="url(#bgGrad)" rx="16"/>
+  <!-- Bag Shadow on Floor -->
+  <ellipse cx="300" cy="385" rx="140" ry="18" fill="#173F38" opacity="0.15"/>
+
+  <!-- Handles -->
+  <g filter="url(#dropShadow)">
+    <path d="M225 210 C225 90, 375 90, 375 210" fill="none" stroke="#0E2E29" stroke-width="14" stroke-linecap="round"/>
+    <path d="M225 210 C225 90, 375 90, 375 210" fill="none" stroke="#173F38" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Bag Body -->
+  <g filter="url(#dropShadow)">
+    <path d="M190 195 L410 195 L395 380 C393 388 385 392 375 392 L225 392 C215 392 207 388 205 380 Z" fill="#173F38"/>
+    <!-- Subtle fabric texture overlay -->
+    <path d="M190 195 L410 195 L395 380 C393 388 385 392 375 392 L225 392 C215 392 207 388 205 380 Z" fill="url(#canvasWeave)" opacity="0.18"/>
+  </g>
+
+  <!-- Bag Gusset Depth Fold -->
+  <path d="M190 195 L220 200 L230 388 L205 380 Z" fill="#0E2E29" opacity="0.35"/>
+
+  <!-- Double Top Stitches -->
+  <line x1="200" y1="205" x2="400" y2="205" stroke="#C18755" stroke-width="2" stroke-dasharray="4 3"/>
+  <line x1="202" y1="210" x2="398" y2="210" stroke="#C18755" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- Handle Stitch Tabs (Reinforced X-box) -->
+  <rect x="235" y="200" width="18" height="24" fill="#0E2E29" rx="2"/>
+  <line x1="237" y1="202" x2="251" y2="222" stroke="#C18755" stroke-width="1.5"/>
+  <line x1="251" y1="202" x2="237" y2="222" stroke="#C18755" stroke-width="1.5"/>
+
+  <rect x="347" y="200" width="18" height="24" fill="#0E2E29" rx="2"/>
+  <line x1="349" y1="202" x2="363" y2="222" stroke="#C18755" stroke-width="1.5"/>
+  <line x1="363" y1="202" x2="349" y2="222" stroke="#C18755" stroke-width="1.5"/>
+
+  <!-- Front Custom Screenprint / DTF Mockup -->
+  <g transform="translate(255, 250)">
+    <circle cx="45" cy="35" r="28" fill="none" stroke="#C18755" stroke-width="3"/>
+    <path d="M35 35 L45 22 L55 35 Z" fill="#C18755"/>
+    <text x="45" y="78" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">CANVAS TWILL</text>
+    <text x="45" y="93" font-family="'Inter', sans-serif" font-size="9" font-weight="500" fill="#C18755" text-anchor="middle" letter-spacing="1">PREMIUM 12 OZ</text>
+  </g>
+</svg>

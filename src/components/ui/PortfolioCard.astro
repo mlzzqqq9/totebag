@@ -1,0 +1,66 @@
+---
+import type { PortfolioItem } from '@/data/siteData';
+
+interface Props {
+  item: PortfolioItem;
+}
+
+const { item } = Astro.props;
+---
+
+<article class="custom-card h-100 d-flex flex-column">
+  <div class="product-img-wrapper" style="aspect-ratio: 16 / 10;">
+    <img 
+      src={item.imageUrl} 
+      alt={item.altText} 
+      loading="lazy" 
+      width="450" 
+      height="280"
+    />
+    <span class="badge-accent position-absolute top-0 end-0 m-3">
+      {item.qty}
+    </span>
+  </div>
+
+  <div class="p-4 d-flex flex-column flex-grow-1">
+    <div class="d-flex align-items-center gap-2 text-muted small mb-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#173F38" viewBox="0 0 16 16">
+        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+      </svg>
+      <span>{item.city}</span>
+      <span>•</span>
+      <span>{item.date}</span>
+    </div>
+
+    <h3 class="h5 fw-bold mb-2">
+      <a href={`/portofolio/${item.slug}/`} class="text-decoration-none text-reset">
+        {item.title}
+      </a>
+    </h3>
+
+    <div class="small text-muted mb-3 flex-grow-1">
+      <p class="mb-2"><strong>Brief:</strong> {item.brief}</p>
+      <div class="p-2 rounded-2 bg-light border">
+        <strong class="text-success d-block mb-1">Hasil &amp; Solusi:</strong>
+        {item.keyTakeaway}
+      </div>
+    </div>
+
+    <div class="py-2 border-top border-bottom small mb-3">
+      <div class="row g-1">
+        <div class="col-6">
+          <span class="text-muted d-block">Bahan:</span>
+          <span class="fw-semibold">{item.material}</span>
+        </div>
+        <div class="col-6">
+          <span class="text-muted d-block">Teknik Cetak:</span>
+          <span class="fw-semibold">{item.technique}</span>
+        </div>
+      </div>
+    </div>
+
+    <a href={`/portofolio/${item.slug}/`} class="btn btn-brand-outline btn-sm align-self-start mt-auto">
+      <span>Baca Studi Kasus</span> &rarr;
+    </a>
+  </div>
+</article>

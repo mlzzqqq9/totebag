@@ -1,0 +1,580 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CategoryCard from '@/components/ui/CategoryCard.astro';
+import ProductCard from '@/components/ui/ProductCard.astro';
+import PortfolioCard from '@/components/ui/PortfolioCard.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import ClientSlider from '@/components/ui/ClientSlider.astro';
+import TestimonialSection from '@/components/ui/TestimonialSection.astro';
+import { businessProfile, categories, products, portfolioItems, articles, faqs, getWhatsAppUrl } from '@/data/siteData';
+
+const heroWaUrl = getWhatsAppUrl({
+  notes: "Konsultasi dari Hero Beranda",
+  sourcePage: "/"
+});
+
+const featuredProducts = products.slice(0, 4);
+const featuredPortfolio = portfolioItems.slice(0, 3);
+const featuredArticles = articles.slice(0, 3);
+const generalFaqs = faqs.slice(0, 5);
+
+// Schema WebSite & Organization
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://totebag.web.id/#organization",
+      "name": "Tote Bag Custom Malang",
+      "url": "https://totebag.web.id",
+      "logo": "https://totebag.web.id/favicon.svg",
+      "telephone": "+6282131087971",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Kedungkandang",
+        "addressLocality": "Malang",
+        "addressRegion": "Jawa Timur",
+        "postalCode": "65136",
+        "addressCountry": "ID"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://totebag.web.id/#website",
+      "url": "https://totebag.web.id/",
+      "name": "Tote Bag Custom B2B",
+      "description": "Penyedia tote bag custom untuk perusahaan, instansi, seminar, dan event berbasis di Malang.",
+      "publisher": {
+        "@id": "https://totebag.web.id/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://totebag.web.id/#webpage",
+      "url": "https://totebag.web.id/",
+      "name": "Tote Bag Custom untuk Perusahaan, Seminar, dan Event | totebag.web.id",
+      "isPartOf": {
+        "@id": "https://totebag.web.id/#website"
+      },
+      "about": {
+        "@id": "https://totebag.web.id/#organization"
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Tote Bag Custom untuk Perusahaan, Seminar, dan Event — Malang B2B"
+  description="Penyedia tote bag custom untuk perusahaan, instansi, seminar, dan event berbasis di Malang. Bahan canvas, blacu, spunbond, dan kulit sintetis dengan layanan pengiriman antarkota."
+  canonicalUrl="https://totebag.web.id/"
+  jsonLd={homeSchema}
+>
+  <!-- Hero Section -->
+  <section class="section-space pt-4 pt-lg-5 pb-5">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <!-- Hero Text -->
+        <div class="col-12 col-lg-6">
+          <div class="badge-accent mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+            </svg>
+            <span>CUSTOM MERCHANDISE • BASIS MALANG</span>
+          </div>
+
+          <h1 class="hero-title mb-3">
+            Tote Bag Custom untuk Perusahaan, Seminar, dan Event
+          </h1>
+
+          <p class="lead text-muted mb-4 fs-6 fs-md-5">
+            Pilih bahan, ukuran, dan kebutuhan branding tote bag untuk acara maupun pengadaan perusahaan Anda. Dikerjakan dengan kontrol kualitas jahitan rapi, opsi sampel fisik, dan jalur pengiriman antarkota terpercaya.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2 gap-sm-3 mb-4">
+            <a href={heroWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+              </svg>
+              <span>Konsultasi via WhatsApp</span>
+            </a>
+            <a href="/produk/" class="btn btn-brand-outline btn-lg">
+              <span>Lihat Katalog Bahan</span>
+            </a>
+          </div>
+
+          <!-- Trust points -->
+          <div class="row g-3 pt-3 border-top small text-muted">
+            <div class="col-6 col-sm-4 d-flex align-items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#173F38" viewBox="0 0 16 16">
+                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+              </svg>
+              <span>Opsi Sampel Fisik</span>
+            </div>
+            <div class="col-6 col-sm-4 d-flex align-items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#173F38" viewBox="0 0 16 16">
+                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+              </svg>
+              <span>Jahitan Double-Stitch</span>
+            </div>
+            <div class="col-12 col-sm-4 d-flex align-items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#173F38" viewBox="0 0 16 16">
+                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+              </svg>
+              <span>Kargo Hemat Antarkota</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Graphic -->
+        <div class="col-12 col-lg-6">
+          <div class="position-relative">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
+              <img 
+                src="/media/canvas-hero.svg" 
+                alt="Studio foto tote bag canvas twill hijau pinus B2B" 
+                width="600" 
+                height="450" 
+                class="w-100 h-100 object-fit-cover"
+              />
+            </div>
+            <!-- Floating Spec Tag -->
+            <div class="position-absolute bottom-0 start-0 m-3 p-3 bg-white rounded-3 shadow border d-none d-sm-flex align-items-center gap-3">
+              <div class="p-2 rounded bg-light">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#173F38" viewBox="0 0 16 16">
+                  <path d="M8 1a2 2 0 0 1 2 2v2H6V3a2 2 0 0 1 2-2m3 4V3a3 3 0 1 0-6 0v2H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="fw-bold small text-dark">Canvas Twill 12 oz</div>
+                <div class="small text-muted">Muat Laptop 14" • Tahan Beban 8 kg</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Slider Section (Loved by Brands, Trusted by Clients) -->
+  <ClientSlider 
+    title="Dipercaya Berbagai Brand &amp; Mitra Nasional"
+    subtitle="Bukti kepuasan institusi BUMN, kampus perguruan tinggi, perbankan, dan korporat swasta yang mempercayakan pengadaan tote bag kepada kami."
+  />
+
+  <!-- Kategori Bahan Section -->
+  <section class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="row justify-content-between align-items-end mb-4 mb-lg-5">
+        <div class="col-12 col-lg-8">
+          <span class="badge-accent mb-2">PILIHAN MATERIAL</span>
+          <h2 class="section-title mb-2">Pilih Bahan Sesuai Kebutuhan &amp; Anggaran</h2>
+          <p class="section-subtitle mb-0">
+            Setiap bahan memiliki karakter tekstur, daya muat, dan fungsi yang berbeda. Jelajahi spesifikasi teknis masing-masing kain.
+          </p>
+        </div>
+        <div class="col-12 col-lg-4 text-lg-end mt-3 mt-lg-0">
+          <a href="/produk/" class="btn btn-brand-outline btn-sm">
+            Lihat Semua Kategori &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        {categories.map(cat => (
+          <div class="col-12 col-sm-6 col-lg-3">
+            <CategoryCard category={cat} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solusi Pengadaan Section -->
+  <section class="section-space">
+    <div class="container">
+      <div class="text-center max-w-75 mx-auto mb-5">
+        <span class="badge-accent mb-2">SOLUSI PENGADAAN B2B</span>
+        <h2 class="section-title mb-3">Dirancang untuk Berbagai Kebutuhan Organisasi</h2>
+        <p class="section-subtitle mx-auto">
+          Mulai dari onboarding kit karyawan baru hingga seminar massal ribuan peserta, kami menyediakan alur kerja yang transparan dan tepat waktu.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Solution 1: Perusahaan -->
+        <div class="col-12 col-md-4">
+          <div class="p-4 p-lg-5 rounded-4 border bg-white h-100 d-flex flex-column">
+            <div class="p-3 rounded-3 bg-light d-inline-flex mb-3 align-self-start">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#173F38" viewBox="0 0 16 16">
+                <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm1 .5v10h6V3z"/>
+                <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm1 0v14h10V1z"/>
+              </svg>
+            </div>
+            <h3 class="h4 fw-bold mb-3">Pengadaan Korporat &amp; HRD</h3>
+            <p class="text-muted small mb-4 flex-grow-1">
+              Merchandise onboarding karyawan, tas seminar eksekutif, dan gift akhir tahun berstandar branding tinggi. Lengkap dengan opsi faktur dan laporan pengadaan.
+            </p>
+            <ul class="list-unstyled small text-muted mb-4 d-flex flex-column gap-2">
+              <li class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle bg-success-subtle text-success p-1">✓</span>
+                <span>Rekomendasi Canvas Twill &amp; Kulit</span>
+              </li>
+              <li class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle bg-success-subtle text-success p-1">✓</span>
+                <span>Muat Laptop &amp; Kompartemen Rapi</span>
+              </li>
+            </ul>
+            <a href="/tote-bag-perusahaan/" class="btn btn-brand-outline btn-sm align-self-start mt-auto">
+              <span>Pelajari Solusi Perusahaan</span> &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Solution 2: Seminar & Event -->
+        <div class="col-12 col-md-4">
+          <div class="p-4 p-lg-5 rounded-4 border bg-white h-100 d-flex flex-column">
+            <div class="p-3 rounded-3 bg-light d-inline-flex mb-3 align-self-start">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#173F38" viewBox="0 0 16 16">
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+              </svg>
+            </div>
+            <h3 class="h4 fw-bold mb-3">Seminar, Kampus &amp; Event</h3>
+            <p class="text-muted small mb-4 flex-grow-1">
+              Tas seminar kit beranggaran efisien untuk panitia konferensi, lokakarya, dan pameran. Menampung ordner dokumen A4, tumbler, dan sertifikat dengan aman.
+            </p>
+            <ul class="list-unstyled small text-muted mb-4 d-flex flex-column gap-2">
+              <li class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle bg-success-subtle text-success p-1">✓</span>
+                <span>Rekomendasi Blacu Super &amp; Spunbond</span>
+              </li>
+              <li class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle bg-success-subtle text-success p-1">✓</span>
+                <span>Waktu Pengerjaan Terukur Sesuai Deadline</span>
+              </li>
+            </ul>
+            <a href="/tote-bag-seminar/" class="btn btn-brand-outline btn-sm align-self-start mt-auto">
+              <span>Pelajari Solusi Seminar</span> &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Solution 3: Custom Sablon & DTF -->
+        <div class="col-12 col-md-4">
+          <div class="p-4 p-lg-5 rounded-4 border bg-white h-100 d-flex flex-column">
+            <div class="p-3 rounded-3 bg-light d-inline-flex mb-3 align-self-start">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#173F38" viewBox="0 0 16 16">
+                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+              </svg>
+            </div>
+            <h3 class="h4 fw-bold mb-3">Custom Sablon, DTF &amp; Bordir</h3>
+            <p class="text-muted small mb-4 flex-grow-1">
+              Fleksibilitas teknik aplikasi logo mulai dari sablon manual rubber 1-3 warna, digital DTF full-color gradasi, hingga bordir komputer tahan lama.
+            </p>
+            <ul class="list-unstyled small text-muted mb-4 d-flex flex-column gap-2">
+              <li class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle bg-success-subtle text-success p-1">✓</span>
+                <span>Simulasi Preview Mockup Gratis</span>
+              </li>
+              <li class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle bg-success-subtle text-success p-1">✓</span>
+                <span>Tinta Ramah Tekstil &amp; Tidak Mudah Pecah</span>
+              </li>
+            </ul>
+            <a href="/tote-bag-custom/" class="btn btn-brand-outline btn-sm align-self-start mt-auto">
+              <span>Lihat Pilihan Teknik Cetak</span> &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keunggulan Faktual (Verifiable Benefits) -->
+  <section class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-12 col-lg-5">
+          <span class="badge-accent mb-2">STANDAR KUALITAS B2B</span>
+          <h2 class="section-title mb-3">Mengapa Perusahaan &amp; Panitia Memilih Kami</h2>
+          <p class="text-muted mb-4">
+            Kami mengutamakan kejelasan spesifikasi kain dan ketepatan jahitan tanpa klaim berlebihan. Setiap pesanan melalui proses pemeriksaan ganda sebelum dikemas ke dalam kardus ekspedisi.
+          </p>
+          <a href="/cara-pesan/" class="btn btn-brand">
+            Pelajari Prosedur Pemesanan
+          </a>
+        </div>
+
+        <div class="col-12 col-lg-7">
+          <div class="row g-4">
+            <div class="col-12 col-sm-6">
+              <div class="p-4 rounded-4 bg-white border h-100">
+                <div class="text-success fs-3 mb-2">01</div>
+                <h3 class="h5 fw-bold mb-2">Jahitan Bartack Silang</h3>
+                <p class="small text-muted mb-0">
+                  Sambungan pangkal tali ke badan tas dijahit silang (X-box) untuk mencegah putus saat membawa barang berat seperti laptop atau buku.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="p-4 rounded-4 bg-white border h-100">
+                <div class="text-success fs-3 mb-2">02</div>
+                <h3 class="h5 fw-bold mb-2">Sampel Proofing Fisik</h3>
+                <p class="small text-muted mb-0">
+                  Untuk pesanan kuantiti di atas 300 pcs, kami membuatkan 1 unit sampel fisik nyata sebelum memotong ratusan lembar kain.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="p-4 rounded-4 bg-white border h-100">
+                <div class="text-success fs-3 mb-2">03</div>
+                <h3 class="h5 fw-bold mb-2">Akurasi Warna Logo</h3>
+                <p class="small text-muted mb-0">
+                  Pencampuran pasta sablon disesuaikan dengan panduan warna brand (Pantone/CMYK) agar identitas visual perusahaan terjaga.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="p-4 rounded-4 bg-white border h-100">
+                <div class="text-success fs-3 mb-2">04</div>
+                <h3 class="h5 fw-bold mb-2">Kemitraan Kargo Aman</h3>
+                <p class="small text-muted mb-0">
+                  Bekerja sama dengan kargo volume darat dan udara untuk menekan biaya ongkos kirim pesanan ratusan tas ke berbagai kota di Indonesia.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Produk Unggulan Section -->
+  <section class="section-space">
+    <div class="container">
+      <div class="row justify-content-between align-items-end mb-4 mb-lg-5">
+        <div class="col-12 col-lg-8">
+          <span class="badge-accent mb-2">KATALOG REKOMENDASI</span>
+          <h2 class="section-title mb-2">Model Tote Bag Terpopuler</h2>
+          <p class="section-subtitle mb-0">
+            Pilihan model tote bag yang telah teruji dalam berbagai pengadaan korporat dan seminar akademik.
+          </p>
+        </div>
+        <div class="col-12 col-lg-4 text-lg-end mt-3 mt-lg-0">
+          <a href="/produk/" class="btn btn-brand-outline">
+            Lihat Semua Produk &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        {featuredProducts.map(prod => (
+          <div class="col-12 col-sm-6 col-lg-3">
+            <ProductCard product={prod} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Portofolio Nyata Section -->
+  <section class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="row justify-content-between align-items-end mb-4 mb-lg-5">
+        <div class="col-12 col-lg-8">
+          <span class="badge-accent mb-2">BUKTI PENGERJAAN NYATA</span>
+          <h2 class="section-title mb-2">Portofolio &amp; Dokumentasi Pesanan</h2>
+          <p class="section-subtitle mb-0">
+            Hanya menampilkan pesanan nyata yang telah selesai diproduksi dan dikirimkan ke mitra kami di berbagai kota.
+          </p>
+        </div>
+        <div class="col-12 col-lg-4 text-lg-end mt-3 mt-lg-0">
+          <a href="/portofolio/" class="btn btn-brand-outline">
+            Semua Studi Kasus &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        {featuredPortfolio.map(item => (
+          <div class="col-12 col-md-4">
+            <PortfolioCard item={item} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Langkah Pemesanan (Alur Ringkas) -->
+  <section class="section-space">
+    <div class="container">
+      <div class="text-center max-w-75 mx-auto mb-5">
+        <span class="badge-accent mb-2">ALUR KERJA PRAKTIS</span>
+        <h2 class="section-title mb-3">Cara Memesan Tote Bag Custom</h2>
+        <p class="section-subtitle mx-auto">
+          Proses pemesanan terstruktur untuk menjamin keakuratan spesifikasi sebelum masuk ke lini produksi massal.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="p-4 rounded-4 border bg-white h-100 position-relative">
+            <div class="fs-1 fw-bold text-success opacity-50 mb-2">01</div>
+            <h3 class="h5 fw-bold mb-2">Konsultasi &amp; Brief</h3>
+            <p class="small text-muted mb-0">
+              Kirimkan jenis bahan, perkiraan kuantiti, ukuran, dan lampiran logo via WhatsApp ke tim kami.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="p-4 rounded-4 border bg-white h-100 position-relative">
+            <div class="fs-1 fw-bold text-success opacity-50 mb-2">02</div>
+            <h3 class="h5 fw-bold mb-2">Penawaran &amp; Mockup</h3>
+            <p class="small text-muted mb-0">
+              Kami menyusun rincian estimasi biaya resmi beserta preview digital peletakan logo pada tas.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="p-4 rounded-4 border bg-white h-100 position-relative">
+            <div class="fs-1 fw-bold text-success opacity-50 mb-2">03</div>
+            <h3 class="h5 fw-bold mb-2">Sampel &amp; Produksi</h3>
+            <p class="small text-muted mb-0">
+              Setelah konfirmasi DP, sampel fisik disiapkan (bila diperlukan) lalu kain dipotong dan dijahit massal.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="p-4 rounded-4 border bg-white h-100 position-relative">
+            <div class="fs-1 fw-bold text-success opacity-50 mb-2">04</div>
+            <h3 class="h5 fw-bold mb-2">QC &amp; Ekspedisi</h3>
+            <p class="small text-muted mb-0">
+              Pemeriksaan jahitan dan sablon satu per satu, packing kardus rapi, dan pengiriman via kargo terpercaya.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="/cara-pesan/" class="btn btn-brand-outline btn-sm">
+          Baca Prosedur Lengkap &amp; Syarat Pesanan &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <TestimonialSection 
+    title="Apa Kata Klien &amp; Mitra Pengadaan Kami"
+    subtitle="Testimoni nyata dari tim pengadaan PLN, Universitas Brawijaya, Bank Mandiri, PAMA, KIDECO, Kejaksaan Agung, dan mitra nasional lainnya."
+  />
+
+  <!-- FAQ Section -->
+  <section class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="row justify-content-between align-items-start g-5">
+        <div class="col-12 col-lg-5">
+          <span class="badge-accent mb-2">TANYA JAWAB B2B</span>
+          <h2 class="section-title mb-3">Pertanyaan yang Sering Diajukan</h2>
+          <p class="text-muted mb-4">
+            Informasi penting terkait minimal pemesanan (MOQ), waktu pengerjaan, format file desain, dan garansi produksi.
+          </p>
+          <div class="p-4 rounded-4 bg-white border">
+            <div class="fw-bold mb-2">Punya pertanyaan spesifik lainnya?</div>
+            <p class="small text-muted mb-3">
+              Tim produksi kami siap menjawab detail teknis mengenai ketebalan kain maupun estimasi biaya.
+            </p>
+            <a href={heroWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-sm w-100">
+              Tanyakan via WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-7">
+          <FAQAccordion items={generalFaqs} accordionId="homeFaq" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artikel Blog Terbaru -->
+  <section class="section-space">
+    <div class="container">
+      <div class="row justify-content-between align-items-end mb-4 mb-lg-5">
+        <div class="col-12 col-lg-8">
+          <span class="badge-accent mb-2">EDUKASI MATERIAL</span>
+          <h2 class="section-title mb-2">Artikel &amp; Panduan Pengadaan</h2>
+          <p class="section-subtitle mb-0">
+            Panduan praktis memilih kain, menentukan ukuran tas seminar, dan membandingkan teknik cetak logo.
+          </p>
+        </div>
+        <div class="col-12 col-lg-4 text-lg-end mt-3 mt-lg-0">
+          <a href="/blog/" class="btn btn-brand-outline">
+            Semua Artikel &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        {featuredArticles.map(art => (
+          <div class="col-12 col-md-4">
+            <article class="custom-card h-100 d-flex flex-column">
+              <div class="product-img-wrapper" style="aspect-ratio: 16 / 9;">
+                <img 
+                  src={art.imageUrl} 
+                  alt={art.altText} 
+                  loading="lazy" 
+                  width="400" 
+                  height="225"
+                />
+              </div>
+              <div class="p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between text-muted small mb-2">
+                  <span class="badge-brand">{art.category}</span>
+                  <span>{art.readTime}</span>
+                </div>
+                <h3 class="h5 fw-bold mb-2">
+                  <a href={`/blog/${art.slug}/`} class="text-decoration-none text-reset">
+                    {art.title}
+                  </a>
+                </h3>
+                <p class="small text-muted mb-3 flex-grow-1">
+                  {art.excerpt}
+                </p>
+                <a href={`/blog/${art.slug}/`} class="btn btn-brand-outline btn-sm align-self-start mt-auto">
+                  <span>Baca Panduan Lengkap</span> &rarr;
+                </a>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA Band -->
+  <section class="section-space py-5 bg-brand-dark text-white text-center">
+    <div class="container py-4">
+      <div class="max-w-75 mx-auto">
+        <h2 class="h1 fw-bold text-white mb-3">Siap Mengkonsultasikan Pengadaan Tote Bag Anda?</h2>
+        <p class="lead text-white-50 mb-4 fs-6 fs-md-5">
+          Diskusikan estimasi kuantiti, bahan, deadline pengerjaan, dan simulasi penempatan logo bersama tim kami. Dapatkan respon cepat dan penawaran transparan.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2 gap-sm-3">
+          <a href={heroWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+            </svg>
+            <span>Konsultasi Cepat via WhatsApp</span>
+          </a>
+          <a href="/kontak/" class="btn btn-outline-light btn-lg">
+            <span>Isi Brief RFQ Tertulis</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

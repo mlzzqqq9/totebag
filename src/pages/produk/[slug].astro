@@ -1,0 +1,291 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import ProductCard from '@/components/ui/ProductCard.astro';
+import FAQAccordion from '@/components/ui/FAQAccordion.astro';
+import { products, categories, faqs, getWhatsAppUrl } from '@/data/siteData';
+
+export async function getStaticPaths() {
+  return products.map(product => ({
+    params: { slug: product.slug },
+    props: { product }
+  }));
+}
+
+const { product } = Astro.props;
+const category = categories.find(c => c.slug === product.categorySlug)!;
+const relatedProducts = products.filter(p => p.categorySlug === product.categorySlug && p.id !== product.id);
+const productFaqs = faqs.slice(0, 4);
+
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Katalog Produk', url: '/produk/' },
+  { name: category.shortName, url: `/produk/${category.slug}/` },
+  { name: product.name, url: `/produk/${product.slug}/` }
+];
+
+const rfqWaUrl = getWhatsAppUrl({
+  productName: product.name,
+  categoryName: category.title,
+  sourcePage: `/produk/${product.slug}/`
+});
+
+// JSON-LD Product Schema
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.name,
+  "description": product.description,
+  "image": `https://totebag.web.id${product.imageUrl}`,
+  "sku": product.id,
+  "category": category.title,
+  "material": product.material,
+  "brand": {
+    "@type": "Brand",
+    "name": "Tote Bag Custom B2B"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": `https://totebag.web.id/produk/${product.slug}/`,
+    "priceCurrency": "IDR",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@id": "https://totebag.web.id/#organization"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title={`${product.name} — Spesifikasi & Penawaran B2B`}
+  description={`Spesifikasi teknis ${product.name}. Bahan ${product.material}, dimensi ${product.dimensions}. Opsi custom sablon, DTF, bordir untuk merchandise perusahaan dan seminar.`}
+  canonicalUrl={`https://totebag.web.id/produk/${product.slug}/`}
+  ogImage={`https://totebag.web.id${product.imageUrl}`}
+  jsonLd={productSchema}
+  productName={product.name}
+  categoryName={category.title}
+>
+  <div class="container pt-3">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+
+  <!-- Product Hero & Overview -->
+  <section class="section-space-sm pt-2">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Visual Gallery / Studio Shot -->
+        <div class="col-12 col-lg-6">
+          <div class="p-4 rounded-4 border bg-surface-alt text-center">
+            <div class="product-img-wrapper rounded-3 mb-3" style="aspect-ratio: 4 / 3;">
+              <img 
+                src={product.imageUrl} 
+                alt={product.altText} 
+                width="600" 
+                height="450" 
+                class="w-100 h-100 object-fit-contain"
+              />
+            </div>
+            <div class="d-flex justify-content-center gap-2 small text-muted">
+              <span>Ilustrasi proporsi model &amp; detail jahitan</span>
+              <span>•</span>
+              <span class="fw-semibold text-dark">{product.dimensions}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Information & Actions -->
+        <div class="col-12 col-lg-6 d-flex flex-column">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <a href={`/produk/${category.slug}/`} class="badge-brand text-decoration-none">
+              {category.title}
+            </a>
+            <span class="badge-accent">KODE: {product.id}</span>
+          </div>
+
+          <h1 class="h2 fw-bold mb-3">{product.name}</h1>
+
+          <p class="text-muted mb-4 fs-6">
+            {product.description}
+          </p>
+
+          <!-- Key Highlights -->
+          <div class="p-3 rounded-3 bg-light border mb-4">
+            <div class="fw-bold text-dark small mb-2">Fitur &amp; Karakter Kunci:</div>
+            <ul class="list-unstyled mb-0 small d-flex flex-column gap-1 text-muted">
+              {product.features.map(feat => (
+                <li class="d-flex align-items-center gap-2">
+                  <span class="badge rounded-circle bg-success text-white p-1">✓</span>
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Direct CTA Box -->
+          <div class="p-4 rounded-4 bg-surface-alt border mt-auto">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-bold text-dark">Informasi Penawaran &amp; MOQ:</span>
+              <span class="badge-brand">{product.specTable.rekomendasiQty}</span>
+            </div>
+            <p class="small text-muted mb-3">
+              Harga final ditentukan oleh jumlah pesanan (pcs), jumlah warna/ukuran sablon, dan target waktu pengerjaan. Dapatkan kalkulasi penawaran resmi langsung via WhatsApp.
+            </p>
+            <a 
+              href={rfqWaUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="btn btn-brand w-100 py-3 d-flex align-items-center justify-content-center gap-2 fs-6"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.364 2.76 1.057 3.96L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+              </svg>
+              <span>Minta Penawaran SKU Ini via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Specifications Table -->
+  <section class="section-space">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-12 col-lg-8">
+          <div class="mb-4">
+            <span class="badge-accent mb-2">SPESIFIKASI TEKNIS</span>
+            <h2 class="h3 fw-bold mb-2">Tabel Rincian Spesifikasi Produk</h2>
+            <p class="text-muted small mb-0">Rincian parameter bahan, ukuran, opsi penutup, dan estimasi waktu produksi.</p>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-specs w-100">
+              <tbody>
+                <tr>
+                  <th>Nama Bahan</th>
+                  <td class="fw-semibold text-dark">{product.specTable.material}</td>
+                </tr>
+                {product.specTable.gramasi && (
+                  <tr>
+                    <th>Perkiraan Gramasi</th>
+                    <td>{product.specTable.gramasi}</td>
+                  </tr>
+                )}
+                <tr>
+                  <th>Ukuran Standard</th>
+                  <td>{product.specTable.ukuranStandard}</td>
+                </tr>
+                <tr>
+                  <th>Opsi Tali Handle</th>
+                  <td>{product.specTable.pilihanTali}</td>
+                </tr>
+                <tr>
+                  <th>Pilihan Penutup</th>
+                  <td>{product.specTable.pilihanPenutup}</td>
+                </tr>
+                <tr>
+                  <th>Kompatibilitas Sablon</th>
+                  <td>{product.specTable.opsiCetak}</td>
+                </tr>
+                <tr>
+                  <th>Rekomendasi Pemesanan</th>
+                  <td>{product.specTable.rekomendasiQty}</td>
+                </tr>
+                <tr>
+                  <th>Estimasi Waktu Pengerjaan</th>
+                  <td>{product.specTable.estimasiPengerjaan}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Opsi Kustomisasi -->
+          <div class="mt-5">
+            <h3 class="h4 fw-bold mb-3">Pilihan Kustomisasi Tambahan</h3>
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <div class="p-3 rounded-3 bg-surface-alt border h-100">
+                  <div class="fw-bold text-dark small mb-1">Custom Ukuran (Panjang × Tinggi × Gusset)</div>
+                  <p class="small text-muted mb-0">Sesuaikan dimensi tas dengan tebal dokumen, buku panduan, atau ukuran laptop khusus organisasi Anda.</p>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="p-3 rounded-3 bg-surface-alt border h-100">
+                  <div class="fw-bold text-dark small mb-1">Furing &amp; Saku Dalam</div>
+                  <p class="small text-muted mb-0">Dapat ditambahkan lapisan furing satin/drill halus serta saku kecil beresleting untuk kartu akses dan handphone.</p>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="p-3 rounded-3 bg-surface-alt border h-100">
+                  <div class="fw-bold text-dark small mb-1">Pilihan Penutup Tas</div>
+                  <p class="small text-muted mb-0">Pilihan model terbuka, resleting YKK berkualitas anti macet, perekat velcro, atau kancing magnet tersembunyi.</p>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="p-3 rounded-3 bg-surface-alt border h-100">
+                  <div class="fw-bold text-dark small mb-1">Packaging Khusus</div>
+                  <p class="small text-muted mb-0">Tersedia opsi pengemasan plastik seal satuan, pita rami ramah lingkungan, atau hangtag kartu ucapan terima kasih.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar / Inquiry Checklist -->
+        <div class="col-12 col-lg-4">
+          <div class="p-4 rounded-4 border bg-white sticky-sidebar">
+            <h3 class="h5 fw-bold mb-3">Checklist Brief Sebelum Order</h3>
+            <p class="small text-muted mb-3">
+              Agar perhitungan estimasi penawaran cepat dan presisi, siapkan informasi berikut saat chat dengan tim kami:
+            </p>
+            <ol class="small text-muted ps-3 mb-4 d-flex flex-column gap-2">
+              <li><strong>Jumlah (Qty):</strong> perkiraan berapa pcs.</li>
+              <li><strong>Target Deadline:</strong> tanggal acara berlangsung.</li>
+              <li><strong>Desain Logo:</strong> berapa warna sablon atau full color DTF.</li>
+              <li><strong>Ukuran Tas:</strong> standard atau request khusus.</li>
+              <li><strong>Kota Tujuan:</strong> untuk perhitungan estimasi kargo pengiriman.</li>
+            </ol>
+
+            <a href={rfqWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand w-100 py-2 btn-sm text-center">
+              Kirimkan Brief ke WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products -->
+  {relatedProducts.length > 0 && (
+    <section class="section-space bg-surface-alt">
+      <div class="container">
+        <div class="mb-4">
+          <span class="badge-accent mb-2">PRODUK TERKAIT</span>
+          <h2 class="h3 fw-bold mb-2">Model Serupa dalam Kategori {category.shortName}</h2>
+          <p class="text-muted small mb-0">Pilihan variasi model lain dengan bahan yang sejenis.</p>
+        </div>
+
+        <div class="row g-4">
+          {relatedProducts.map(rel => (
+            <div class="col-12 col-md-6 col-lg-4">
+              <ProductCard product={rel} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ Section -->
+  <section class="section-space">
+    <div class="container">
+      <div class="max-w-75 mx-auto mb-4 text-center">
+        <h2 class="section-title mb-2">Pertanyaan Seputar Produk Ini</h2>
+        <p class="section-subtitle mx-auto">Konsultasikan kebutuhan spesifik Anda langsung kepada tim kami.</p>
+      </div>
+      <div class="max-w-75 mx-auto">
+        <FAQAccordion items={productFaqs} accordionId={`faq-${product.slug}`} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

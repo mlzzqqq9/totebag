@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgSpH" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF3F6"/>
+      <stop offset="100%" stop-color="#DCE3E8"/>
+    </linearGradient>
+    <filter id="shadowSpBox" x="-10%" y="-10%" width="125%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#1B3A4B" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="600" height="450" fill="url(#bgSpH)" rx="16"/>
+  <ellipse cx="300" cy="390" rx="150" ry="16" fill="#1B3A4B" opacity="0.12"/>
+
+  <!-- Handles -->
+  <g filter="url(#shadowSpBox)">
+    <path d="M225 200 C225 85, 375 85, 375 200" fill="none" stroke="#111827" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <!-- Bag Body Spunbond Box 100gsm Black -->
+  <g filter="url(#shadowSpBox)">
+    <path d="M190 190 L410 190 L395 385 C393 392 385 395 375 395 L225 395 C215 395 207 392 205 385 Z" fill="#1F2937"/>
+  </g>
+
+  <!-- Gusset depth fold side -->
+  <path d="M190 190 L220 195 L230 392 L205 385 Z" fill="#111827" opacity="0.45"/>
+
+  <!-- Reinforced Box Seam Lines -->
+  <line x1="220" y1="195" x2="230" y2="392" stroke="#4B5563" stroke-width="2"/>
+  <line x1="380" y1="195" x2="370" y2="392" stroke="#4B5563" stroke-width="2"/>
+
+  <g transform="translate(250, 245)">
+    <circle cx="50" cy="35" r="28" fill="none" stroke="#C18755" stroke-width="3"/>
+    <text x="50" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" text-anchor="middle">BOX</text>
+    <text x="50" y="82" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">SPUNBOND 100G</text>
+    <text x="50" y="98" font-family="'Inter', sans-serif" font-size="9" font-weight="600" fill="#9CA3AF" text-anchor="middle">JAHIT SILANG</text>
+  </g>
+</svg>

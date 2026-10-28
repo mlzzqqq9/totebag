@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#173F38"/>
+  <!-- Tote Bag handles -->
+  <path d="M22 28 C22 17, 42 17, 42 28" fill="none" stroke="#C18755" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Tote Bag body -->
+  <path d="M16 26 L48 26 L45 52 C44.8 54 43 55.5 41 55.5 L23 55.5 C21 55.5 19.2 54 19 52 Z" fill="#FBF9F4" stroke="#DFE3DE" stroke-width="1.5"/>
+  <!-- Stitch detail line -->
+  <path d="M19 32 L45 32" stroke="#173F38" stroke-width="1.5" stroke-dasharray="2 2"/>
+</svg>
