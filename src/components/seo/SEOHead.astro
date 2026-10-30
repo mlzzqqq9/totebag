@@ -12,7 +12,7 @@ const {
   title,
   description,
   canonicalUrl = Astro.url.href,
-  ogImage = 'https://totebag.web.id/media/canvas-hero.svg',
+  ogImage = 'https://totebag.web.id/media/lifestyle-tote-bag-green-energy.webp',
   ogType = 'website',
   jsonLd
 } = Astro.props;
@@ -28,6 +28,7 @@ const organizationSchema = {
   "name": "Tote Bag Custom Malang",
   "url": "https://totebag.web.id",
   "logo": "https://totebag.web.id/favicon.svg",
+  "image": "https://totebag.web.id/media/lifestyle-tote-bag-green-energy.webp",
   "telephone": "+6282131087971",
   "contactPoint": {
     "@type": "ContactPoint",
@@ -45,6 +46,55 @@ const organizationSchema = {
     "addressCountry": "ID"
   }
 };
+
+function enrichSchemaFields(data: any): any {
+  if (!data) return data;
+  try {
+    const cloned = JSON.parse(JSON.stringify(data));
+    const rawImage = ogImage || "https://totebag.web.id/media/lifestyle-tote-bag-green-energy.webp";
+    const fallbackImage = rawImage.startsWith("http") ? rawImage : `https://totebag.web.id${rawImage.startsWith('/') ? '' : '/'}${rawImage}`;
+    const fallbackLogo = "https://totebag.web.id/favicon.svg";
+
+    const fixItem = (item: any) => {
+      if (!item || typeof item !== "object") return;
+      const type = item["@type"];
+
+      if (type === "Organization" || type === "LocalBusiness") {
+        if (!item.image) item.image = fallbackImage;
+        if (!item.logo) item.logo = fallbackLogo;
+        if (!item.address) {
+          item.address = {
+            "@type": "PostalAddress",
+            "streetAddress": "Kedungkandang",
+            "addressLocality": "Malang",
+            "addressRegion": "Jawa Timur",
+            "postalCode": "65136",
+            "addressCountry": "ID"
+          };
+        }
+      }
+
+      if (type === "BlogPosting" || type === "Article" || type === "NewsArticle") {
+        if (!item.image) {
+          item.image = fallbackImage;
+        }
+      }
+    };
+
+    if (Array.isArray(cloned["@graph"])) {
+      cloned["@graph"].forEach(fixItem);
+    } else if (Array.isArray(cloned)) {
+      cloned.forEach(fixItem);
+    } else {
+      fixItem(cloned);
+    }
+    return cloned;
+  } catch {
+    return data;
+  }
+}
+
+const finalJsonLd = jsonLd ? enrichSchemaFields(jsonLd) : organizationSchema;
 ---
 
 <head>
@@ -79,9 +129,5 @@ const organizationSchema = {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Structured Data JSON-LD -->
-  {jsonLd ? (
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  ) : (
-    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
-  )}
+  <script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
 </head>

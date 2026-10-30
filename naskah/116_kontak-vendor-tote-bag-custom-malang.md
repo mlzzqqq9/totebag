@@ -97,7 +97,9 @@ Jika Anda membutuhkan tote bag untuk perusahaan, instansi, UMKM atau event, kiri
       "areaServed": {
         "@type": "Place",
         "name": "Malang"
-      }
+      },
+      "image": "https://totebag.web.id/media/lifestyle-tote-bag-green-energy.webp",
+      "logo": "https://totebag.web.id/favicon.svg"
     },
     {
       "@type": "WebSite",

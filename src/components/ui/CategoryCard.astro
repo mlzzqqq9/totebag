@@ -8,15 +8,16 @@ interface Props {
 const { category } = Astro.props;
 ---
 
-<article class="custom-card h-100 d-flex flex-column">
-  <div class="product-img-wrapper" style="aspect-ratio: 16 / 10; max-height: 180px;">
+<article class="custom-card h-100 d-flex flex-column overflow-hidden">
+  <div class="product-img-wrapper" style="aspect-ratio: 4 / 3;">
     <img 
       src={category.imageUrl} 
       alt={`Kategori ${category.title}`} 
       loading="lazy" 
       width="400" 
-      height="250"
-      class="w-100 h-100 object-fit-contain p-2"
+      height="300"
+      class="w-100 h-100"
+      style="object-fit: cover; display: block;"
     />
   </div>
 

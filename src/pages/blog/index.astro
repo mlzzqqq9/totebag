@@ -28,6 +28,20 @@ const formatDate = (dateStr: string) => {
     return dateStr;
   }
 };
+const thumbnails: Record<string, { src: string; alt: string }> = {
+  'canvas-vs-blacu-mana-yang-lebih-cocok': {
+    src: '/media/tote-bag-canvas-ethnic-tenun.webp',
+    alt: 'Perbandingan kain canvas tenun vs blacu untuk tote bag'
+  },
+  'ukuran-tote-bag-standar-untuk-berbagai-kebutuhan': {
+    src: '/media/tote-bag-canvas-aksara-kost.webp',
+    alt: 'Panduan ukuran standar tote bag seminar dan dokumen A4'
+  },
+  'pilihan-teknik-sablon-tote-bag': {
+    src: '/media/proses-dtf-press-green-energy.webp',
+    alt: 'Pilihan teknik sablon dan proses heat press DTF logo tote bag'
+  }
+};
 ---
 
 <BaseLayout
@@ -62,60 +76,72 @@ const formatDate = (dateStr: string) => {
   <section class="section-space pt-2">
     <div class="container">
       <div class="row g-4">
-        {articles.map(art => (
-          <div class="col-12 col-md-6 col-lg-4">
-            <article class="custom-card h-100 d-flex flex-column shadow-sm rounded-4 overflow-hidden border bg-white">
-              
-              <!-- Subtle decorative top indicator -->
-              <div class="w-100" style="height: 4px; background: linear-gradient(90deg, #173F38, #C18755);"></div>
-
-              <div class="p-4 d-flex flex-column flex-grow-1">
+        {articles.map(art => {
+          const thumb = thumbnails[art.slug] || {
+            src: '/media/lifestyle-tote-bag-green-energy.webp',
+            alt: art.h1
+          };
+          return (
+            <div class="col-12 col-md-6 col-lg-4">
+              <article class="custom-card h-100 d-flex flex-column shadow-sm rounded-4 overflow-hidden border bg-white blog-card-hover">
                 
-                <!-- Category Cluster -->
-                <div class="mb-3">
-                  <span class="badge-accent text-truncate" style="font-size: 0.72rem; padding: 0.35rem 0.75rem;">
-                    {art.cluster}
-                  </span>
+                <!-- Card Image Thumbnail -->
+                <a href={art.url} class="d-block overflow-hidden bg-light position-relative" style="aspect-ratio: 16 / 9;">
+                  <img 
+                    src={thumb.src} 
+                    alt={thumb.alt}
+                    loading="lazy" 
+                    class="w-100 h-100"
+                    style="object-fit: cover; transition: transform 0.4s ease;"
+                  />
+                  <div class="position-absolute top-0 start-0 m-3">
+                    <span class="badge-brand shadow-sm" style="font-size: 0.72rem; padding: 0.35rem 0.75rem;">
+                      {art.cluster}
+                    </span>
+                  </div>
+                </a>
+
+                <div class="p-4 d-flex flex-column flex-grow-1">
+
+                  <!-- Date & Read Time Row -->
+                  <div class="d-flex align-items-center gap-2 text-muted mb-3" style="font-size: 0.78rem;">
+                    <span class="d-flex align-items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      <time datetime={art.jadwal}>{formatDate(art.jadwal)}</time>
+                    </span>
+                    <span class="opacity-50">•</span>
+                    <span class="d-flex align-items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                      <span>{art.readTime}</span>
+                    </span>
+                  </div>
+
+                  <!-- Article Title -->
+                  <h2 class="h5 fw-bold mb-2">
+                    <a href={art.url} class="text-decoration-none text-dark hover-text-success d-block" style="line-height: 1.45; font-size: 1.12rem;">
+                      {art.h1}
+                    </a>
+                  </h2>
+
+                  <!-- Excerpt -->
+                  <p class="small text-muted mb-4 flex-grow-1" style="line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                    {art.metaDescription || (art.directAnswer ? art.directAnswer.slice(0, 140) + '...' : '')}
+                  </p>
+
+                  <!-- Footer with CTA -->
+                  <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                    <span class="text-muted small" style="font-size: 0.78rem;">Oleh <strong>M. Maulana Ishaq</strong></span>
+                    <a href={art.url} class="btn btn-sm btn-brand-outline d-inline-flex align-items-center gap-1" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;">
+                      <span>Baca Panduan</span>
+                      <span>&rarr;</span>
+                    </a>
+                  </div>
+
                 </div>
-
-                <!-- Date & Read Time Row -->
-                <div class="d-flex align-items-center gap-2 text-muted mb-3" style="font-size: 0.78rem;">
-                  <span class="d-flex align-items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <time datetime={art.jadwal}>{formatDate(art.jadwal)}</time>
-                  </span>
-                  <span class="opacity-50">•</span>
-                  <span class="d-flex align-items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span>{art.readTime}</span>
-                  </span>
-                </div>
-
-                <!-- Article Title -->
-                <h2 class="h5 fw-bold mb-2">
-                  <a href={art.url} class="text-decoration-none text-dark hover-text-success d-block" style="line-height: 1.45; font-size: 1.12rem;">
-                    {art.h1}
-                  </a>
-                </h2>
-
-                <!-- Excerpt -->
-                <p class="small text-muted mb-4 flex-grow-1" style="line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                  {art.metaDescription || (art.directAnswer ? art.directAnswer.slice(0, 140) + '...' : '')}
-                </p>
-
-                <!-- Footer with CTA -->
-                <div class="pt-3 border-top d-flex justify-content-between align-items-center">
-                  <span class="text-muted small" style="font-size: 0.78rem;">Oleh <strong>M. Maulana Ishaq</strong></span>
-                  <a href={art.url} class="btn btn-sm btn-brand-outline d-inline-flex align-items-center gap-1" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;">
-                    <span>Baca Panduan</span>
-                    <span>&rarr;</span>
-                  </a>
-                </div>
-
-              </div>
-            </article>
-          </div>
-        ))}
+              </article>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -124,5 +150,8 @@ const formatDate = (dateStr: string) => {
 <style>
   .hover-text-success:hover {
     color: #173F38 !important;
+  }
+  .blog-card-hover:hover img {
+    transform: scale(1.04);
   }
 </style>

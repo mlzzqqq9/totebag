@@ -132,6 +132,24 @@ const faqItems = naskah.faqs.map((f, i) => ({
             </div>
           )}
 
+          <!-- Visual Dokumentasi Workshop: Tahap Sablon / DTF Heat Press -->
+          <div class="p-3 p-md-4 rounded-4 bg-white border mb-4 shadow-sm">
+            <div class="ratio ratio-16x9 rounded-3 overflow-hidden mb-3">
+              <img 
+                src="/media/proses-cetak-dtf-heat-press.webp" 
+                alt="Dokumentasi aplikasi heat press digital DTF pada panel tote bag kain di workshop" 
+                width="800" 
+                height="450" 
+                loading="lazy"
+                class="w-100 h-100 object-fit-cover"
+              />
+            </div>
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 text-muted small">
+              <span class="badge-brand">DOKUMENTASI WORKSHOP: TAHAP 02</span>
+              <span>Aplikasi Mesin Flat Heat Press Transfer DTF Digital pada Tote Bag</span>
+            </div>
+          </div>
+
           <!-- Quick Navigation / Table of Contents -->
           {naskah.toc && naskah.toc.length > 0 && (
             <div class="p-4 rounded-4 bg-light border mb-4">
@@ -154,6 +172,56 @@ const faqItems = naskah.faqs.map((f, i) => ({
           <!-- Dynamic HTML Content parsed from Naskah -->
           <div class="article-content-body d-flex flex-column gap-3 text-muted" style="line-height: 1.85; font-size: 1.05rem;">
             <Fragment set:html={naskah.bodyHtml} />
+          </div>
+
+          <!-- Galeri Dokumentasi Nyata Tahapan Produksi Massal & Packing -->
+          <div class="my-5">
+            <span class="badge-accent mb-2">BUKTI PRODUKSI WORKSHOP</span>
+            <h2 class="h4 fw-bold text-dark mb-4">Dokumentasi Nyata Lini Produksi &amp; Pengemasan</h2>
+
+            <div class="row g-4">
+              <!-- Foto 1: Tumpukan Produksi Massal -->
+              <div class="col-12 col-md-6">
+                <div class="p-3 rounded-4 bg-white border h-100 shadow-sm d-flex flex-column">
+                  <div class="ratio ratio-4x3 rounded-3 overflow-hidden mb-3">
+                    <img 
+                      src="/media/produksi-massal-tote-bag.webp" 
+                      alt="Tumpukan rapi ratusan tote bag hitam tali tan siap quality control di workshop" 
+                      width="600" 
+                      height="450" 
+                      loading="lazy"
+                      class="w-100 h-100 object-fit-cover"
+                    />
+                  </div>
+                  <span class="badge bg-success-subtle text-success w-fit mb-2">TAHAP 03 &amp; 04</span>
+                  <h3 class="h6 fw-bold mb-2">Penataan Hasil Produksi Massal &amp; QC</h3>
+                  <p class="small text-muted mb-0 flex-grow-1">
+                    Ratusan tote bag hitam dengan tali webbing tan ditata berjajar rapi untuk pemeriksaan ketelitian jahitan, ketepatan dimensi, dan kekuatan sambungan tali sebelum dikemas.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Foto 2: Packing Kargo -->
+              <div class="col-12 col-md-6">
+                <div class="p-3 rounded-4 bg-white border h-100 shadow-sm d-flex flex-column">
+                  <div class="ratio ratio-4x3 rounded-3 overflow-hidden mb-3">
+                    <img 
+                      src="/media/packing-kargo-tote-bag.webp" 
+                      alt="Proses pengemasan tote bag dan seminar kit ke dalam kardus pengiriman ekspedisi" 
+                      width="600" 
+                      height="450" 
+                      loading="lazy"
+                      class="w-100 h-100 object-fit-cover"
+                    />
+                  </div>
+                  <span class="badge bg-success-subtle text-success w-fit mb-2">TAHAP 05</span>
+                  <h3 class="h6 fw-bold mb-2">Pengemasan Kardus Kargo &amp; Labeling</h3>
+                  <p class="small text-muted mb-0 flex-grow-1">
+                    Setiap paket box dan tas disusun padat ke kardus karton bergelombang tebal, dilakban rapat menyeluruh, dan ditempel resi manifest ekspedisi untuk pengiriman ke seluruh kota.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- FAQ Accordion -->

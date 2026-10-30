@@ -93,7 +93,9 @@ Jika Anda membutuhkan tote bag untuk perusahaan, instansi, UMKM atau event, kiri
       "@id": "https://totebag.web.id/#organization",
       "name": "Tote Bag",
       "url": "https://totebag.web.id/",
-      "telephone": "+6282131087971"
+      "telephone": "+6282131087971",
+      "image": "https://totebag.web.id/media/lifestyle-tote-bag-green-energy.webp",
+      "logo": "https://totebag.web.id/favicon.svg"
     },
     {
       "@type": "WebSite",
@@ -122,7 +124,8 @@ Jika Anda membutuhkan tote bag untuk perusahaan, instansi, UMKM atau event, kiri
       },
       "mainEntityOfPage": {
         "@id": "https://totebag.web.id/blog/cara-memilih-tote-bag-berdasarkan-jumlah-peserta/#webpage"
-      }
+      },
+      "image": "https://totebag.web.id/media/lifestyle-tote-bag-green-energy.webp"
     },
     {
       "@type": "BreadcrumbList",

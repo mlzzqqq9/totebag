@@ -8,8 +8,8 @@ import TestimonialSection from '../../components/ui/TestimonialSection.astro';
 import { getNaskahById } from '../../utils/naskah';
 import { getWhatsAppUrl } from '../../data/siteData';
 
-// Ambil data naskah portofolio (ID: 10)
-const naskah = getNaskahById('10');
+// Ambil data naskah portofolio (ID: 101)
+const naskah = getNaskahById('101');
 
 // Fixed Breadcrumbs items (using name & url schema)
 const breadcrumbs = [
@@ -21,38 +21,38 @@ const breadcrumbs = [
 const galleryPhotos = [
   {
     id: "foto-1",
-    image: "/media/foto-giftset.jpg",
-    alt: "Paket executive corporate gift set tote bag dinir D600 tumbler notebook",
-    title: "Executive Gift Set & Seminar Kit",
-    client: "PT PLN (Persero) & BUMN",
-    material: "Dinir D600 + Tumbler & Notes",
+    image: "/media/lifestyle-tote-bag-green-energy.webp",
+    alt: "Dokumentasi tote bag Danantara Indonesia PLN Green Energy for Better Future",
+    title: "Tote Bag Danantara PLN Green Energy",
+    client: "Danantara Indonesia, PLN & NGKI",
+    material: "Kain Hitam Twill + Tali Webbing Tan",
     category: "dinir",
     spanClass: "span-wide"
   },
   {
     id: "foto-2",
-    image: "/media/foto-canvas.jpg",
-    alt: "Tote bag canvas marsoto premium aesthetic stone podium",
-    title: "Canvas Marsoto Minimalist Series",
-    client: "Universitas Brawijaya",
-    material: "Canvas Marsoto 14 oz",
+    image: "/media/tote-bag-canvas-ethnic-tenun.webp",
+    alt: "Tote bag canvas kombinasi tenun ikat etnik nusantara dan aksen kulit",
+    title: "Canvas Tenun Etnik Nusantara Series",
+    client: "Dekranasda & Komunitas Kreatif",
+    material: "Canvas Greige + Tenun Ikat Asli",
     category: "canvas",
     spanClass: "span-standard"
   },
   {
     id: "foto-3",
-    image: "/media/foto-macro.jpg",
-    alt: "Detail jahitan double stitch nilon dan presisi sablon tote bag canvas",
-    title: "Detail Jahitan Double-Stitch & Sablon",
-    client: "Standar Mutu QC Workshop",
-    material: "Benang Nilon + Sablon DTF",
+    image: "/media/quality-control-inspection-checklist.webp",
+    alt: "Meja inspeksi quality control tote bag aksara kost dengan checklist standar mutu",
+    title: "Meja Inspeksi QC & Standar Mutu",
+    client: "Standar Mutu QC Workshop Malang",
+    material: "Canvas Katun + Tag QC Passed",
     category: "canvas",
     spanClass: "span-standard"
   },
   {
     id: "foto-4",
-    image: "/media/foto-mika.jpg",
-    alt: "Tote bag mika transparan PVC benang jahit hijau pouch souvenir",
+    image: "/media/tote-bag-mika.webp",
+    alt: "Tote bag mika transparan PVC aesthetic dompet dalam",
     title: "Aesthetic Clear PVC Mika Tote Bag",
     client: "Kementerian & Exhibition Expo",
     material: "Mika Transparan 0.5 mm",
@@ -61,38 +61,38 @@ const galleryPhotos = [
   },
   {
     id: "foto-5",
-    image: "/media/foto-seminar.jpg",
-    alt: "Paket seminar kit akademik tote bag katun lanyard dan guidebook",
-    title: "Paket Seminar Kit & Konferensi",
-    client: "Universitas Brawijaya & Kampus",
-    material: "Blacu Super + Lanyard & Notes",
+    image: "/media/portfolio-blacu-350pcs.webp",
+    alt: "Dokumentasi produksi heat press 350 pcs tote bag blacu seminar nasional teknologi SMK Telkom Malang",
+    title: "Pengadaan 350 Pcs Tote Bag Seminar Teknologi",
+    client: "SMK Telkom Malang & Seminar",
+    material: "Blacu Hitam + Tali Webbing Tan",
     category: "blacu",
     spanClass: "span-wide"
   },
   {
     id: "foto-6",
-    image: "/media/foto-blacu.jpg",
-    alt: "Tote bag blacu katun natural organik meja kayu kopi",
-    title: "Tote Bag Blacu Katun Organik",
-    client: "Bank Indonesia & Komunitas",
-    material: "Blacu Super Grade A",
+    image: "/media/tote-bag-seminar-kit-canvas.webp",
+    alt: "Paket tote bag canvas seminar nasional 2026 lengkap dengan tumbler stainless dan buku catatan",
+    title: "Paket Canvas Seminar Kit Nasional 2026",
+    client: "Panitia Konferensi & Seminar Akademik",
+    material: "Canvas Broken White + Tali Katun",
     category: "blacu",
     spanClass: "span-standard"
   },
   {
     id: "foto-7",
-    image: "/media/foto-dinir.jpg",
-    alt: "Tas kerja tote bag dinir D600 navy kompartemen laptop depan",
-    title: "Dinir D600 Laptop Work Tote",
-    client: "PT Bank Mandiri (Persero) Tbk",
-    material: "Dinir D600 Water Repellent",
-    category: "dinir",
+    image: "/media/tote-bag-black-green-energy.webp",
+    alt: "Studio foto tote bag hitam Danantara Indonesia PLN Green Energy for Better Future",
+    title: "Tote Bag Danantara Green Energy Series",
+    client: "Danantara Indonesia & BUMN",
+    material: "Canvas Twill Hitam + Tali Webbing Tan",
+    category: "canvas",
     spanClass: "span-standard"
   },
   {
     id: "foto-8",
-    image: "/media/foto-cordura.jpg",
-    alt: "Tote bag cordura 1000D tactical heavy duty laptop sleeve",
+    image: "/media/tote-bag-cordura.webp",
+    alt: "Tote bag cordura 1000D tactical heavy duty waterproof",
     title: "Cordura 1000D Tactical Onboarding",
     client: "PT Pamapersada (PAMA)",
     material: "Cordura 1000D Heavy Duty",
@@ -101,18 +101,18 @@ const galleryPhotos = [
   },
   {
     id: "foto-9",
-    image: "/media/foto-denim.jpg",
-    alt: "Tote bag denim jeans tebal jahitan kontras tembaga patch kulit",
-    title: "Indigo Raw Denim Contrast Stitch",
-    client: "PT KIDECO Jaya Agung",
-    material: "Denim Jeans 12 oz Tebal",
+    image: "/media/lifestyle-tote-bag-navy-batik.webp",
+    alt: "Tote bag navy blue kombinasi batik Mohon Diri Ny Tri Kuncoro",
+    title: "Navy Blue Batik Motif Tradisional",
+    client: "Instansi & Kehormatan Purnatugas",
+    material: "Canvas Twill Navy + Sablon Batik",
     category: "denim",
     spanClass: "span-wide"
   },
   {
     id: "foto-10",
-    image: "/media/foto-spunbond.jpg",
-    alt: "Tumpukan goodie bag spunbond ramah lingkungan jahit box",
+    image: "/media/tote-bag-spunbond-color.webp",
+    alt: "Tumpukan goodie bag spunbond warna warni ramah lingkungan",
     title: "Eco Spunbond Non-Woven Folded",
     client: "SMK Telkom & Event Edukasi",
     material: "Spunbond 100 gsm Tebal",
@@ -121,8 +121,8 @@ const galleryPhotos = [
   },
   {
     id: "foto-11",
-    image: "/media/foto-satin.jpg",
-    alt: "Tote bag satin printing full sublimasi warna tajam",
+    image: "/media/tote-bag-satin.webp",
+    alt: "Tote bag satin printing full sublimasi botanical warna tajam",
     title: "Satin Printing Full Color Sublimasi",
     client: "Dinas Pariwisata & Budaya",
     material: "Satin Bridal Halus Glossy",
@@ -131,11 +131,11 @@ const galleryPhotos = [
   },
   {
     id: "foto-12",
-    image: "/media/foto-unboxing.jpg",
-    alt: "Pengalaman unboxing kotak bingkisan eksklusif tote bag kado hijau emas",
-    title: "VIP Hardbox Packaging & Custom Tag",
+    image: "/media/packing-kargo-tote-bag.webp",
+    alt: "Pengemasan rapi pesanan tote bag ke kardus kargo ekspedisi",
+    title: "Pengemasan Karton Kargo Siap Ekspedisi",
     client: "PT Putra Perkasa Abadi & VIP",
-    material: "Exclusive Gift Box + Wax Seal",
+    material: "Karton Double Wall + Lakban Segel",
     category: "canvas",
     spanClass: "span-standard"
   }

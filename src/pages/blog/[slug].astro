@@ -23,7 +23,7 @@ const author = authors['m-maulana-ishaq'] || authors['ahmad-fauzi'] || {
   role: 'SEO Specialist & Web Developer | Senior Marketing',
   slug: 'm-maulana-ishaq',
   bio: 'SEO Specialist dan Web Developer yang saat ini memegang peranan sebagai Senior Marketing. Berfokus pada perancangan arsitektur katalog produk digital dan pengadaan tote bag custom B2B.',
-  imageUrl: '/media/author-fauzi.svg'
+  imageUrl: '/media/author-maulana.webp'
 };
 
 const relatedProducts = products.slice(0, 3);
@@ -63,62 +63,62 @@ function getArticleImages(art: typeof naskah) {
   const text = (art.h1 + ' ' + art.keyword + ' ' + art.cluster).toLowerCase();
   
   let img1 = {
-    src: '/media/canvas-hero.svg',
+    src: '/media/tote-bag-canvas-twill.webp',
     alt: `Dokumentasi produk ${art.h1}`,
     caption: `Foto 1: Model dan spesifikasi ${art.h1.toLowerCase()} produksi workshop ToteBag Malang.`
   };
   
   if (text.includes('blacu')) {
     img1 = {
-      src: '/media/product-blacu-standard.svg',
+      src: '/media/tote-bag-blacu-polos.webp',
       alt: `Kain blacu super grade A untuk ${art.h1}`,
       caption: `Foto 1: Serat alami kain blacu unbleached ramah lingkungan untuk ${art.h1.toLowerCase()}.`
     };
   } else if (text.includes('spunbond')) {
     img1 = {
-      src: '/media/product-spunbond-press.svg',
+      src: '/media/tote-bag-spunbond-color.webp',
       alt: `Tas goodie bag spunbond custom untuk ${art.h1}`,
       caption: `Foto 1: Opsi bahan spunbond higienis dan ekonomis untuk ${art.h1.toLowerCase()}.`
     };
   } else if (text.includes('cordura') || text.includes('dinir')) {
     img1 = {
-      src: '/media/fabric-dinir-cordura.svg',
+      src: '/media/tote-bag-cordura.webp',
       alt: `Tote bag bahan dinir D300 D600 dan cordura tahan air untuk ${art.h1}`,
       caption: `Foto 1: Karakter bahan poliester dinir D600 & cordura waterproof untuk ${art.h1.toLowerCase()}.`
     };
   } else if (text.includes('mika')) {
     img1 = {
-      src: '/media/fabric-mika-transparan.svg',
+      src: '/media/tote-bag-mika.webp',
       alt: `Tote bag mika transparan PVC untuk ${art.h1}`,
       caption: `Foto 1: Tampilan modern tote bag mika bening tahan air untuk ${art.h1.toLowerCase()}.`
     };
   } else if (text.includes('denim') || text.includes('satin')) {
     img1 = {
-      src: '/media/fabric-denim-satin.svg',
+      src: '/media/tote-bag-denim.webp',
       alt: `Tote bag bahan denim jeans dan satin printing untuk ${art.h1}`,
       caption: `Foto 1: Pilihan material kasual denim dan satin cetak sublimasi untuk ${art.h1.toLowerCase()}.`
     };
   } else if (text.includes('ukuran') || text.includes('pola') || text.includes('dimensi')) {
     img1 = {
-      src: '/media/blog-sizing-guide.svg',
+      src: '/media/tote-bag-canvas-aksara-kost.webp',
       alt: `Panduan ukuran dan proporsi dimensi ${art.h1}`,
       caption: `Foto 1: Proporsi standar ukuran, panjang tali, dan alas gusset untuk ${art.h1.toLowerCase()}.`
     };
   } else if (text.includes('sablon') || text.includes('cetak') || text.includes('dtf') || text.includes('bordir')) {
     img1 = {
-      src: '/media/blog-printing-guide.svg',
-      alt: `Teknik cetak sablon logo pada ${art.h1}`,
-      caption: `Foto 1: Penerapan sablon manual dan digital DTF presisi untuk ${art.h1.toLowerCase()}.`
+      src: '/media/proses-dtf-press-green-energy.webp',
+      alt: `Proses heat press digital DTF pada ${art.h1}`,
+      caption: `Foto 1: Proses aplikasi heat press digital DTF dan sablon presisi untuk ${art.h1.toLowerCase()}.`
     };
   } else if (text.includes('seminar') || text.includes('kampus') || text.includes('event')) {
     img1 = {
-      src: '/media/portfolio-seminar-malang.svg',
+      src: '/media/tote-bag-seminar-kit-canvas.webp',
       alt: `Paket tote bag seminar kit untuk ${art.h1}`,
       caption: `Foto 1: Contoh tote bag seminar kit berlogo untuk kebutuhan ${art.h1.toLowerCase()}.`
     };
   } else if (text.includes('perusahaan') || text.includes('b2b') || text.includes('kantor')) {
     img1 = {
-      src: '/media/portfolio-corporate-surabaya.svg',
+      src: '/media/lifestyle-tote-bag-navy-batik.webp',
       alt: `Merchandise tote bag perusahaan untuk ${art.h1}`,
       caption: `Foto 1: Desain representatif tote bag korporat untuk ${art.h1.toLowerCase()}.`
     };
@@ -127,22 +127,22 @@ function getArticleImages(art: typeof naskah) {
   // Secondary Image Pool (Detail Teknis & Standar Pengerjaan Workshop)
   const secondaryPool = [
     {
-      src: '/media/process-sewing-stitch.svg',
-      alt: `Standar jahitan double stitch dan obras benang nilon pada ${art.h1}`,
-      caption: `Foto 2: Detail jahitan ganda (double-stitch) dan sambungan obras nilon untuk memastikan kekuatan tas menahan beban.`
+      src: '/media/produksi-massal-tote-bag.webp',
+      alt: `Standar jahitan double stitch dan kerapian produksi massal pada ${art.h1}`,
+      caption: `Foto 2: Detail jajaran produksi massal dan penataan jahit rapi untuk memastikan kekuatan tas menahan beban.`
     },
     {
-      src: '/media/process-screen-printing.svg',
+      src: '/media/proses-cetak-dtf-heat-press.webp',
       alt: `Proses sablon manual dan press DTF tahan cuci pada ${art.h1}`,
       caption: `Foto 2: Proses aplikasi sablon dan cetak logo dengan presisi warna tinggi serta daya tahan cuci prima.`
     },
     {
-      src: '/media/process-quality-control.svg',
-      alt: `Pemeriksaan quality control zero defect sebelum pengiriman ${art.h1}`,
-      caption: `Foto 2: Tahapan inspeksi quality control ketat untuk menjamin kerapian dan akurasi sebelum dikirim ke pemesan.`
+      src: '/media/quality-control-inspection-checklist.webp',
+      alt: `Pemeriksaan quality control checklist zero defect sebelum pengiriman ${art.h1}`,
+      caption: `Foto 2: Meja inspeksi quality control lengkap dengan checklist untuk menjamin kerapian dan akurasi sebelum dikirim.`
     },
     {
-      src: '/media/process-packing-shipping.svg',
+      src: '/media/packing-kargo-tote-bag.webp',
       alt: `Pengemasan plastik rapi dan packing kargo antarkota untuk ${art.h1}`,
       caption: `Foto 2: Standar pengemasan individual seal dan ekspedisi kargo aman untuk pengiriman ke seluruh Indonesia.`
     }
@@ -329,6 +329,7 @@ const faqItems = naskah.faqs.map((f, idx) => ({
                   width="54" 
                   height="54" 
                   class="rounded-circle border"
+                  style="object-fit: cover;"
                 />
                 <div>
                   <h3 class="h6 fw-bold mb-0">
@@ -385,7 +386,7 @@ const faqItems = naskah.faqs.map((f, idx) => ({
                 {relatedProducts.map(prod => (
                   <div class="d-flex align-items-center gap-3 p-2 rounded-3 hover-bg-light">
                     <div style="width: 58px; height: 50px;" class="rounded bg-light flex-shrink-0 overflow-hidden border">
-                      <img src={prod.imageUrl} alt={prod.name} class="w-100 h-100 object-fit-contain" />
+                      <img src={prod.imageUrl} alt={prod.name} class="w-100 h-100 object-fit-cover" />
                     </div>
                     <div class="flex-grow-1">
                       <a href={`/produk/${prod.slug}/`} class="small fw-bold text-dark text-decoration-none d-block">

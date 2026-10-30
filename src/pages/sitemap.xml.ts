@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import fs from 'node:fs';
 import path from 'node:path';
-import { getAllNaskah } from '../utils/naskah';
+import { getBlogArticles } from '../utils/naskah';
 import { products, cityServices, portfolioItems, authors } from '../data/siteData';
 
 export const GET: APIRoute = async () => {
@@ -92,8 +92,8 @@ export const GET: APIRoute = async () => {
     addEntry(`${baseUrl}/penulis/${author.slug}/`, today, 'monthly', '0.6');
   }
 
-  // 7. Blog Articles from Naskah (Auto-updates with publication schedule)
-  const naskahArticles = getAllNaskah().filter(n => n.url.startsWith('/blog/'));
+  // 7. Blog Articles (Published & active only)
+  const naskahArticles = getBlogArticles();
   for (const art of naskahArticles) {
     addEntry(`${baseUrl}/blog/${art.slug}/`, art.jadwal || today, 'monthly', '0.7');
   }

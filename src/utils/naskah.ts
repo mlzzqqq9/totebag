@@ -116,6 +116,34 @@ export function parseNaskahContent(content: string, filename: string): NaskahIte
   if (jsonMatch) {
     try {
       schemaJson = JSON.parse(jsonMatch[1]);
+      const enrichItem = (item: any) => {
+        if (!item || typeof item !== 'object') return;
+        const type = item['@type'];
+        if (type === 'Organization' || type === 'LocalBusiness') {
+          if (!item.image) item.image = 'https://totebag.web.id/media/lifestyle-tote-bag-green-energy.webp';
+          if (!item.logo) item.logo = 'https://totebag.web.id/favicon.svg';
+          if (!item.address) {
+            item.address = {
+              "@type": "PostalAddress",
+              "streetAddress": "Kedungkandang",
+              "addressLocality": "Malang",
+              "addressRegion": "Jawa Timur",
+              "postalCode": "65136",
+              "addressCountry": "ID"
+            };
+          }
+        }
+        if (type === 'BlogPosting' || type === 'Article' || type === 'NewsArticle') {
+          if (!item.image) {
+            item.image = 'https://totebag.web.id/media/lifestyle-tote-bag-green-energy.webp';
+          }
+        }
+      };
+      if (schemaJson && Array.isArray(schemaJson['@graph'])) {
+        schemaJson['@graph'].forEach(enrichItem);
+      } else if (schemaJson) {
+        enrichItem(schemaJson);
+      }
     } catch (e) {
       // ignore parse error fallback
     }
@@ -165,15 +193,20 @@ export function parseNaskahContent(content: string, filename: string): NaskahIte
   while ((match = headingRegex.exec(bodyMarkdown)) !== null) {
     const level = match[1].length;
     const title = match[2].trim();
-    // Exclude internal notes
-    if (!title.toLowerCase().includes('catatan editorial') && !title.toLowerCase().includes('schema')) {
+    // Exclude internal notes and FAQ section (rendered separately by FAQAccordion)
+    if (!title.toLowerCase().includes('catatan editorial') && 
+        !title.toLowerCase().includes('schema') &&
+        !title.toLowerCase().includes('pertanyaan yang sering diajukan')) {
       const hId = slugify(title);
       toc.push({ id: hId, title, level });
     }
   }
 
+  // Remove FAQ section from bodyHtml to avoid duplicate rendering with FAQAccordion
+  let contentForHtml = bodyMarkdown.replace(/##\s+Pertanyaan yang sering diajukan[\s\S]*?(?=(?:##\s+[^P]|$))/i, '');
+
   // Add IDs to markdown headings before parsing HTML
-  let processedMarkdown = bodyMarkdown.replace(/^(#{2,3})\s+([^\r\n]+)$/gm, (full, hashes, title) => {
+  let processedMarkdown = contentForHtml.replace(/^(#{2,3})\s+([^\r\n]+)$/gm, (full, hashes, title) => {
     const cleanTitle = title.trim();
     const hId = slugify(cleanTitle);
     return `<h${hashes.length} id="${hId}">${cleanTitle}</h${hashes.length}>`;
@@ -269,7 +302,14 @@ export function getNaskahByUrl(url: string): NaskahItem | undefined {
   return all.find(item => item.url === cleanUrl);
 }
 
+export const ACTIVE_BLOG_SLUGS = [
+  'canvas-vs-blacu-mana-yang-lebih-cocok',
+  'ukuran-tote-bag-standar-untuk-berbagai-kebutuhan',
+  'pilihan-teknik-sablon-tote-bag'
+];
+
 export function getBlogArticles(): NaskahItem[] {
   const all = getAllNaskah();
-  return all.filter(item => item.url.startsWith('/blog/'));
+  return all.filter(item => item.url.startsWith('/blog/') && ACTIVE_BLOG_SLUGS.includes(item.slug));
 }
+

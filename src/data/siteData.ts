@@ -155,7 +155,7 @@ export const categories: Category[] = [
       'Cocok untuk opsi furing & resleting premium'
     ],
     recommendedUses: ['Merchandise Korporat', 'Onboarding Kit Karyawan', 'Seminar Eksekutif', 'Souvenir Komersial'],
-    imageUrl: '/media/canvas-hero.svg'
+    imageUrl: '/media/tote-bag-canvas-twill.webp'
   },
   {
     slug: 'tote-bag-dinir-cordura',
@@ -172,7 +172,7 @@ export const categories: Category[] = [
       'Cocok untuk sablon rubber tebal dan bordir komputer'
     ],
     recommendedUses: ['Safety Campaign Site', 'Corporate Gathering', 'Tas Workshop Tambang & Energi', 'Merchandise Komunitas Motor/Outdoor'],
-    imageUrl: '/media/fabric-dinir-cordura.svg'
+    imageUrl: '/media/tote-bag-cordura.webp'
   },
   {
     slug: 'tote-bag-blacu',
@@ -189,7 +189,7 @@ export const categories: Category[] = [
       'Mudah dicetak dengan sablon rubber/waterbased'
     ],
     recommendedUses: ['Seminar Kampus & Institusi', 'Goodie Bag Workshop', 'Souvenir Pernikahan Natural', 'Kampanye Ramah Lingkungan'],
-    imageUrl: '/media/blacu-hero.svg'
+    imageUrl: '/media/tote-bag-blacu-polos.webp'
   },
   {
     slug: 'tote-bag-spunbond',
@@ -206,7 +206,7 @@ export const categories: Category[] = [
       'Proses pengerjaan cepat untuk kebutuhan deadline ketat'
     ],
     recommendedUses: ['Expo & Pameran Dagang', 'Goodie Bag Seminar Massal', 'Packaging Retail Belanja', 'Bakti Sosial & Kampanye'],
-    imageUrl: '/media/spunbond-hero.svg'
+    imageUrl: '/media/tote-bag-spunbond-color.webp'
   },
   {
     slug: 'tote-bag-mika',
@@ -223,7 +223,7 @@ export const categories: Category[] = [
       'Kombinasi sablon foil emas/perak yang menonjol'
     ],
     recommendedUses: ['Goodie Bag Event Konser & Festival', 'Hampers Skincare & Beauty', 'Pouch Merchandise Eksklusif', 'Packaging Ritel Premium'],
-    imageUrl: '/media/foto-mika.jpg'
+    imageUrl: '/media/tote-bag-mika.webp'
   },
   {
     slug: 'tote-bag-denim',
@@ -240,7 +240,7 @@ export const categories: Category[] = [
       'Menonjolkan keunikan brand di pameran kreatif'
     ],
     recommendedUses: ['Merchandise Brand Apparel & Distro', 'Souvenir Komunitas Kreatif', 'Gathering Perusahaan Kasual', 'Tas Promosi Ritel'],
-    imageUrl: '/media/foto-denim.jpg'
+    imageUrl: '/media/tote-bag-denim.webp'
   },
   {
     slug: 'tote-bag-satin',
@@ -257,7 +257,7 @@ export const categories: Category[] = [
       'Cocok untuk souvenir pameran seni & industri kreatif'
     ],
     recommendedUses: ['Souvenir Wisata & Seni Budaya', 'Hampers Fashion & Kosmetik', 'Merchandise Konser Artis', 'Merchandise Pernikahan Mewah'],
-    imageUrl: '/media/foto-satin.jpg'
+    imageUrl: '/media/tote-bag-satin.webp'
   }
 ];
 
@@ -275,8 +275,8 @@ export const products: Product[] = [
     techniques: ['Sablon Manual Rubber', 'Cetak DTF Full Color', 'Bordir Komputer Presisi'],
     description: 'Tote bag canvas berstandar korporat dengan kain canvas twill 12 oz pilihan. Ketebalan kain menjamin tas berdiri kokoh saat ditaruh di meja serta sanggup membawa laptop 14 inci beserta map dokumen tebal tanpa kendur.',
     usage: ['Merchandise Onboarding Karyawan', 'Konferensi Bisnis', 'Souvenir Premium'],
-    imageUrl: '/media/product-canvas-twill.svg',
-    altText: 'Tote Bag Canvas Twill Premium warna forest green dengan tali katun tebal',
+    imageUrl: '/media/tote-bag-canvas-twill.webp',
+    altText: 'Tote Bag Canvas Twill Premium dengan saku depan dan bahan kokoh',
     highlight: 'Paling diminati untuk corporate gift dan seminar eksekutif.',
     specTable: {
       material: 'Canvas Twill 100% Cotton (12 oz)',
@@ -302,7 +302,7 @@ export const products: Product[] = [
     techniques: ['Sablon Rubber 1-4 Warna', 'Cetak DTF Full Color'],
     description: 'Model flat tote bag klasik dengan warna kain alami tanpa zat pewarna buatan. Memberikan nuansa ramah lingkungan yang modern dan sangat cocok dipadukan dengan desain grafis minimalis bergaya arsitektural maupun tipografi.',
     usage: ['Event Komunitas Kreatif', 'Merchandise Kampus', 'Packaging Butik'],
-    imageUrl: '/media/product-canvas-greige.svg',
+    imageUrl: '/media/tote-bag-canvas-greige.webp',
     altText: 'Tote Bag Canvas Greige Natural warna broken white dengan sablon minimalis',
     highlight: 'Nuansa estetika natural organik dengan biaya efisien.',
     specTable: {
@@ -329,8 +329,8 @@ export const products: Product[] = [
     techniques: ['Sablon Manual Rubber (1 - 3 Warna)'],
     description: 'Solusi tote bag paling populer untuk seminar nasional, workshop dinas/kampus, dan pelatihan. Dimensi 30x40 cm dirancang tepat untuk memuat ordner map, tumbler minuman, modul materi pelatihan, dan pulpen seminar.',
     usage: ['Seminar Nasional & Workshop', 'Pelatihan SDM', 'Event Dinas Pemerintahan'],
-    imageUrl: '/media/product-blacu-standard.svg',
-    altText: 'Tote Bag Blacu Standard Seminar warna broken white dengan sablon logo acara',
+    imageUrl: '/media/tote-bag-blacu-polos.webp',
+    altText: 'Tote Bag Blacu Standard Seminar warna broken white natural',
     highlight: 'Pilihan paling ekonomis untuk kebutuhan seminar di atas 100 pcs.',
     specTable: {
       material: 'Blacu Super Grade A Cotton Blend',
@@ -356,8 +356,8 @@ export const products: Product[] = [
     techniques: ['Sablon Manual', 'DTF Print Full Color pada Saku'],
     description: 'Modifikasi fungsional dari tas blacu konvensional. Tambahan saku depan memudahkan peserta event mengambil handphone atau nametag tanpa harus membongkar seluruh isi tas.',
     usage: ['Workshop Praktik', 'Merchandise Komunitas', 'Festival Musik & Seni'],
-    imageUrl: '/media/product-blacu-pocket.svg',
-    altText: 'Tote Bag Blacu Kombinasi Saku Depan dengan detail tali jahit kontras',
+    imageUrl: '/media/tote-bag-blacu-sablon.webp',
+    altText: 'Tote Bag Blacu Custom Sablon Full Print dengan corak warna cerah',
     highlight: 'Fungsional dengan saku akses cepat yang praktis.',
     specTable: {
       material: 'Blacu Super + Pocket Layer',
@@ -383,8 +383,8 @@ export const products: Product[] = [
     techniques: ['Sablon Manual 1 Warna', 'Flexo Printing'],
     description: 'Tas goodie bag spunbond berbiaya rendah dengan pengerjaan cepat. Sangat efektif untuk acara pameran publik, promosi produk massal, doorprize jalan sehat, dan kampanye sosial.',
     usage: ['Expo Pameran Dagang', 'Doorprize Event Publik', 'Tas Souvenir Retail'],
-    imageUrl: '/media/product-spunbond-press.svg',
-    altText: 'Tote Bag Spunbond Press Event warna biru navy dengan sablon logo putih',
+    imageUrl: '/media/tote-bag-spunbond-color.webp',
+    altText: 'Tote Bag Spunbond Press Event warna-warni cerah',
     highlight: 'Budget-friendly untuk kuantiti besar hingga ribuan unit.',
     specTable: {
       material: 'Non-woven Spunbond Eco Fabric (75 gsm)',
@@ -410,8 +410,8 @@ export const products: Product[] = [
     techniques: ['Sablon Rubber', 'Screen Printing Multi-Warna'],
     description: 'Spunbond tebal 100 gsm yang diproses dengan jahit benang manual pada setiap sambungan sudutnya. Hasilnya tas memiliki bentuk kotak stabil dan daya angkut jauh lebih tangguh dibanding tas spunbond press biasa.',
     usage: ['Paket Sembako Baksos', 'Goodie Bag Konferensi Bisnis', 'Packaging Box Souvenir'],
-    imageUrl: '/media/product-spunbond-box.svg',
-    altText: 'Tote Bag Spunbond Box Jahit 100 gsm warna hitam kokoh bervolume',
+    imageUrl: '/media/tote-bag-spunbond-color.webp',
+    altText: 'Tote Bag Spunbond Box Jahit 100 gsm warna cerah kokoh bervolume',
     highlight: 'Konstruksi box jahit kokoh menampung souvenir tebal.',
     specTable: {
       material: 'Spunbond Premium High Density (100 gsm)',
@@ -437,7 +437,7 @@ export const products: Product[] = [
     techniques: ['Bordir Komputer Presisi', 'Sablon Rubber High-Density', 'Cetak DTF Full Color'],
     description: 'Tote bag berdaya tahan ekstra tinggi berbahan kain cordura nilon 1000D berlapis coating kedap air. Sangat ideal untuk pengadaan merchandise industri pertambangan, kontraktor, event outdoor, dan onboarding kit karyawan tangguh.',
     usage: ['Site Safety Campaign', 'Gathering Karyawan Lapangan', 'Merchandise Outdoor & Komunitas'],
-    imageUrl: '/media/fabric-dinir-cordura.svg',
+    imageUrl: '/media/tote-bag-cordura.webp',
     altText: 'Tote bag cordura tactical tahan air warna hitam dengan tali nilon tebal',
     highlight: 'Ketahanan ekstrem terhadap gesekan dan percikan air untuk pemakaian jangka panjang.',
     specTable: {
@@ -464,8 +464,8 @@ export const products: Product[] = [
     techniques: ['Sablon Manual Khusus Mika', 'Sablon Foil Emas / Perak', 'Print DTF UV Presisi'],
     description: 'Tote bag mika PVC transparan dengan konstruksi jahitan rapi beraksen tali webbing warna hijau botol khas workshop. Sangat diminati sebagai goodie bag konser musik, paket hampers kecantikan skincare, dan tas pameran seni kontemporer.',
     usage: ['Hampers Kosmetik & Skincare', 'Konser & Festival Musik', 'Exhibition Pameran Seni'],
-    imageUrl: '/media/foto-mika.jpg',
-    altText: 'Tote Bag Mika Transparan PVC dengan handle hijau dan botol tumbler estetis',
+    imageUrl: '/media/tote-bag-mika.webp',
+    altText: 'Tote Bag Mika Transparan PVC dengan handle webbing dan dompet dalam estetis',
     highlight: 'Estetika modern tembus pandang yang 100% tahan air dan mudah dibersihkan.',
     specTable: {
       material: 'PVC Mika Bening Transparan (Tebal 0.5 mm)',
@@ -491,8 +491,8 @@ export const products: Product[] = [
     techniques: ['Sablon Discharge (Cabut Warna)', 'Sablon Plastisol Doff', 'Emboss Patch Kulit'],
     description: 'Tote bag denim kasual berkualitas tinggi menggunakan kain jeans indigo 12 oz. Dilengkapi aksen jahitan kontras warna tembaga klasik dan rivet logam penguat pada pangkal tali untuk daya tahan maksimal dan nuansa streetwear otentik.',
     usage: ['Merchandise Brand Distro & Fashion', 'Gathering Perusahaan Kasual', 'Komunitas Motor & Hobi'],
-    imageUrl: '/media/foto-denim.jpg',
-    altText: 'Tote Bag Denim Raw Indigo dengan jahitan kontras dan patch kulit sintetis',
+    imageUrl: '/media/tote-bag-denim.webp',
+    altText: 'Tote Bag Denim Raw Indigo dengan jahitan kontras dan patch kulit estetis',
     highlight: 'Karakter kasual streetwear yang kuat, tebal, dan semakin bernilai seiring waktu.',
     specTable: {
       material: 'Denim Twill Cotton (12 oz)',
@@ -518,8 +518,8 @@ export const products: Product[] = [
     techniques: ['Digital Printing Sublimasi High Definition'],
     description: 'Tote bag satin bridal dengan teknologi cetak sublimasi digital format lebar. Memungkinkan pengaplikasian ilustrasi foto, pola floral, dan desain seni visual tanpa batasan jumlah warna serta gradasi yang mulus sempurna.',
     usage: ['Souvenir Wisata Seni Budaya', 'Hampers Bridal & Wedding', 'Merchandise Brand Kosmetik'],
-    imageUrl: '/media/foto-satin.jpg',
-    altText: 'Tote Bag Satin Full Print Sublimasi dengan ilustrasi seni tajam beresolusi tinggi',
+    imageUrl: '/media/tote-bag-satin.webp',
+    altText: 'Tote Bag Satin Full Print Sublimasi dengan ilustrasi seni botanical cerah',
     highlight: 'Hasil cetak full-color beresolusi tinggi tanpa batasan gradasi warna.',
     specTable: {
       material: 'Satin Bridal Premium + Furing Dalam',
@@ -538,18 +538,18 @@ export const portfolioItems: PortfolioItem[] = [
   {
     slug: 'seminar-nasional-teknologi-malang',
     title: 'Pengadaan 350 Pcs Tote Bag Blacu Seminar Nasional Teknologi',
-    clientType: 'Panitia Konferensi Akademik Perguruan Tinggi',
+    clientType: 'SMK Telkom Malang / Seminar & Workshop Teknologi',
     city: 'Malang, Jawa Timur',
     qty: '350 Pcs',
-    material: 'Kain Blacu Super Grade A',
-    technique: 'Sablon Manual 2 Sisi (Warna Navy & Pine)',
+    material: 'Kain Blacu Hitam Tebal + Tali Katun Webbing Tan',
+    technique: 'Direct-to-Film (DTF) Heat Press Presisi',
     dimensions: '30 × 40 cm Flat',
-    brief: 'Panitia memerlukan tas yang cukup untuk memasukkan prosiding buku seminar tebal, tumbler stainless, dan sertifikat tanpa risiko jebol, dengan anggaran akademik yang terkontrol dan waktu pengerjaan 8 hari kerja.',
-    solution: 'Kami merekomendasikan kain blacu super grade A dengan jahitan obras ganda pada sambungan dan penguatan silang pada pangkal tali. Hasil cetak sablon presisi dan lolos uji beban 4 kg per tas.',
+    brief: 'Penyelenggara seminar & workshop nasional teknologi di Malang membutuhkan 350 pcs tas seminar kit bernuansa teknologi modern dengan grafis arsitektur gedung yang tajam dan tali kontras tahan beban.',
+    solution: 'Kami memproduksi tote bag bahan blacu hitam pekat dipadu aksen tali webbing katun premium cokelat tan. Cetak logo dan ilustrasi arsitektur menggunakan mesin heat press digital DTF bersuhu 165°C sehingga garis halus gedung merekat kuat dan tahan cuci.',
     date: 'Oktober 2026',
-    imageUrl: '/media/portfolio-seminar-malang.svg',
-    altText: 'Dokumentasi pesanan tote bag blacu seminar akademik Malang',
-    keyTakeaway: 'Tepat waktu 2 hari sebelum acara dengan zero defect jahit.'
+    imageUrl: '/media/portfolio-blacu-350pcs.webp',
+    altText: 'Dokumentasi produksi heat press DTF pengadaan 350 pcs tote bag seminar nasional teknologi SMK Telkom Malang',
+    keyTakeaway: 'Hasil cetak garis arsitektur presisi 100% tajam dan selesai tepat waktu untuk seluruh 350 peserta.'
   },
   {
     slug: 'onboarding-kit-startup-surabaya',
@@ -563,8 +563,8 @@ export const portfolioItems: PortfolioItem[] = [
     brief: 'Perusahaan membutuhkan welcome kit bagi karyawan baru yang mencerminkan identitas brand modern. Tas harus memuat laptop 14 inch, buku catatan, dan pouch charger.',
     solution: 'Dipilih canvas twill berketebalan 12 oz warna hijau botol dengan furing dalam tahan air dan kompartemen saku beresleting untuk menyimpan kartu akses kantor. Pengiriman Malang ke Surabaya menggunakan travel kargo same-day.',
     date: 'September 2026',
-    imageUrl: '/media/portfolio-corporate-surabaya.svg',
-    altText: 'Dokumentasi tote bag canvas twill hijau untuk karyawan perusahaan',
+    imageUrl: '/media/portfolio-canvas-twill-180pcs.webp',
+    altText: 'Dokumentasi pembuatan 180 pcs tote bag canvas twill hijau untuk karyawan perusahaan',
     keyTakeaway: 'Kualitas warna DTF tajam dan konsisten di seluruh batch produksi.'
   },
   {
@@ -579,8 +579,8 @@ export const portfolioItems: PortfolioItem[] = [
     brief: 'Acara bertema keberlanjutan lingkungan mensyaratkan materi souvenir yang seminimal mungkin menggunakan bahan kimia pemutih dan tinta berbasis solvent.',
     solution: 'Kami menggunakan bahan canvas greige serat kapas murni dengan tinta sablon berbasis air (waterbased binder). Packaging per tas menggunakan tali rami tanpa plastik pembungkus sekali pakai.',
     date: 'Agustus 2026',
-    imageUrl: '/media/portfolio-eco-bumn.svg',
-    altText: 'Dokumentasi tote bag canvas greige natural workshop CSR Yogyakarta',
+    imageUrl: '/media/portfolio-canvas-greige-500pcs.webp',
+    altText: 'Dokumentasi produksi 500 pcs tote bag canvas greige natural workshop CSR Yogyakarta',
     keyTakeaway: 'Sesuai standar verifikasi tema keberlanjutan klien.'
   }
 ];
@@ -597,8 +597,8 @@ export const articles: Article[] = [
     authorId: 'm-maulana-ishaq',
     authorName: 'M. Maulana Ishaq',
     category: 'Panduan Material',
-    imageUrl: '/media/blog-material-guide.svg',
-    altText: 'Perbandingan serat kain canvas, blacu, dan spunbond untuk tote bag custom',
+    imageUrl: '/media/tote-bag-canvas-ethnic-tenun.webp',
+    altText: 'Perbandingan serat kain canvas tenun, blacu, dan spunbond untuk tote bag custom',
     tableOfContents: [
       { id: 'ringkasan-karakteristik', title: 'Tabel Ringkasan Karakteristik Bahan' },
       { id: 'detail-bahan-canvas', title: '1. Kain Canvas: Karakter & Rekomendasi' },
@@ -617,8 +617,8 @@ export const articles: Article[] = [
     authorId: 'm-maulana-ishaq',
     authorName: 'M. Maulana Ishaq',
     category: 'Teknis Produksi',
-    imageUrl: '/media/blog-sizing-guide.svg',
-    altText: 'Ilustrasi panduan ukuran tote bag seminar proporsi dokumen A4 dan laptop',
+    imageUrl: '/media/tote-bag-canvas-aksara-kost.webp',
+    altText: 'Foto produk nyata tote bag canvas seminar proporsi dokumen A4 dan laptop',
     tableOfContents: [
       { id: 'dimensi-standar', title: '3 Ukuran Standar Tote Bag di Industri Merchandise' },
       { id: 'pengaruh-gusset', title: 'Pentingnya Alas (Gusset) pada Daya Muat Tas' },
@@ -636,8 +636,8 @@ export const articles: Article[] = [
     authorId: 'm-maulana-ishaq',
     authorName: 'M. Maulana Ishaq',
     category: 'Panduan Branding',
-    imageUrl: '/media/blog-printing-guide.svg',
-    altText: 'Perbandingan hasil cetak sablon manual, transfer DTF, dan bordir tote bag',
+    imageUrl: '/media/proses-dtf-press-green-energy.webp',
+    altText: 'Proses aplikasi cetak heat press DTF digital pada tote bag di workshop',
     tableOfContents: [
       { id: 'perbandingan-cetak', title: 'Matriks Perbandingan Teknik Cetak Logo' },
       { id: 'sablon-manual', title: 'Kelebihan & Batasan Sablon Manual Rubber' },
@@ -654,7 +654,7 @@ export const authors: Record<string, Author> = {
     role: 'SEO Specialist & Web Developer | Senior Marketing',
     bio: 'SEO Specialist dan Web Developer yang saat ini memegang peranan sebagai Senior Marketing. Berfokus pada perancangan arsitektur katalog produk digital, riset kebutuhan pengadaan merchandise B2B, dan standardisasi kualitas tote bag custom.',
     expertise: ['SEO & Digital Growth Strategy', 'Web Development & UI/UX', 'Senior Marketing B2B', 'Spesifikasi & Standardisasi Pengadaan'],
-    imageUrl: '/media/author-fauzi.svg',
+    imageUrl: '/media/author-maulana.webp',
     socials: {
       instagram: 'https://instagram.com/maulanaishaq',
       x: 'https://x.com/maulanaishaq',
@@ -668,7 +668,7 @@ export const authors: Record<string, Author> = {
     role: 'SEO Specialist & Web Developer | Senior Marketing',
     bio: 'SEO Specialist dan Web Developer yang saat ini memegang peranan sebagai Senior Marketing. Berfokus pada perancangan arsitektur katalog produk digital, riset kebutuhan pengadaan merchandise B2B, dan standardisasi kualitas tote bag custom.',
     expertise: ['SEO & Digital Growth Strategy', 'Web Development & UI/UX', 'Senior Marketing B2B', 'Spesifikasi & Standardisasi Pengadaan'],
-    imageUrl: '/media/author-fauzi.svg',
+    imageUrl: '/media/author-maulana.webp',
     socials: {
       instagram: 'https://instagram.com/maulanaishaq',
       x: 'https://x.com/maulanaishaq',
