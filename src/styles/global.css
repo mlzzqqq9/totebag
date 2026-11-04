@@ -251,9 +251,10 @@ textarea:focus-visible {
   background-color: var(--surface-alt);
 }
 
+.bg-brand,
 .bg-brand-dark {
-  background-color: var(--brand-primary);
-  color: #FFFFFF;
+  background-color: var(--brand-primary) !important;
+  color: #FFFFFF !important;
 }
 
 /* Header & Nav */

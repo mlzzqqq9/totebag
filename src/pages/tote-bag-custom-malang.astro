@@ -1,206 +1,998 @@
----
+y---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
-import FAQAccordion from '@/components/ui/FAQAccordion.astro';
-import { getNaskahById } from '@/utils/naskah';
-import { getWhatsAppUrl, businessProfile } from '@/data/siteData';
-
-const naskah = getNaskahById('83');
-if (!naskah) {
-  throw new Error("Naskah ID 83 not found");
-}
 
 const breadcrumbs = [
   { name: 'Beranda', url: '/' },
-  { name: 'Layanan Kota', url: '/layanan/' },
-  { name: 'Vendor Tote Bag Malang', url: '/tote-bag-custom-malang/' }
+  { name: 'Vendor Tote Bag Custom di Malang', url: '/tote-bag-custom-malang/' }
 ];
 
-const waMalangUrl = getWhatsAppUrl({
-  notes: "Halo Tim ToteBag Malang, saya ingin konsultasi produksi tote bag custom di Malang",
-  sourcePage: "/tote-bag-custom-malang/"
-});
-
-const faqItems = naskah.faqs.map((f, i) => ({
-  id: `faq-83-${i}`,
-  question: f.question,
-  answer: f.answer,
-  category: 'pemesanan' as const
-}));
+const schemaJson = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://totebag.web.id/#website",
+      "url": "https://totebag.web.id/",
+      "name": "ToteBag",
+      "inLanguage": "id-ID"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://totebag.web.id/tote-bag-custom-malang/#webpage",
+      "url": "https://totebag.web.id/tote-bag-custom-malang/",
+      "name": "Vendor Tote Bag Custom di Malang untuk Perusahaan & Event",
+      "description": "Vendor tote bag custom di Malang untuk seminar, perusahaan, kampus dan event. Bandingkan bahan, teknik logo dan proses pemesanan. Konsultasi via WhatsApp.",
+      "isPartOf": {
+        "@id": "https://totebag.web.id/#website"
+      },
+      "inLanguage": "id-ID"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://totebag.web.id/tote-bag-custom-malang/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://totebag.web.id/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Vendor Tote Bag Custom di Malang",
+          "item": "https://totebag.web.id/tote-bag-custom-malang/"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://totebag.web.id/tote-bag-custom-malang/#service",
+      "name": "Layanan Pemesanan Tote Bag Custom di Malang",
+      "serviceType": "Pemesanan tote bag custom untuk kebutuhan B2B dan event",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Malang, Jawa Timur"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "ToteBag",
+        "url": "https://totebag.web.id/",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+62-821-3108-7971",
+          "contactType": "sales",
+          "availableLanguage": "Indonesian"
+        }
+      },
+      "url": "https://totebag.web.id/tote-bag-custom-malang/"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://totebag.web.id/tote-bag-custom-malang/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Di mana bisa memesan tote bag custom di Malang?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Anda dapat mengajukan kebutuhan tote bag custom melalui ToteBag di situs ini. Sampaikan bahan, ukuran, jumlah, desain logo, lokasi pengiriman, dan tanggal penggunaan agar tim dapat menyiapkan penawaran yang relevan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa minimal order tote bag custom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum pemesanan bergantung pada bahan, ukuran, model, teknik logo, dan jadwal produksi. Angka 50–100 pcs sering digunakan sebagai gambaran untuk pengadaan konveksi, tetapi bukan MOQ pasti untuk semua produk. Konfirmasikan jumlah Anda saat meminta penawaran."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa lama proses produksi tote bag custom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Waktu produksi dipengaruhi jumlah pesanan, ketersediaan kain, kerumitan desain, persetujuan sampel, dan antrean pengerjaan. Estimasi 3–10 hari kerja dalam materi panduan bukan janji layanan; pastikan tanggal produksi dan pengiriman tertulis di quotation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apa bahan tote bag yang cocok untuk seminar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Spunbond cocok untuk kebutuhan ringan dan anggaran ketat, blacu untuk tampilan natural, serta canvas untuk penggunaan berulang dan kesan lebih premium. Pilih ukuran yang mampu memuat materi acara dan uji sampel sebelum memesan banyak."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah tote bag bisa memakai logo perusahaan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tote bag dapat dipersonalisasi dengan sablon manual, transfer/DTF, atau bordir tergantung material dan desain. Kirim logo beresolusi tinggi atau vektor serta posisi cetak yang diinginkan agar hasil mockup dapat diperiksa."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apa yang memengaruhi harga tote bag custom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faktor utama meliputi jenis dan ketebalan kain, dimensi, gusset atau resleting, jumlah unit, ukuran dan jumlah warna logo, teknik cetak, serta biaya sampel dan pengiriman. Minta penawaran dengan spesifikasi lengkap agar dapat membandingkan secara adil."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bisakah pemesanan dilakukan dari luar Malang?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Konsultasi dan persetujuan desain dapat dibahas secara daring. Ketersediaan layanan kirim, ongkos angkut, serta perkiraan tiba harus dikonfirmasi sesuai tujuan dan jadwal acara."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah spunbond selalu lebih ramah lingkungan daripada kain lain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tidak selalu. Dampak lingkungan bergantung pada bahan baku, proses produksi, masa pakai, frekuensi penggunaan ulang, dan pengelolaan akhir pakai. Spunbond umumnya berbahan polipropilena non-woven; jangan menyamakannya dengan kain alami atau otomatis dapat didaur ulang di semua daerah."
+          }
+        }
+      ]
+    }
+  ]
+};
 ---
 
 <BaseLayout
-  title={naskah.seoTitle || "Vendor Tote Bag Custom di Malang | Tote Bag"}
-  description={naskah.metaDescription}
-  canonicalUrl={naskah.canonical}
-  jsonLd={naskah.schemaJson}
+  title="Vendor Tote Bag Custom Malang untuk Perusahaan & Event"
+  description="Cari vendor tote bag custom di Malang? Pilih canvas, blacu, spunbond, dan custom logo untuk seminar, perusahaan, kampus, dan event. Konsultasi pesanan."
+  canonicalUrl="https://totebag.web.id/tote-bag-custom-malang/"
+  ogImage="https://totebag.web.id/media/produksi-massal-tote-bag.webp"
+  jsonLd={schemaJson}
 >
+  <!-- Topbar Information Strip -->
+  <aside class="malang-topbar py-2 text-center text-white small" style="background-color: var(--brand-primary, #173F38);" aria-label="Informasi layanan workshop">
+    <div class="container">
+      Layanan tote bag custom untuk perusahaan, instansi, kampus dan event • Konsultasi spesifikasi sebelum order
+    </div>
+  </aside>
+
+  <!-- Breadcrumbs & In-Page Anchor Navigation -->
   <div class="container pt-3">
     <Breadcrumbs items={breadcrumbs} />
+    <nav class="quick-nav d-none d-md-flex flex-wrap gap-2 pt-2 pb-1" aria-label="Navigasi cepat halaman">
+      <span class="small fw-semibold text-muted align-self-center me-1">Lompat ke:</span>
+      <a href="#layanan" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Layanan B2B</a>
+      <a href="#bahan" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Pilihan Bahan</a>
+      <a href="#custom" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Teknik Logo</a>
+      <a href="#proses" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Cara Pesan</a>
+      <a href="#faq" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">FAQ</a>
+      <a href="#penawaran" class="badge badge-cta text-decoration-none px-3 py-2 rounded-pill">Minta Penawaran ↗</a>
+    </nav>
   </div>
 
-  <!-- Hero Header -->
-  <header class="section-space-sm pt-2">
+  <!-- Hero Section -->
+  <section class="section-space-sm pt-3 pb-5 hero-malang" id="konten">
     <div class="container">
-      <div class="max-w-75">
-        <div class="d-flex align-items-center gap-2 mb-2">
-          <span class="badge-accent">WORKSHOP &amp; KONVEKSI LOKAL</span>
-        </div>
-        <h1 class="hero-title mb-3">
-          {naskah.h1}
-        </h1>
-        <p class="lead text-muted fs-5 mb-0" style="line-height: 1.7;">
-          Produsen dan vendor konveksi tas tote bag custom berbasis workshop di Malang, Jawa Timur. Melayani pemesanan instansi pemerintah, BUMN, kampus perguruan tinggi, korporasi swasta, hingga event kreatif dengan jangkauan pengiriman kargo ke seluruh Indonesia.
-        </p>
-      </div>
-    </div>
-  </header>
-
-  <!-- Direct Answer Box (AEO GEO Optimized) -->
-  <section class="pb-5">
-    <div class="container">
-      <div class="p-4 p-md-5 rounded-4 bg-light border border-success-subtle shadow-sm mb-5">
-        <div class="d-flex align-items-center gap-2 mb-3">
-          <span class="badge bg-success text-white">Prinsip Pengadaan Vendor Malang</span>
-          <span class="text-muted small">Transparansi Kapasitas &amp; Distribusi Logistik</span>
-        </div>
-        <p class="fs-5 text-dark mb-0" style="line-height: 1.8;">
-          {naskah.directAnswer}
-        </p>
-      </div>
-
-      <!-- Workshop Profile & Keunggulan Vendor Malang -->
-      <div class="row g-4 mb-5 align-items-center">
-        <div class="col-12 col-lg-6">
-          <span class="text-success fw-bold text-uppercase small tracking-wide">Workshop Mandiri</span>
-          <h2 class="h3 fw-bold mt-1 mb-3">Keuntungan Bermitra Langsung dengan Produsen di Malang</h2>
-          <p class="text-muted" style="line-height: 1.7;">
-            Workshop kami berlokasi di {businessProfile.district}, Kota Malang. Dengan rantai produksi mandiri (cutting kain, meja sablon manual, mesin cetak DTF industri, dan penjahit terampil), kami memberikan kendali mutu ketat tanpa perantara calo atau pihak ketiga.
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-12 col-lg-7">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge-accent">Solusi tote bag custom • Malang, Jawa Timur</span>
+          </div>
+          <h1 class="hero-title mb-3" style="font-size: clamp(2.2rem, 3.8vw, 3.2rem);">
+            Vendor Tote Bag Custom di Malang untuk Perusahaan &amp; Berbagai Acara
+          </h1>
+          <p class="lead text-muted fs-5 mb-4" style="line-height: 1.75;">
+            Butuh tote bag custom berlogo untuk seminar, perusahaan, kampus atau event? Tentukan bahan, ukuran, jumlah dan teknik cetak sesuai kebutuhan. Melalui ToteBag, Anda dapat mengajukan brief dan meminta penawaran berdasarkan spesifikasi pesanan.
           </p>
-          <ul class="list-unstyled d-flex flex-column gap-2 text-dark">
-            <li class="d-flex align-items-start gap-2">
-              <span class="text-success fw-bold">✓</span>
-              <span><strong>Harga Produsen Tangan Pertama:</strong> Efisiensi biaya produksi langsung dari konveksi kain.</span>
-            </li>
-            <li class="d-flex align-items-start gap-2">
-              <span class="text-success fw-bold">✓</span>
-              <span><strong>Uji Fisik &amp; Pembuatan Sample:</strong> Klien dapat melihat langsung katalog kain atau memesan sample fisik sebelum produksi massal.</span>
-            </li>
-            <li class="d-flex align-items-start gap-2">
-              <span class="text-success fw-bold">✓</span>
-              <span><strong>Aksesibilitas Malang Raya:</strong> Pengambilan langsung ke workshop atau pengiriman kurir lokal instan untuk area Kota Malang, Kota Batu, dan Kabupaten Malang.</span>
-            </li>
-            <li class="d-flex align-items-start gap-2">
-              <span class="text-success fw-bold">✓</span>
-              <span><strong>Legalitas &amp; Dokumen B2B:</strong> Menyediakan invoice resmi, faktur penawaran, dan kelengkapan administrasi pengadaan korporat.</span>
-            </li>
-          </ul>
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#penawaran" class="btn btn-brand btn-lg">
+              Minta penawaran custom ↗
+            </a>
+            <a href="#bahan" class="btn btn-brand-outline btn-lg">
+              Bandingkan bahan ↓
+            </a>
+          </div>
+          <div class="d-flex flex-wrap gap-3 text-muted small">
+            <span><strong class="text-success">✓</strong> Pilihan bahan &amp; model</span>
+            <span><strong class="text-success">✓</strong> Custom logo presisi</span>
+            <span><strong class="text-success">✓</strong> Kebutuhan B2B &amp; acara</span>
+          </div>
         </div>
 
-        <div class="col-12 col-lg-6">
-          <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm">
-            <h3 class="h5 fw-bold mb-3 border-bottom pb-2">Informasi Workshop &amp; Kontak Resmi</h3>
-            <div class="d-flex flex-column gap-3 small">
-              <div>
-                <strong class="text-dark d-block">Nama Brand Workshop:</strong>
-                <span class="text-muted">{businessProfile.name}</span>
-              </div>
-              <div>
-                <strong class="text-dark d-block">Alamat Workshop:</strong>
-                <span class="text-muted">{businessProfile.streetAddress}, {businessProfile.district}, {businessProfile.city}, {businessProfile.province} {businessProfile.postalCode}</span>
-              </div>
-              <div>
-                <strong class="text-dark d-block">Kapasitas Produksi:</strong>
-                <span class="text-muted">15.000 – 30.000 pcs / bulan (tergantung spesifikasi bahan &amp; kerumitan cetak)</span>
-              </div>
-              <div>
-                <strong class="text-dark d-block">Layanan Pengiriman:</strong>
-                <span class="text-muted">Lokal Malang (Kurir Workshop/Instant) &bull; Luar Kota (KAI Logistik, Baraka Kargo, Indah Cargo, JNE Trucking)</span>
-              </div>
-              <div>
-                <strong class="text-dark d-block">Hotline WhatsApp:</strong>
-                <a href={waMalangUrl} target="_blank" rel="noopener noreferrer" class="text-success fw-bold text-decoration-none">
-                  +62 821-3108-7971 (Fast Response)
-                </a>
-              </div>
+        <div class="col-12 col-lg-5">
+          <div class="position-relative">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
+              <img 
+                src="/media/produksi-massal-tote-bag.webp" 
+                alt="Proses produksi massal tote bag custom di konveksi workshop Malang" 
+                width="800" 
+                height="600" 
+                class="w-100 h-100 object-fit-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+            <!-- Floating Spec Tag -->
+            <div class="position-absolute bottom-0 end-0 m-3 p-3 bg-white rounded-3 shadow border small text-dark d-none d-sm-block" style="max-width: 220px; z-index: 2;">
+              <strong class="d-block mb-1 text-brand fw-bold">Mulai dari brief</strong>
+              <span class="text-muted small lh-sm d-block">Jumlah • bahan • logo • deadline acara</span>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Panduan Pemesanan Lintas Kota -->
-      <div class="p-4 p-md-5 rounded-4 bg-white border shadow-sm mb-5">
-        <h2 class="h3 fw-bold mb-3">Alur Pemesanan untuk Klien Luar Kota Malang</h2>
-        <p class="text-muted mb-4" style="line-height: 1.7;">
-          Meskipun workshop kami berada di Malang, lebih dari 65% pesanan kami berasal dari instansi dan perusahaan di Surabaya, Jakarta, Bandung, Yogyakarta, hingga luar pulau Jawa. Berikut mekanisme transparan pemesanan jarak jauh:
-        </p>
-
-        <div class="row g-4">
-          <div class="col-12 col-md-3">
-            <div class="p-3 rounded-3 bg-light border h-100">
-              <span class="badge bg-success text-white mb-2">Tahap 1</span>
-              <h3 class="h6 fw-bold">Konsultasi Digital</h3>
-              <p class="small text-muted mb-0">Kirimkan file logo (vektor AI/PDF/PNG hi-res), estimasi kuantiti, dan deadline acara via WhatsApp atau email.</p>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="p-3 rounded-3 bg-light border h-100">
-              <span class="badge bg-success text-white mb-2">Tahap 2</span>
-              <h3 class="h6 fw-bold">Digital Proofing &amp; Sample</h3>
-              <p class="small text-muted mb-0">Tim desainer membuat simulasi tata letak visual 1:1. Untuk order volume besar, sample fisik dapat dikirim via ekspedisi kilat.</p>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="p-3 rounded-3 bg-light border h-100">
-              <span class="badge bg-success text-white mb-2">Tahap 3</span>
-              <h3 class="h6 fw-bold">Produksi &amp; Update Berkala</h3>
-              <p class="small text-muted mb-0">Setelah DP disetujui, produksi berjalan dengan dokumentasi progres foto/video pengerjaan sablon dan jahitan.</p>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="p-3 rounded-3 bg-light border h-100">
-              <span class="badge bg-success text-white mb-2">Tahap 4</span>
-              <h3 class="h6 fw-bold">Packing &amp; Kargo Terlacak</h3>
-              <p class="small text-muted mb-0">Barang dikemas plastik per lusin, dibungkus karung kedap air, dan dikirim via ekspedisi kargo resmi dengan nomor resi aktif.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FAQ Accordion -->
-      <div class="mb-5">
-        <div class="text-center max-w-75 mx-auto mb-4">
-          <h2 class="h3 fw-bold mb-2">Pertanyaan Seputar Vendor Tote Bag Malang</h2>
-          <p class="text-muted small">Klarifikasi spesifikasi teknis dan kebijakan operasional vendor.</p>
-        </div>
-        <div class="max-w-75 mx-auto">
-          <FAQAccordion items={faqItems} defaultOpen={0} />
-        </div>
-      </div>
-
-      <!-- CTA Box -->
-      <div class="p-4 p-md-5 rounded-4 text-white text-center shadow" style="background: linear-gradient(135deg, #1B4D3E 0%, #0d2820 100%);">
-        <h2 class="h3 fw-bold mb-3">Siap Memulai Pengadaan Tote Bag Custom di Malang?</h2>
-        <p class="max-w-75 mx-auto text-white-50 mb-4" style="line-height: 1.7;">
-          Dapatkan penawaran harga pabrik resmi, konsultasi pemilihan bahan yang paling efisien, dan jadwal pengerjaan yang terjamin tepat waktu.
-        </p>
-        <div class="d-flex flex-wrap justify-content-center gap-3">
-          <a href={waMalangUrl} target="_blank" rel="noopener noreferrer" class="btn btn-warning btn-lg fw-bold">
-            Hubungi Workshop via WA
-          </a>
-          <a href="/cara-pesan/" class="btn btn-outline-light btn-lg">
-            Pelajari 6 Langkah Cara Pesan
-          </a>
-        </div>
-      </div>
-
-      <!-- Related Navigation -->
-      <div class="mt-4 text-center">
-        <p class="small text-muted">
-          Eksplorasi informasi lainnya: <a href="/layanan/malang/" class="text-decoration-underline text-success">Layanan Area Malang</a> &bull; <a href="/harga-tote-bag-custom/" class="text-decoration-underline text-success">Estimasi Harga</a> &bull; <a href="/panduan-produksi-tote-bag/" class="text-decoration-underline text-success">Standar QC Produksi</a> &bull; <a href="/kontak/" class="text-decoration-underline text-success">Alamat Workshop Lengkap</a>
-        </p>
-      </div>
-
     </div>
   </section>
+
+  <!-- Section 04: #layanan — Solusi pemesanan tote bag untuk kebutuhan bisnis dan acara -->
+  <section class="section-space pt-4 pb-5" id="layanan">
+    <div class="container">
+      <div class="max-w-75 mb-5">
+        <span class="badge-accent mb-2">Layanan custom</span>
+        <h2 class="section-title mb-3">Solusi pemesanan tote bag untuk kebutuhan bisnis dan acara</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Vendor tote bag custom di Malang membantu pengadaan tas sesuai identitas brand, fungsi pemakaian, dan kebutuhan distribusi. Yang paling penting bukan sekadar memilih tas murah, melainkan menetapkan spesifikasi agar penawaran, sampel, dan produk akhir dapat diperiksa secara konsisten.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- 01 / Corporate -->
+        <div class="col-12 col-md-4">
+          <article class="card h-100 p-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <div class="ratio ratio-16x9 rounded-3 overflow-hidden border mb-3">
+              <img 
+                src="/media/lifestyle-tote-bag-navy-batik.webp" 
+                alt="Tote bag perusahaan eksklusif untuk corporate gift dan onboarding" 
+                width="600" 
+                height="338" 
+                class="w-100 h-100 object-fit-cover"
+                loading="lazy"
+              />
+            </div>
+            <span class="badge bg-light text-brand align-self-start mb-2 fw-bold">01 / Corporate</span>
+            <h3 class="h5 fw-bold mb-2">Tote bag perusahaan &amp; HRD</h3>
+            <p class="text-muted small flex-grow-1">
+              Merchandise kantor, paket onboarding, hadiah karyawan, dan aktivitas branding internal. Utamakan warna identitas, logo rapi, dan kenyamanan saat dipakai ulang.
+            </p>
+            <a href="/tote-bag-custom/" class="fw-bold text-brand small text-decoration-none mt-2">
+              Lihat layanan custom logo →
+            </a>
+          </article>
+        </div>
+
+        <!-- 02 / Event -->
+        <div class="col-12 col-md-4">
+          <article class="card h-100 p-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <div class="ratio ratio-16x9 rounded-3 overflow-hidden border mb-3">
+              <img 
+                src="/media/tote-bag-seminar-kit-canvas.webp" 
+                alt="Tote bag seminar kit custom kampus dan konferensi" 
+                width="600" 
+                height="338" 
+                class="w-100 h-100 object-fit-cover"
+                loading="lazy"
+              />
+            </div>
+            <span class="badge bg-light text-brand align-self-start mb-2 fw-bold">02 / Event</span>
+            <h3 class="h5 fw-bold mb-2">Seminar, workshop &amp; kampus</h3>
+            <p class="text-muted small flex-grow-1">
+              Tas untuk buku, dokumen A4, notebook, pulpen, dan lanyard. Pilih ukuran berdasarkan isi serta tingkat penggunaan setelah acara.
+            </p>
+            <a href="/tote-bag-seminar/" class="fw-bold text-brand small text-decoration-none mt-2">
+              Panduan tote bag seminar →
+            </a>
+          </article>
+        </div>
+
+        <!-- 03 / Instansi -->
+        <div class="col-12 col-md-4">
+          <article class="card h-100 p-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <div class="ratio ratio-16x9 rounded-3 overflow-hidden border mb-3">
+              <img 
+                src="/media/lifestyle-tote-bag-green-energy.webp" 
+                alt="Pengadaan tote bag dinas instansi dan organisasi" 
+                width="600" 
+                height="338" 
+                class="w-100 h-100 object-fit-cover"
+                loading="lazy"
+              />
+            </div>
+            <span class="badge bg-light text-brand align-self-start mb-2 fw-bold">03 / Instansi</span>
+            <h3 class="h5 fw-bold mb-2">Pengadaan organisasi &amp; instansi</h3>
+            <p class="text-muted small flex-grow-1">
+              Pemesanan untuk pelatihan, rapat kerja, kegiatan dinas, dan program promosi. Siapkan dokumen spesifikasi, artwork, dan jadwal penggunaan sebelum meminta quotation.
+            </p>
+            <a href="#penawaran" class="fw-bold text-brand small text-decoration-none mt-2">
+              Susun brief pengadaan →
+            </a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 05: #bahan — Pilih bahan tote bag custom berdasarkan fungsi, bukan tren semata -->
+  <section class="section-space bg-surface-alt" id="bahan">
+    <div class="container">
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">Panduan material</span>
+        <h2 class="section-title mb-3">Pilih bahan tote bag custom berdasarkan fungsi, bukan tren semata</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Canvas, blacu, spunbond, cordura/polyester, denim, dan mika memiliki karakter berbeda. Tabel berikut merupakan panduan kualitatif, bukan hasil uji laboratorium maupun daftar harga resmi.
+        </p>
+      </div>
+
+      <div class="table-responsive rounded-4 border bg-white shadow-sm mb-3">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" style="min-width: 160px;">Bahan</th>
+              <th scope="col" style="min-width: 220px;">Karakter umum</th>
+              <th scope="col" style="min-width: 220px;">Penggunaan yang cocok</th>
+              <th scope="col" style="min-width: 240px;">Pertimbangan</th>
+            </tr>
+          </thead>
+          <tbody class="small">
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Canvas / Kanvas</th>
+              <td>Tenunan relatif tebal dan berstruktur; nyaman untuk pemakaian berulang.</td>
+              <td>Corporate merchandise, tote bag premium, seminar eksekutif.</td>
+              <td>Ketebalan dan kualitas jahitan memengaruhi kekuatan; biaya dapat lebih tinggi.</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Blacu</th>
+              <td>Warna natural, tampilan sederhana, umumnya lebih ringan.</td>
+              <td>Workshop kreatif, kampus, souvenir bernuansa natural.</td>
+              <td>Ketebalan dan tingkat menerawang bervariasi.</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Spunbond</th>
+              <td>Non-woven sintetis, ringan, mudah dibentuk.</td>
+              <td>Goodie bag promosi, event massal, kemasan materi ringan.</td>
+              <td>Jangan menyimpulkan semua spunbond ramah lingkungan; lihat siklus pakai dan daur ulang lokal.</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Cordura / Polyester</th>
+              <td>Kain sintetis dengan beragam tingkat ketahanan dan finishing.</td>
+              <td>Tas event berkompartemen, kebutuhan perjalanan atau perlengkapan yang lebih berat.</td>
+              <td>Spesifikasi gramasi, coating, dan jahitan harus diverifikasi.</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Denim</th>
+              <td>Tekstur khas jeans, tampilan kasual.</td>
+              <td>Merchandise kreatif, tote bag komunitas atau ritel.</td>
+              <td>Berat bahan dan kemungkinan luntur perlu diperiksa.</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Mika / PVC</th>
+              <td>Transparan dan mudah dibersihkan pada jenis tertentu.</td>
+              <td>Souvenir display, kosmetik, kebutuhan visual transparan.</td>
+              <td>Periksa ketebalan, kelenturan, serta aturan acara terkait material plastik.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-4 rounded-4 bg-white border-start border-4 border-success shadow-sm mb-4">
+        <p class="text-dark small mb-0" style="line-height: 1.8;">
+          <strong>Cara cepat memilih:</strong> untuk distribusi ringan dalam jumlah besar, pertimbangkan spunbond; untuk kesan natural, blacu; untuk tas yang diharapkan sering digunakan, canvas; dan untuk model berfitur khusus, evaluasi polyester/cordura serta konstruksi tas.
+        </p>
+      </div>
+
+      <div class="d-flex flex-wrap gap-2">
+        <a href="/produk/tote-bag-canvas/" class="btn btn-outline-success btn-sm">Detail tote bag canvas →</a>
+        <a href="/produk/tote-bag-blacu/" class="btn btn-outline-success btn-sm">Detail tote bag blacu →</a>
+        <a href="/produk/tote-bag-spunbond/" class="btn btn-outline-success btn-sm">Detail tote bag spunbond →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 06: #custom — Sablon manual, DTF, transfer, atau bordir: mana yang paling tepat? -->
+  <section class="section-space" id="custom">
+    <div class="container">
+      <div class="max-w-75 mb-5">
+        <span class="badge-accent mb-2">Teknik personalisasi</span>
+        <h2 class="section-title mb-3">Sablon manual, DTF, transfer, atau bordir: mana yang paling tepat?</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Teknik pencetakan logo perlu mengikuti jenis kain, jumlah warna, ukuran artwork, dan kuantitas order. Tidak semua proses sablon memakai kertas transfer; metode manual dan digital memiliki tahapan berbeda.
+        </p>
+      </div>
+
+      <div class="row g-4 mb-5">
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">01</span>
+            <h3 class="h5 fw-bold mb-2">Sablon manual</h3>
+            <p class="text-muted small mb-0">
+              Cocok untuk desain sederhana dan produksi berulang pada material yang kompatibel. Biaya dipengaruhi jumlah warna, ukuran bidang cetak, dan jumlah unit.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">02</span>
+            <h3 class="h5 fw-bold mb-2">DTF / transfer digital</h3>
+            <p class="text-muted small mb-0">
+              Memungkinkan artwork penuh warna dan detail kecil pada material yang sesuai. Uji daya rekat, temperatur press, dan hasil cuci pada sampel.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">03</span>
+            <h3 class="h5 fw-bold mb-2">Bordir komputer</h3>
+            <p class="text-muted small mb-0">
+              Logo dibentuk dari jahitan benang; memberi tekstur timbul. Cocok untuk kain dengan struktur memadai, tetapi desain yang sangat kecil atau rumit perlu penyesuaian.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Narrative on cost factors -->
+      <div class="p-4 p-md-5 rounded-4 bg-surface-alt border">
+        <h3 class="h5 fw-bold text-dark mb-3">Apa saja faktor biaya sablon tote bag?</h3>
+        <p class="text-muted fs-6 mb-3" style="line-height: 1.8;">
+          Materi awal Anda menyebut ilustrasi biaya sablon sekitar Rp5.000–Rp50.000 per tas, serta Rp2.000–Rp5.000 untuk spunbond. Angka tersebut <strong>bukan daftar harga yang terverifikasi untuk vendor ini</strong> sehingga tidak digunakan sebagai penawaran. Biaya nyata ditentukan oleh ukuran dan warna logo, pilihan metode, kuantitas, dan material.
+        </p>
+        <p class="text-muted fs-6 mb-0" style="line-height: 1.8;">
+          Untuk membandingkan penawaran secara adil, minta rincian apakah harga sudah mencakup tas polos, pencetakan logo, finishing, sampel, pajak bila berlaku, dan pengiriman. Lihat juga <a href="/tote-bag-custom/" class="fw-bold text-brand text-decoration-none">panduan personalisasi tote bag custom</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 07: Perencanaan anggaran & Cost per use -->
+  <section class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="max-w-75 mb-5">
+        <span class="badge-accent mb-2">Perencanaan anggaran</span>
+        <h2 class="section-title mb-3">Cara membuat spesifikasi agar penawaran vendor mudah dibandingkan</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Sebelum menilai murah atau mahal, pastikan spesifikasi yang dibandingkan setara. Harga awal bukan satu-satunya faktor: daya pakai, ketepatan dimensi, serta risiko cetak ulang ikut memengaruhi nilai pengadaan.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-lg-6">
+          <div class="card h-100 p-4 p-md-5 rounded-4 bg-white border shadow-sm">
+            <h3 class="h5 fw-bold text-dark mb-3">Checklist brief pemesanan</h3>
+            <ul class="text-muted small ps-3 mb-0 d-flex flex-column gap-2" style="line-height: 1.8;">
+              <li>Jenis kegiatan dan siapa penerima tas</li>
+              <li>Jenis bahan, warna, ketebalan jika sudah ditentukan</li>
+              <li>Ukuran panjang × tinggi × lebar alas (jika ada)</li>
+              <li>Panjang tali, resleting, saku, atau aksesori</li>
+              <li>Jumlah unit dan toleransi ukuran</li>
+              <li>Logo, ukuran cetak, sisi cetak dan warna</li>
+              <li>Tanggal barang harus diterima dan alamat tujuan</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <div class="card h-100 p-4 p-md-5 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <h3 class="h5 fw-bold text-dark mb-3">Perhitungan sederhana biaya per pemakaian</h3>
+            <div class="p-3 rounded-3 bg-surface-alt border-start border-4 border-success mb-3">
+              <p class="fs-6 fw-bold text-brand mb-0">Cost per use = biaya per tas ÷ jumlah pemakaian</p>
+            </div>
+            <p class="text-muted small mb-3" style="line-height: 1.75;">
+              Contoh hipotetis: tas A seharga Rp12.000 dipakai 3 kali berarti Rp4.000 per pemakaian. Tas B seharga Rp30.000 dipakai 15 kali berarti Rp2.000 per pemakaian. Ini ilustrasi matematis, bukan data harga atau frekuensi pemakaian nyata.
+            </p>
+            <p class="small text-muted fst-italic mt-auto mb-0">
+              Jumlah penggunaan ulang tidak dapat dijamin; kualitas dan kesesuaian model dengan kebutuhan penerima memengaruhinya.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 08: #proses — Proses pemesanan tote bag custom: dari brief sampai pengiriman -->
+  <section class="section-space" id="proses">
+    <div class="container">
+      <div class="max-w-75 mb-5">
+        <span class="badge-accent mb-2">Alur kerja B2B</span>
+        <h2 class="section-title mb-3">Proses pemesanan tote bag custom: dari brief sampai pengiriman</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Alur berikut adalah model kerja yang disarankan agar risiko revisi desain, salah ukuran, dan keterlambatan dapat ditekan. Detail aktual perlu dikonfirmasi dengan pihak vendor.
+        </p>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">01</span>
+            <h3 class="h5 fw-bold mb-2">Konsultasi dan quotation</h3>
+            <p class="text-muted small mb-0">
+              Lengkapi bahan, dimensi, jumlah, logo, tenggat, dan lokasi kirim agar penawaran dapat disusun spesifik.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">02</span>
+            <h3 class="h5 fw-bold mb-2">Mockup dan konfirmasi spesifikasi</h3>
+            <p class="text-muted small mb-0">
+              Periksa skala logo, warna, posisi cetak, bentuk tas, serta rincian biaya dan syarat pembayaran.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">03</span>
+            <h3 class="h5 fw-bold mb-2">Sampel / proofing bila diperlukan</h3>
+            <p class="text-muted small mb-0">
+              Untuk pengadaan yang memerlukan kepastian fisik, diskusikan ketersediaan, ongkos, dan waktu sampel sebelum mass production.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">04</span>
+            <h3 class="h5 fw-bold mb-2">Cutting, cetak &amp; penjahitan</h3>
+            <p class="text-muted small mb-0">
+              Bahan dipotong mengikuti pola; aplikasi logo dan proses jahit dilakukan sesuai metode yang disetujui.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">05</span>
+            <h3 class="h5 fw-bold mb-2">QC &amp; pengemasan</h3>
+            <p class="text-muted small mb-0">
+              Cek konsistensi ukuran, posisi cetak, kerapian jahitan, kelengkapan jumlah, dan perlindungan saat pengiriman.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">06</span>
+            <h3 class="h5 fw-bold mb-2">Pengiriman &amp; penerimaan</h3>
+            <p class="text-muted small mb-0">
+              Konfirmasi jadwal dan bukti kirim; lakukan pengecekan saat diterima sebelum distribusi ke peserta.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-4 bg-surface-alt border mb-3">
+        <p class="text-muted small mb-0 fst-italic">
+          MOQ 50–100 pcs dan produksi 3–10 hari kerja yang disebut dalam materi merupakan contoh rentang umum, <strong>bukan komitmen tetap</strong>. Pastikan MOQ, timeline, dan skema pembayaran untuk pesanan Anda tercantum dalam penawaran tertulis.
+        </p>
+      </div>
+
+      <p class="mb-0">
+        <a href="/cara-pesan/" class="fw-bold text-brand small text-decoration-none">
+          Pelajari panduan lengkap cara pesan tote bag custom →
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 09: CTA Banner (Dark Band) -->
+  <section class="section-space pt-0">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-4 text-white shadow-sm d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-4" style="background-color: var(--brand-primary, #173F38);">
+        <div>
+          <span class="badge bg-warning text-dark mb-2 fw-bold">Untuk tim procurement dan panitia</span>
+          <h2 class="h3 fw-bold text-white mb-2">Sudah punya konsep tote bag dan tanggal acara?</h2>
+          <p class="mb-0" style="color: #d5e6de; max-width: 650px;">
+            Sampaikan spesifikasi dasar sekarang. Anda dapat membahas opsi bahan, penempatan logo dan kebutuhan pengiriman sebelum mengambil keputusan pembelian.
+          </p>
+        </div>
+        <a href="#penawaran" class="btn btn-warning text-dark fw-bold btn-lg align-self-start align-self-lg-center text-nowrap">
+          Buat brief dan minta quotation ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 10: #penawaran — RFQ Formulir WhatsApp -->
+  <section class="section-space bg-surface-alt" id="penawaran">
+    <div class="container">
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">Permintaan penawaran</span>
+        <h2 class="section-title mb-3">Susun brief tote bag custom dalam satu formulir</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Isi detail yang sudah diketahui. Tombol akan membuka WhatsApp dengan pesan siap kirim; <strong>form tidak menyimpan data</strong> ke server website.
+        </p>
+      </div>
+
+      <div class="card p-4 p-md-5 rounded-4 bg-white border shadow-sm">
+        <form id="rfqMalangForm" novalidate>
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label for="rfq-nama" class="form-label small fw-bold mb-1">Nama / instansi <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                id="rfq-nama" 
+                name="nama" 
+                class="form-control form-control-sm" 
+                placeholder="Contoh: Panitia Seminar ABC" 
+                maxlength="100" 
+                required 
+                autocomplete="organization"
+              />
+              <div class="invalid-feedback small">Harap isi nama atau instansi pemesan.</div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="rfq-acara" class="form-label small fw-bold mb-1">Kebutuhan acara</label>
+              <select id="rfq-acara" name="acara" class="form-select form-select-sm">
+                <option value="Seminar / workshop" selected>Seminar / workshop</option>
+                <option value="Perusahaan / corporate gift">Perusahaan / corporate gift</option>
+                <option value="Kampus / organisasi">Kampus / organisasi</option>
+                <option value="Instansi / pelatihan">Instansi / pelatihan</option>
+                <option value="Promosi / merchandise">Promosi / merchandise</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="rfq-bahan" class="form-label small fw-bold mb-1">Pilihan bahan</label>
+              <select id="rfq-bahan" name="bahanInput" class="form-select form-select-sm">
+                <option value="Belum ditentukan" selected>Minta rekomendasi</option>
+                <option value="Canvas">Canvas</option>
+                <option value="Blacu">Blacu</option>
+                <option value="Spunbond">Spunbond</option>
+                <option value="Polyester / Cordura">Polyester / Cordura</option>
+                <option value="Denim">Denim</option>
+                <option value="Mika / PVC">Mika / PVC</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="rfq-jumlah" class="form-label small fw-bold mb-1">Jumlah unit (pcs) <span class="text-danger">*</span></label>
+              <input 
+                type="number" 
+                id="rfq-jumlah" 
+                name="jumlah" 
+                class="form-control form-control-sm" 
+                placeholder="Contoh: 100" 
+                min="1" 
+                step="1" 
+                required 
+              />
+              <div class="invalid-feedback small">Masukkan jumlah pesanan minimal 1 pcs.</div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="rfq-ukuran" class="form-label small fw-bold mb-1">Ukuran / model</label>
+              <input 
+                type="text" 
+                id="rfq-ukuran" 
+                name="ukuran" 
+                class="form-control form-control-sm" 
+                placeholder="Contoh: 35 × 40 cm, tali panjang" 
+                maxlength="100" 
+              />
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="rfq-tanggal" class="form-label small fw-bold mb-1">Tanggal dibutuhkan</label>
+              <input 
+                type="date" 
+                id="rfq-tanggal" 
+                name="tanggal" 
+                class="form-control form-control-sm" 
+              />
+            </div>
+
+            <div class="col-12">
+              <label for="rfq-kota" class="form-label small fw-bold mb-1">Tujuan pengiriman</label>
+              <input 
+                type="text" 
+                id="rfq-kota" 
+                name="kota" 
+                class="form-control form-control-sm" 
+                placeholder="Contoh: Kota Malang / Surabaya / Jakarta" 
+                maxlength="120" 
+              />
+            </div>
+
+            <div class="col-12">
+              <label for="rfq-desain" class="form-label small fw-bold mb-1">Catatan logo, teknik cetak, anggaran, atau spesifikasi lain</label>
+              <textarea 
+                id="rfq-desain" 
+                name="desain" 
+                rows="3" 
+                class="form-control form-control-sm" 
+                placeholder="Contoh: logo 1 warna di satu sisi, tas warna hitam, ingin konsultasi sablon vs bordir" 
+                maxlength="700"
+              ></textarea>
+            </div>
+
+            <div class="col-12 d-flex flex-wrap align-items-center gap-3 mt-3">
+              <button type="submit" class="btn btn-brand py-2 px-4 fw-bold">
+                Kirim brief ke WhatsApp ↗
+              </button>
+              <a href="https://wa.me/6282131087971" target="_blank" rel="noopener noreferrer" class="btn btn-brand-outline py-2 px-3">
+                Chat langsung tanpa formulir
+              </a>
+            </div>
+
+            <div class="col-12">
+              <p class="small text-muted mb-0">
+                Nomor tujuan: +62 821-3108-7971. Pengiriman pesan dilakukan oleh Anda setelah WhatsApp terbuka.
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 11: #faq — FAQ tentang vendor tote bag custom di Malang -->
+  <section class="section-space" id="faq">
+    <div class="container">
+      <div class="max-w-75 mb-5 text-center mx-auto">
+        <span class="badge-accent mb-2">Pertanyaan umum</span>
+        <h2 class="section-title mb-3">FAQ tentang vendor tote bag custom di Malang</h2>
+        <p class="text-muted fs-6">
+          Jawaban ringkas untuk membantu pengambilan keputusan sebelum meminta harga dan mengunci jadwal produksi.
+        </p>
+      </div>
+
+      <div class="max-w-75 mx-auto">
+        <div class="faq-accordion-wrapper d-flex flex-column gap-3 mb-3">
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Di mana bisa memesan tote bag custom di Malang?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Anda dapat mengajukan kebutuhan tote bag custom melalui ToteBag di situs ini. Sampaikan bahan, ukuran, jumlah, desain logo, lokasi pengiriman, dan tanggal penggunaan agar tim dapat menyiapkan penawaran yang relevan.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Berapa minimal order tote bag custom?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Minimum pemesanan bergantung pada bahan, ukuran, model, teknik logo, dan jadwal produksi. Angka 50–100 pcs sering digunakan sebagai gambaran untuk pengadaan konveksi, tetapi bukan MOQ pasti untuk semua produk. Konfirmasikan jumlah Anda saat meminta penawaran.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Berapa lama proses produksi tote bag custom?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Waktu produksi dipengaruhi jumlah pesanan, ketersediaan kain, kerumitan desain, persetujuan sampel, dan antrean pengerjaan. Estimasi 3–10 hari kerja dalam materi panduan bukan janji layanan; pastikan tanggal produksi dan pengiriman tertulis di quotation.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Apa bahan tote bag yang cocok untuk seminar?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Spunbond cocok untuk kebutuhan ringan dan anggaran ketat, blacu untuk tampilan natural, serta canvas untuk penggunaan berulang dan kesan lebih premium. Pilih ukuran yang mampu memuat materi acara dan uji sampel sebelum memesan banyak.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Apakah tote bag bisa memakai logo perusahaan?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Tote bag dapat dipersonalisasi dengan sablon manual, transfer/DTF, atau bordir tergantung material dan desain. Kirim logo beresolusi tinggi atau vektor serta posisi cetak yang diinginkan agar hasil mockup dapat diperiksa.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Apa yang memengaruhi harga tote bag custom?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Faktor utama meliputi jenis dan ketebalan kain, dimensi, gusset atau resleting, jumlah unit, ukuran dan jumlah warna logo, teknik cetak, serta biaya sampel dan pengiriman. Minta penawaran dengan spesifikasi lengkap agar dapat membandingkan secara adil.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Bisakah pemesanan dilakukan dari luar Malang?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Konsultasi dan persetujuan desain dapat dibahas secara daring. Ketersediaan layanan kirim, ongkos angkut, serta perkiraan tiba harus dikonfirmasi sesuai tujuan dan jadwal acara.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Apakah spunbond selalu lebih ramah lingkungan daripada kain lain?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Tidak selalu. Dampak lingkungan bergantung pada bahan baku, proses produksi, masa pakai, frekuensi penggunaan ulang, dan pengelolaan akhir pakai. Spunbond umumnya berbahan polipropilena non-woven; jangan menyamakannya dengan kain alami atau otomatis dapat didaur ulang di semua daerah.
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 12: Panduan Terkait -->
+  <section class="section-space py-5 bg-surface-alt">
+    <div class="container">
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">Panduan terkait</span>
+        <h2 class="h4 fw-bold mb-1 text-dark">Jelajahi pilihan tote bag dan contoh pengerjaan</h2>
+        <p class="text-muted small mb-0">
+          Untuk menghindari tumpang tindih topik, halaman ini berfokus pada vendor dan alur pengadaan di Malang. Panduan produk berikut membahas rincian kebutuhan yang lebih khusus.
+        </p>
+      </div>
+
+      <nav class="d-flex flex-wrap gap-2" aria-label="Halaman panduan terkait">
+        <a href="/tote-bag-seminar/" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Tote bag seminar custom →
+        </a>
+        <a href="/produk/tote-bag-canvas/" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Spesifikasi canvas →
+        </a>
+        <a href="/produk/tote-bag-blacu/" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Spesifikasi blacu →
+        </a>
+        <a href="/produk/tote-bag-spunbond/" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Spesifikasi spunbond →
+        </a>
+        <a href="/portofolio/" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Lihat portofolio →
+        </a>
+        <a href="/cara-pesan/" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Panduan cara pesan →
+        </a>
+      </nav>
+
+      <p class="small text-muted mt-3 mb-0 fst-italic">
+        Dokumentasi pesanan dan foto pada halaman ini merupakan dokumentasi workshop konveksi nyata ToteBag Malang.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mobile Sticky CTA Bar -->
+  <aside class="malang-sticky-cta d-block d-md-none fixed-bottom p-2 bg-white border-top shadow" aria-label="Aksi cepat pemesanan">
+    <a href="#penawaran" class="btn btn-brand w-100 fw-bold py-2">
+      Minta Penawaran Tote Bag Custom ↗
+    </a>
+  </aside>
 </BaseLayout>
+
+<style>
+  /* Hero Styling */
+  .hero-malang {
+    background: linear-gradient(135deg, rgba(242, 245, 237, 0.7), rgba(252, 248, 239, 0.9));
+    border-radius: 1.5rem;
+  }
+
+  /* Quick Nav Pills */
+  .quick-nav a {
+    transition: all 0.2s ease;
+  }
+
+  .quick-nav a:hover {
+    background-color: var(--brand-primary, #173F38) !important;
+    color: #ffffff !important;
+  }
+
+  .quick-nav a.badge-cta {
+    background-color: var(--brand-primary, #173F38) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--brand-primary, #173F38);
+    font-weight: 600;
+  }
+
+  .quick-nav a.badge-cta:hover {
+    background-color: var(--brand-primary-hover, #0E2E29) !important;
+    border-color: var(--brand-primary-hover, #0E2E29);
+    transform: translateY(-1px);
+  }
+
+  /* FAQ Accordion Details / Summary */
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details summary {
+    list-style: none;
+    position: relative;
+    padding-right: 28px;
+    user-select: none;
+  }
+
+  details summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--brand-primary, #173F38);
+    transition: transform 0.2s ease;
+  }
+
+  details[open] summary::after {
+    content: "−";
+  }
+
+  details:focus-within {
+    border-color: var(--brand-primary, #173F38) !important;
+  }
+
+  /* Sticky Mobile Bar & Layout offset */
+  @media (max-width: 620px) {
+    body {
+      padding-bottom: 65px;
+    }
+
+    .malang-sticky-cta {
+      z-index: 1020;
+    }
+
+    :global(.floating-wa-btn) {
+      bottom: 70px !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('rfqMalangForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+        form.classList.add('was-validated');
+        const firstInvalid = form.querySelector(':invalid');
+        if (firstInvalid) {
+          firstInvalid.focus();
+        }
+        return;
+      }
+
+      form.classList.add('was-validated');
+
+      const data = new FormData(form);
+      const getVal = function (k) {
+        return String(data.get(k) || '').trim() || '-';
+      };
+
+      const nama = getVal('nama');
+      const acara = getVal('acara');
+      const bahan = getVal('bahanInput');
+      const jumlah = getVal('jumlah');
+      const ukuran = getVal('ukuran');
+      const tanggal = getVal('tanggal');
+      const kota = getVal('kota');
+      const desain = getVal('desain');
+
+      const lines = [
+        'Halo ToteBag, saya ingin meminta penawaran tote bag custom di Malang.',
+        '',
+        'Nama/instansi: ' + nama,
+        'Kebutuhan: ' + acara,
+        'Bahan: ' + bahan,
+        'Jumlah: ' + jumlah + ' pcs',
+        'Ukuran/model: ' + ukuran,
+        'Tanggal dibutuhkan: ' + tanggal,
+        'Tujuan pengiriman: ' + kota,
+        'Catatan desain: ' + desain,
+        '',
+        'Mohon info pilihan spesifikasi, estimasi harga dan jadwal yang memungkinkan.'
+      ];
+
+      const text = lines.join('\n');
+      const waUrl = 'https://wa.me/6282131087971?text=' + encodeURIComponent(text);
+
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    });
+  })();
+</script>

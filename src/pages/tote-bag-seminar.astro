@@ -1,55 +1,172 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
-import FAQAccordion from '@/components/ui/FAQAccordion.astro';
-import { getNaskahById } from '@/utils/naskah';
-import { seminarFaqs, getWhatsAppUrl } from '@/data/siteData';
-
-const naskah = getNaskahById('43');
 
 const breadcrumbs = [
   { name: 'Beranda', url: '/' },
-  { name: 'Layanan & Solusi', url: '/layanan/' },
-  { name: 'Tote Bag Seminar', url: '/tote-bag-seminar/' }
+  { name: 'Tote Bag Seminar Custom', url: '/tote-bag-seminar/' }
 ];
 
-const seminarWaUrl = getWhatsAppUrl({
-  notes: "Konsultasi pengadaan tas seminar / workshop event",
-  sourcePage: "/tote-bag-seminar/"
-});
+const schemaJson = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://totebag.web.id/tote-bag-seminar/#webpage",
+      "url": "https://totebag.web.id/tote-bag-seminar/",
+      "name": "Tote Bag Seminar Custom untuk Berbagai Acara | ToteBag",
+      "description": "Pilihan bahan, ukuran, desain, dan cara memesan tote bag seminar custom untuk berbagai kebutuhan acara.",
+      "inLanguage": "id-ID",
+      "isPartOf": {
+        "@id": "https://totebag.web.id/#website"
+      },
+      "breadcrumb": {
+        "@id": "https://totebag.web.id/tote-bag-seminar/#breadcrumb"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://totebag.web.id/#website",
+      "url": "https://totebag.web.id/",
+      "name": "ToteBag",
+      "inLanguage": "id-ID"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://totebag.web.id/tote-bag-seminar/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://totebag.web.id/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tote Bag Seminar Custom",
+          "item": "https://totebag.web.id/tote-bag-seminar/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://totebag.web.id/tote-bag-seminar/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Apa bahan tote bag terbaik untuk seminar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bahan terbaik bergantung pada jenis acara dan isi tas. Canvas cocok untuk penggunaan berulang dan kesan premium, blacu untuk tampilan natural, spunbond untuk kebutuhan distribusi ringan dalam jumlah besar, dan drill untuk tampilan yang lebih rapi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa ukuran tote bag seminar yang ideal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Untuk dokumen A4, pilih ukuran tas yang memberikan ruang tambahan di luar dimensi kertas 21 × 29,7 cm. Ukuran contoh 30 × 35 cm atau 35 × 40 cm dapat dipertimbangkan, dengan gusset jika membawa tumbler atau beberapa barang tebal. Ukur seluruh isi terlebih dahulu."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah tote bag seminar bisa diberi logo acara?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tote bag seminar dapat direncanakan dengan logo perusahaan atau acara menggunakan sablon, DTF, atau bordir sesuai material, desain, ukuran cetak, dan hasil konfirmasi vendor."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apa isi paket seminar kit dengan tote bag?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Paket seminar kit dapat berisi tote bag custom, notebook atau blocknote, pulpen, lanyard dan ID card, serta tumbler. Isi dipilih berdasarkan kebutuhan peserta, jenis acara, dan anggaran."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa harga tote bag seminar custom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Harga ditentukan oleh jenis bahan, ukuran, jumlah pesanan, desain cetak, aksesori, dan jadwal pengerjaan. Mintalah penawaran tertulis berdasarkan spesifikasi yang sama agar pilihan vendor dapat dibandingkan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bagaimana memesan tote bag seminar sebelum tanggal acara?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Siapkan jumlah peserta, spesifikasi bahan dan ukuran, file logo, lokasi pengiriman, serta tanggal acara. Kirim brief ke vendor, tinjau penawaran dan mockup, lalu konfirmasi sampel jika diperlukan sebelum persetujuan produksi."
+          }
+        }
+      ]
+    }
+  ]
+};
 ---
 
 <BaseLayout
-  title={naskah?.seoTitle || "Tote Bag Seminar Custom untuk Berbagai Acara | Tote Bag"}
-  description={naskah?.metaDescription || "Solusi tote bag seminar custom untuk konferensi akademik, workshop dinas, dan expo. Bahan blacu dan spunbond efisien, muat dokumen A4 dan tumbler."}
-  canonicalUrl={naskah?.canonical || "https://totebag.web.id/tote-bag-seminar/"}
-  jsonLd={naskah?.schemaJson}
+  title="Tote Bag Seminar Custom untuk Berbagai Acara | ToteBag"
+  description="Pesan tote bag seminar custom untuk kantor, kampus, workshop, dan instansi. Bandingkan bahan, ukuran, desain logo, dan paket seminar kit. Konsultasi sekarang."
+  canonicalUrl="https://totebag.web.id/tote-bag-seminar/"
+  ogImage="https://totebag.web.id/media/tote-bag-seminar-kit-canvas.webp"
+  jsonLd={schemaJson}
 >
+  <!-- Topbar Context Bar -->
+  <aside class="seminar-topbar py-2 text-center text-white small" aria-label="Informasi layanan">
+    <div class="container">
+      Kebutuhan seminar, workshop, kampus &amp; pengadaan perusahaan • Konsultasi spesifikasi melalui WhatsApp
+    </div>
+  </aside>
+
+  <!-- Breadcrumbs & Quick Anchor Navigation -->
   <div class="container pt-3">
     <Breadcrumbs items={breadcrumbs} />
+    <nav class="quick-nav d-none d-md-flex flex-wrap gap-2 pt-2 pb-1" aria-label="Navigasi cepat halaman">
+      <span class="small fw-semibold text-muted align-self-center me-1">Lompat ke:</span>
+      <a href="#bahan" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Pilihan Bahan</a>
+      <a href="#acara" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Jenis Acara</a>
+      <a href="#ukuran" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Ukuran &amp; Kapasitas</a>
+      <a href="#branding" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Desain Logo</a>
+      <a href="#paket" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Paket Seminar Kit</a>
+      <a href="#biaya" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Cost per Use</a>
+      <a href="#proses" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Alur Order</a>
+      <a href="#faq" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">FAQ</a>
+      <a href="#penawaran" class="badge badge-cta text-decoration-none px-3 py-2 rounded-pill">Minta Penawaran ↗</a>
+    </nav>
   </div>
 
-  <section class="section-space-sm pt-2">
+  <!-- Hero Section -->
+  <section class="section-space-sm pt-3 pb-5 hero-seminar" id="konten">
     <div class="container">
-      <div class="row align-items-center g-5">
+      <div class="row align-items-center g-4 g-lg-5">
         <div class="col-12 col-lg-7">
           <div class="d-flex align-items-center gap-2 mb-2">
-            <span class="badge-accent">SOLUSI SEMINAR &amp; WORKSHOP</span>
+            <span class="badge-accent">Solusi tas seminar &amp; event B2B</span>
           </div>
-          <h1 class="hero-title mb-3" style="font-size: clamp(2rem, 3.4vw, 2.7rem);">
-            {naskah?.h1 || "Tote Bag Seminar Custom untuk Berbagai Acara"}
+          <h1 class="hero-title mb-3" style="font-size: clamp(2.2rem, 3.8vw, 3.2rem);">
+            Tote Bag Seminar Custom untuk Berbagai Acara
           </h1>
-          <p class="lead text-muted fs-5 mb-4">
-            Dirancang proporsional untuk memuat stopmap folio A4, sertifikat, modul materi, dan botol minum peserta. Waktu produksi terukur agar pesanan tiba sebelum tanggal pelaksanaan acara.
+          <p class="lead text-muted fs-5 mb-4" style="line-height: 1.75;">
+            Tote bag seminar custom adalah tas acara yang dibuat sesuai kebutuhan peserta dan identitas penyelenggara. Pilih bahan, ukuran, warna, serta penempatan logo berdasarkan isi seminar kit, jumlah peserta, dan jenis acara—mulai dari workshop kampus hingga konferensi perusahaan.
           </p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href={seminarWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg">
-              Minta Penawaran Tas Seminar
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#penawaran" class="btn btn-brand btn-lg">
+              Konsultasi &amp; Minta Penawaran
             </a>
-            <a href="/cara-pesan/" class="btn btn-brand-outline btn-lg">
-              Jadwal &amp; Alur Pemesanan
+            <a href="#bahan" class="btn btn-brand-outline btn-lg">
+              Bandingkan Bahan
             </a>
           </div>
+          <p class="small text-muted mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-check text-success me-1 align-text-bottom" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.464 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
+              <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+            </svg>
+            Pemesanan berdasarkan brief • Mockup dan spesifikasi dikonfirmasi • Berbasis Malang
+          </p>
         </div>
         <div class="col-12 col-lg-5">
           <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
@@ -59,6 +176,8 @@ const seminarWaUrl = getWhatsAppUrl({
               width="724" 
               height="543" 
               class="w-100 h-100 object-fit-cover"
+              loading="eager"
+              fetchpriority="high"
             />
           </div>
         </div>
@@ -66,113 +185,1006 @@ const seminarWaUrl = getWhatsAppUrl({
     </div>
   </section>
 
-  <!-- Direct Answer & Core Insights from Naskah 43 -->
-  {naskah?.directAnswer && (
-    <section class="py-3">
-      <div class="container">
-        <div class="p-4 rounded-4 bg-surface-alt border-start border-4 border-success shadow-sm">
-          <div class="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
-            <span class="badge bg-success text-white">Ringkasan Seminar Kit</span>
-            <span class="fs-6">Prinsip Menentukan Tas Acara:</span>
+  <!-- 4 Benefit Cards / KPIs -->
+  <section class="py-2 py-md-3 mb-4" aria-label="Ringkasan kebutuhan">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3">
+        <div class="col">
+          <div class="card h-100 p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <span class="badge bg-light text-dark border align-self-start mb-2">Fleksibilitas</span>
+            <strong class="text-dark fs-6 d-block mb-1">Untuk berbagai acara</strong>
+            <span class="text-muted small">Seminar, workshop, rapat, pelatihan &amp; expo</span>
           </div>
-          <p class="mb-0 text-muted fs-6" style="line-height: 1.8;">
-            {naskah.directAnswer}
-          </p>
+        </div>
+        <div class="col">
+          <div class="card h-100 p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <span class="badge bg-light text-dark border align-self-start mb-2">Varian Kain</span>
+            <strong class="text-dark fs-6 d-block mb-1">Material fleksibel</strong>
+            <span class="text-muted small">Blacu, spunbond, canvas, drill dan lainnya</span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <span class="badge bg-light text-dark border align-self-start mb-2">Aplikasi Logo</span>
+            <strong class="text-dark fs-6 d-block mb-1">Branding custom</strong>
+            <span class="text-muted small">Logo, warna, teks acara &amp; aksesori</span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <span class="badge bg-light text-dark border align-self-start mb-2">Transparan</span>
+            <strong class="text-dark fs-6 d-block mb-1">Alur pengadaan jelas</strong>
+            <span class="text-muted small">Brief, penawaran, approval, QC &amp; pengiriman</span>
+          </div>
         </div>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
-  <!-- 3 Opsi Bahan Tas Seminar -->
-  <section class="section-space bg-surface-alt mt-4">
+  <!-- Section 05: Mengapa tote bag seminar penting bagi pengalaman peserta? + TOC -->
+  <section class="section-space pt-4 pb-5">
     <div class="container">
-      <div class="text-center max-w-75 mx-auto mb-5">
-        <span class="badge-accent mb-2">REKOMENDASI MODEL SEMINAR</span>
-        <h2 class="section-title mb-3">Pilihan Bahan Sesuai Anggaran &amp; Kapasitas</h2>
-        <p class="section-subtitle mx-auto">
-          Setiap acara memiliki karakteristik muatan berbeda. Kami bantu sesuaikan ukuran tas dengan isi seminar kit Anda.
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">Panduan pemilihan</span>
+        <h2 class="section-title mb-3">Mengapa tote bag seminar penting bagi pengalaman peserta?</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Tas seminar bukan hanya wadah dokumen. Tas yang nyaman dibawa membantu peserta menyimpan modul dan perlengkapan sepanjang acara; identitas visual pada tas juga dapat memperpanjang paparan merek ketika tas digunakan kembali. Manfaat tersebut bergantung pada desain, kualitas material, serta kebiasaan penggunaan penerima—bukan jaminan hasil branding.
+        </p>
+      </div>
+
+      <div class="row g-4 mb-5">
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="badge bg-light text-brand align-self-start mb-3 fw-bold">01 / Fungsional</span>
+            <h3 class="h5 fw-bold mb-2">Perlengkapan lebih tertata</h3>
+            <p class="text-muted small mb-0">
+              Gabungkan stopmap, modul, alat tulis, lanyard, dan tumbler dalam satu tas yang ukurannya sesuai.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="badge bg-light text-brand align-self-start mb-3 fw-bold">02 / Branding</span>
+            <h3 class="h5 fw-bold mb-2">Identitas acara terlihat</h3>
+            <p class="text-muted small mb-0">
+              Tempatkan logo dan nama acara secara proporsional agar tetap mudah dibaca tanpa memenuhi seluruh permukaan tas.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="badge bg-light text-brand align-self-start mb-3 fw-bold">03 / Pengalaman</span>
+            <h3 class="h5 fw-bold mb-2">Layak digunakan kembali</h3>
+            <p class="text-muted small mb-0">
+              Pilih ketahanan, bentuk, dan model tali sesuai muatan serta konteks peserta agar tas berpotensi dipakai setelah seminar.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table of Contents -->
+      <nav class="p-4 rounded-4 bg-surface-alt border" aria-label="Daftar isi panduan">
+        <h3 class="h6 fw-bold text-dark mb-3">Jelajahi panduan ini</h3>
+        <div class="row row-cols-1 row-cols-md-2 g-2">
+          <div class="col">
+            <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
+              <li><a href="#bahan" class="text-brand text-decoration-none fw-semibold">→ Perbandingan bahan</a></li>
+              <li><a href="#acara" class="text-brand text-decoration-none fw-semibold">→ Rekomendasi berdasarkan acara</a></li>
+              <li><a href="#ukuran" class="text-brand text-decoration-none fw-semibold">→ Ukuran &amp; kapasitas</a></li>
+              <li><a href="#branding" class="text-brand text-decoration-none fw-semibold">→ Desain &amp; branding</a></li>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
+              <li><a href="#paket" class="text-brand text-decoration-none fw-semibold">→ Kombinasi seminar kit</a></li>
+              <li><a href="#biaya" class="text-brand text-decoration-none fw-semibold">→ Cost per use &amp; anggaran</a></li>
+              <li><a href="#proses" class="text-brand text-decoration-none fw-semibold">→ Alur pesan B2B</a></li>
+              <li><a href="#faq" class="text-brand text-decoration-none fw-semibold">→ Pertanyaan umum (FAQ)</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Section 06: #bahan — Pilihan bahan tote bag seminar custom -->
+  <section id="bahan" class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">Material &amp; fungsi</span>
+        <h2 class="section-title mb-3">Pilihan bahan tote bag seminar custom</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          <strong>Bahan terbaik tidak selalu yang paling tebal.</strong> Untuk seminar massal dengan isi ringan, spunbond dapat memadai; untuk paket yang dipakai berulang, canvas atau drill dapat lebih cocok. Bandingkan karakteristiknya sebelum menetapkan bahan.
+        </p>
+      </div>
+
+      <div class="table-responsive rounded-4 border bg-white shadow-sm mb-3">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" style="min-width: 150px;">Bahan</th>
+              <th scope="col" style="min-width: 220px;">Karakter</th>
+              <th scope="col" style="min-width: 220px;">Cocok untuk</th>
+              <th scope="col" style="min-width: 240px;">Pertimbangan</th>
+            </tr>
+          </thead>
+          <tbody class="small">
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Canvas / kanvas</th>
+              <td>Tenunan relatif kokoh, tampilan berstruktur</td>
+              <td>Konferensi, corporate gathering, seminar eksekutif</td>
+              <td>Gramasi, penguatan tali, jahitan, dan kebutuhan lapisan</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Blacu</th>
+              <td>Nuansa natural, ringan, tekstur kasual</td>
+              <td>Seminar kampus, workshop kreatif, acara komunitas</td>
+              <td>Ketebalan, transparansi kain dan kualitas jahitan</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Spunbond</th>
+              <td>Non-woven, ringan, efisien untuk distribusi sederhana</td>
+              <td>Expo, sosialisasi, acara peserta besar</td>
+              <td>Ketebalan kain dan batas muatan; jangan diasumsikan cocok untuk beban berat</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Drill</th>
+              <td>Tenunan serat diagonal dengan kesan rapi</td>
+              <td>Diklat, bimtek, pelatihan kedinasan</td>
+              <td>Jenis drill, lining, resleting, dan finishing</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Polyester / D300–D600</th>
+              <td>Tampilan teknis, pilihan ketahanan terhadap percikan bervariasi</td>
+              <td>Event lapangan, workshop mobilitas tinggi</td>
+              <td>Lapisan dan daya tahan air harus diperiksa per spesifikasi</td>
+            </tr>
+            <tr>
+              <th scope="row" class="fw-bold text-dark">Denim / PU / PVC</th>
+              <td>Alternatif visual spesifik, dari kasual hingga formal</td>
+              <td>Event kreatif, souvenir tamu khusus, aktivitas tematik</td>
+              <td>Bobot, kenyamanan, perawatan dan kecocokan desain</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="small text-muted mb-4 fst-italic">
+        Catatan: kemampuan membawa beban dipengaruhi desain, jahitan, ukuran, jenis tali, dan kualitas produksi. Angka kapasitas tidak dapat dijamin hanya dari nama kain.
+      </p>
+
+      <!-- CTA Box Bahan -->
+      <div class="p-4 rounded-4 bg-white border shadow-sm d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <div>
+          <h3 class="h5 fw-bold text-dark mb-1">Sudah menentukan pilihan material?</h3>
+          <p class="text-muted small mb-0">Pelajari detail masing-masing jenis kain sebelum meminta penawaran.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="/produk/tote-bag-canvas/" class="btn btn-outline-success btn-sm">Detail canvas</a>
+          <a href="/produk/tote-bag-blacu/" class="btn btn-outline-success btn-sm">Detail blacu</a>
+          <a href="/produk/tote-bag-spunbond/" class="btn btn-outline-success btn-sm">Detail spunbond</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 07: #acara — Rekomendasi tote bag untuk setiap jenis acara -->
+  <section id="acara" class="section-space">
+    <div class="container">
+      <div class="max-w-75 mb-5">
+        <span class="badge-accent mb-2">Pilih berdasarkan kebutuhan</span>
+        <h2 class="section-title mb-3">Rekomendasi tote bag untuk setiap jenis acara</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Tentukan material dan model dari karakter peserta serta barang yang dibawa, bukan sekadar tren visual. Berikut skenario pemilihan untuk memudahkan brief awal.
         </p>
       </div>
 
       <div class="row g-4">
-        <!-- Opsi 1 -->
-        <div class="col-12 col-md-4">
-          <div class="p-4 rounded-4 bg-white border h-100 d-flex flex-column shadow-sm">
-            <div class="badge-brand align-self-start mb-3">KAMPUS &amp; DINAS</div>
-            <h3 class="h5 fw-bold mb-2">Blacu Super Grade A</h3>
-            <p class="small text-muted mb-3 flex-grow-1">
-              Bahan primadona seminar nasional: ramah lingkungan, warna broken white alami, dan harga sangat ekonomis untuk pesanan 100–500 pcs.
+        <!-- 1. Kampus -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 p-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <span class="badge bg-light text-dark border align-self-start mb-2 small">Seminar kampus</span>
+            <h3 class="h5 fw-bold mb-2">Blacu untuk tampilan natural</h3>
+            <p class="text-muted small flex-grow-1">
+              Cocok ketika peserta membawa modul, notes, pulpen, serta materi ringan. Pilih warna natural dan logo acara yang jelas.
             </p>
-            <div class="p-2 rounded bg-light border small text-muted mb-3">
-              <strong>Kapasitas:</strong> Muat stopmap polio, buku catatan, tumbler, bolpoin, dan ID card.
-            </div>
-            <a href="/produk/tote-bag-blacu/" class="btn btn-outline-success btn-sm w-100">
-              Lihat Detail Blacu
-            </a>
-          </div>
+            <a href="#penawaran" class="fw-bold text-brand small text-decoration-none mt-2">Diskusikan tas kampus →</a>
+          </article>
         </div>
 
-        <!-- Opsi 2 -->
-        <div class="col-12 col-md-4">
-          <div class="p-4 rounded-4 bg-white border h-100 d-flex flex-column shadow-sm">
-            <div class="badge-brand align-self-start mb-3">EXPO &amp; JALAN SEHAT</div>
-            <h3 class="h5 fw-bold mb-2">Spunbond Press &amp; Jahit</h3>
-            <p class="small text-muted mb-3 flex-grow-1">
-              Opsi paling hemat untuk pameran expo, wisuda, atau jalan sehat dengan peserta ribuan. Ringan, tahan cipratan air, dan tersedia 20+ pilihan warna kain.
+        <!-- 2. Perusahaan -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 p-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <span class="badge bg-light text-dark border align-self-start mb-2 small">Konferensi perusahaan</span>
+            <h3 class="h5 fw-bold mb-2">Canvas untuk kesan profesional</h3>
+            <p class="text-muted small flex-grow-1">
+              Pertimbangkan bahan lebih berstruktur, saku, dan alas tambahan jika memuat beberapa perlengkapan atau barang tebal.
             </p>
-            <div class="p-2 rounded bg-light border small text-muted mb-3">
-              <strong>Kapasitas:</strong> Muat flyer promosi, snack box, air mineral, dan souvenir ringan.
-            </div>
-            <a href="/produk/tote-bag-spunbond/" class="btn btn-outline-success btn-sm w-100">
-              Lihat Detail Spunbond
-            </a>
-          </div>
+            <a href="#penawaran" class="fw-bold text-brand small text-decoration-none mt-2">Diskusikan tas corporate →</a>
+          </article>
         </div>
 
-        <!-- Opsi 3 -->
-        <div class="col-12 col-md-4">
-          <div class="p-4 rounded-4 bg-white border h-100 d-flex flex-column shadow-sm">
-            <div class="badge-brand align-self-start mb-3">KONFERENSI NASIONAL</div>
-            <h3 class="h5 fw-bold mb-2">Canvas Twill Semi-Formal</h3>
-            <p class="small text-muted mb-3 flex-grow-1">
-              Untuk simposium medis, kongres profesi, atau rapat kerja direksi. Tampilan sangat kokoh, dapat ditambahkan kantong saku luar atau resleting atas.
+        <!-- 3. Diklat -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 p-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <span class="badge bg-light text-dark border align-self-start mb-2 small">Diklat &amp; bimtek</span>
+            <h3 class="h5 fw-bold mb-2">Drill untuk kebutuhan rapi</h3>
+            <p class="text-muted small flex-grow-1">
+              Model berpenutup atau beresleting dapat dipertimbangkan saat membawa dokumen penting selama beberapa sesi.
             </p>
-            <div class="p-2 rounded bg-light border small text-muted mb-3">
-              <strong>Kapasitas:</strong> Muat laptop hingga 14 inch, binder tebal, dan perangkat elektronik.
-            </div>
-            <a href="/produk/tote-bag-canvas/" class="btn btn-outline-success btn-sm w-100">
-              Lihat Detail Canvas
-            </a>
-          </div>
+            <a href="#penawaran" class="fw-bold text-brand small text-decoration-none mt-2">Diskusikan tas instansi →</a>
+          </article>
+        </div>
+
+        <!-- 4. Expo -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 p-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <span class="badge bg-light text-dark border align-self-start mb-2 small">Pameran &amp; expo</span>
+            <h3 class="h5 fw-bold mb-2">Spunbond untuk distribusi besar</h3>
+            <p class="text-muted small flex-grow-1">
+              Fokus pada bobot ringan, warna identitas event, dan ukuran yang sesuai untuk brosur atau merchandise ringan.
+            </p>
+            <a href="#penawaran" class="fw-bold text-brand small text-decoration-none mt-2">Diskusikan tas expo →</a>
+          </article>
+        </div>
+
+        <!-- 5. Workshop Kreatif -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 p-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <span class="badge bg-light text-dark border align-self-start mb-2 small">Workshop kreatif</span>
+            <h3 class="h5 fw-bold mb-2">Blacu, denim, atau canvas</h3>
+            <p class="text-muted small flex-grow-1">
+              Gunakan desain ilustratif yang relevan dengan acara, dengan teknik cetak sesuai bahan dan detail artwork.
+            </p>
+            <a href="#penawaran" class="fw-bold text-brand small text-decoration-none mt-2">Diskusikan tas workshop →</a>
+          </article>
+        </div>
+
+        <!-- 6. Tamu VIP (Highlight) -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 p-4 rounded-4 text-white border-0 shadow-sm d-flex flex-column" style="background-color: var(--brand-primary, #173F38);">
+            <span class="badge bg-warning text-dark align-self-start mb-2 small">Peserta &amp; tamu VIP</span>
+            <h3 class="h5 fw-bold mb-2 text-white">Strategi dua tingkatan</h3>
+            <p class="small flex-grow-1" style="color: #d5e6de;">
+              Gabungkan tas standar untuk peserta umum dengan varian lebih berstruktur dan paket perlengkapan tambahan untuk tamu tertentu.
+            </p>
+            <a href="#penawaran" class="btn btn-warning text-dark fw-bold btn-sm mt-2">Minta rekomendasi paket</a>
+          </article>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Editorial Section from Naskah 43 -->
-  {naskah?.bodyHtml && (
-    <section class="section-space-sm pt-0">
-      <div class="container">
-        <div class="p-4 rounded-4 bg-light border">
-          <h2 class="h5 fw-bold text-dark mb-3">Panduan Persiapan Tote Bag Seminar</h2>
-          <div class="article-content-body text-muted small" style="line-height: 1.8;">
-            <Fragment set:html={naskah.bodyHtml} />
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- FAQ Section -->
-  <section class="section-space bg-surface-alt">
+  <!-- Section 08: #ukuran — Berapa ukuran tote bag seminar yang ideal? -->
+  <section id="ukuran" class="section-space bg-surface-alt">
     <div class="container">
-      <div class="max-w-75 mx-auto mb-4 text-center">
-        <h2 class="section-title mb-2">FAQ Tote Bag Seminar</h2>
-        <p class="section-subtitle mx-auto">Pertanyaan seputar deadline kilat, toleransi ukuran dokumen, dan sampel sebelum produksi massal.</p>
-      </div>
-      <div class="max-w-75 mx-auto">
-        <FAQAccordion items={seminarFaqs} accordionId="seminarPageFaq" />
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-12 col-lg-6">
+          <span class="badge-accent mb-2">Spesifikasi ukuran</span>
+          <h2 class="section-title mb-3">Berapa ukuran tote bag seminar yang ideal?</h2>
+          <p class="text-muted fs-6 mb-4" style="line-height: 1.8;">
+            Dokumen A4 berukuran 21 × 29,7 cm. Artinya, tas perlu memiliki ruang ekstra untuk memasukkan dokumen tanpa menekuk sudutnya. Untuk paket seminar, ukuran akhir harus mengikuti dimensi seluruh barang, bukan hanya kertas.
+          </p>
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-sm-4">
+              <div class="p-3 rounded-3 bg-white border h-100">
+                <strong class="d-block text-dark fs-6 mb-1">30 × 35 cm</strong>
+                <span class="small text-muted">Contoh awal untuk dokumen A4 dan perlengkapan tipis</span>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="p-3 rounded-3 bg-white border h-100">
+                <strong class="d-block text-dark fs-6 mb-1">35 × 40 cm</strong>
+                <span class="small text-muted">Contoh awal untuk modul dan sejumlah item tambahan</span>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="p-3 rounded-3 bg-white border h-100">
+                <strong class="d-block text-dark fs-6 mb-1">Alas / gusset</strong>
+                <span class="small text-muted">Pertimbangkan jika tas memuat tumbler atau benda lebih tebal</span>
+              </div>
+            </div>
+          </div>
+          <p class="small text-muted fst-italic mb-0">
+            Ukuran di atas adalah contoh perencanaan, bukan spesifikasi baku atau jaminan muat. Sesuaikan dengan ukuran barang sebenarnya.
+          </p>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="p-4 p-md-5 rounded-4 bg-white border-start border-4 border-success shadow-sm">
+            <h3 class="h5 fw-bold text-dark mb-3">Checklist ukuran sebelum produksi</h3>
+            <ul class="text-muted small ps-3 mb-0 d-flex flex-column gap-2" style="line-height: 1.7;">
+              <li>Ukur lebar, tinggi, dan ketebalan item terbesar.</li>
+              <li>Periksa ukuran jadi bagian dalam tas, bukan hanya ukuran pola.</li>
+              <li>Tentukan panjang tali untuk dijinjing atau disampirkan.</li>
+              <li>Tinjau kebutuhan gusset, saku tambahan, dan penutup.</li>
+              <li>Jika perlu, uji sampel dengan isi seminar kit yang sesungguhnya.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Section 09: #branding — Desain dan branding tote bag yang enak dilihat -->
+  <section id="branding" class="section-space">
+    <div class="container">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-12 col-lg-7">
+          <span class="badge-accent mb-2">Identitas visual acara</span>
+          <h2 class="section-title mb-3">Desain dan branding tote bag yang enak dilihat</h2>
+          <p class="text-muted fs-6 mb-4" style="line-height: 1.8;">
+            Logo yang terbaca, warna yang konsisten, dan ruang kosong yang cukup sering lebih efektif secara visual daripada komposisi yang terlalu penuh. Pastikan desain tetap relevan untuk penggunaan sehari-hari setelah acara.
+          </p>
+          <ul class="text-muted small ps-3 mb-4 d-flex flex-column gap-2" style="line-height: 1.8;">
+            <li><strong>Sablon:</strong> pilihan untuk artwork sederhana dan jumlah warna terbatas, mengikuti jenis tinta dan bahan.</li>
+            <li><strong>DTF:</strong> alternatif untuk ilustrasi berwarna dan detail yang lebih kompleks, bergantung pada kompatibilitas kain.</li>
+            <li><strong>Bordir:</strong> dapat dipilih untuk identitas bertekstur pada bahan yang cukup stabil.</li>
+            <li><strong>Layout:</strong> tentukan ukuran cetak aktual, posisi logo, jarak dari jahitan, serta warna kontras.</li>
+          </ul>
+          <p class="small text-muted fst-italic mb-0">
+            Sebelum produksi, minta mockup digital yang mencantumkan dimensi cetak dan persetujuan warna. Cocokkan ke sampel fisik bila diperlukan.
+          </p>
+        </div>
+        <div class="col-12 col-lg-5">
+          <div class="card p-4 p-md-4 rounded-4 bg-white border shadow-sm">
+            <span class="badge bg-light text-dark border align-self-start mb-2 small text-uppercase fw-bold">Brief desain praktis</span>
+            <h3 class="h5 fw-bold mb-3">Yang perlu dikirim ke vendor</h3>
+            <ul class="text-muted small ps-3 mb-4 d-flex flex-column gap-2">
+              <li>File logo beresolusi baik atau format vektor jika tersedia</li>
+              <li>Warna merek dan referensi visual</li>
+              <li>Nama acara, tahun, atau tagline yang harus tampil</li>
+              <li>Ukuran dan posisi cetak yang diinginkan</li>
+              <li>Teknik cetak yang diprioritaskan</li>
+              <li>Persetujuan desain final sebelum produksi</li>
+            </ul>
+            <a href="/produk/tote-bag-canvas/" class="fw-bold text-brand small text-decoration-none">
+              Lihat contoh kebutuhan bahan canvas →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 10: #paket — Kombinasikan tote bag dengan isi seminar kit -->
+  <section id="paket" class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">Seminar kit yang terkurasi</span>
+        <h2 class="section-title mb-3">Kombinasikan tote bag dengan isi seminar kit</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Tote bag menjadi wadah utama; perlengkapan di dalamnya sebaiknya membantu peserta mengikuti acara. Susunan paket dapat disesuaikan dengan jenis event, durasi kegiatan, dan anggaran penyelenggara.
+        </p>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-3 p-md-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <div class="ratio ratio-16x9 rounded-3 overflow-hidden border mb-3">
+              <img 
+                src="/media/portfolio-blacu-350pcs.webp" 
+                alt="Paket seminar kit tote bag blacu natural" 
+                width="600" 
+                height="338" 
+                class="w-100 h-100 object-fit-cover"
+                loading="lazy"
+              />
+            </div>
+            <span class="badge bg-light text-brand align-self-start mb-2 fw-bold">Paket inti</span>
+            <h3 class="h5 fw-bold mb-2">Workshop &amp; seminar sehari</h3>
+            <p class="text-muted small mb-0 flex-grow-1">
+              Tote bag, blocknote atau notebook, pulpen, dan materi acara. Fokus pada perlengkapan yang langsung dipakai peserta.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-3 p-md-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <div class="ratio ratio-16x9 rounded-3 overflow-hidden border mb-3">
+              <img 
+                src="/media/tote-bag-seminar-kit-canvas.webp" 
+                alt="Paket seminar kit lengkap tote bag canvas dan tumbler" 
+                width="600" 
+                height="338" 
+                class="w-100 h-100 object-fit-cover"
+                loading="lazy"
+              />
+            </div>
+            <span class="badge bg-light text-brand align-self-start mb-2 fw-bold">Paket lengkap</span>
+            <h3 class="h5 fw-bold mb-2">Pelatihan &amp; konferensi</h3>
+            <p class="text-muted small mb-0 flex-grow-1">
+              Tote bag, notebook, pulpen, lanyard &amp; ID card, serta tumbler sesuai kebutuhan kegiatan.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-3 p-md-4 rounded-4 bg-white border shadow-sm d-flex flex-column">
+            <div class="ratio ratio-16x9 rounded-3 overflow-hidden border mb-3">
+              <img 
+                src="/media/foto-giftset.jpg" 
+                alt="Paket seminar kit apresiasi dan gift set tamu VIP" 
+                width="600" 
+                height="338" 
+                class="w-100 h-100 object-fit-cover"
+                loading="lazy"
+              />
+            </div>
+            <span class="badge bg-light text-brand align-self-start mb-2 fw-bold">Paket apresiasi</span>
+            <h3 class="h5 fw-bold mb-2">Pembicara &amp; tamu khusus</h3>
+            <p class="text-muted small mb-0 flex-grow-1">
+              Tote bag dengan bahan dan finishing pilihan, notebook premium, drinkware, atau merchandise tambahan yang relevan.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="small text-muted fst-italic mb-4">
+        Paket di atas adalah contoh konfigurasi, bukan SKU atau stok produk yang sudah diverifikasi. Ketersediaan, detail bahan, dan harga perlu dikonfirmasi.
+      </p>
+
+      <!-- CTA Box Paket -->
+      <div class="p-4 rounded-4 bg-white border shadow-sm d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <div>
+          <h3 class="h5 fw-bold text-dark mb-1">Ingin paket yang sesuai isi dan jumlah peserta?</h3>
+          <p class="text-muted small mb-0">Kirim jenis acara, isi kit, dan target kuantitas. Tim dapat meninjau kebutuhan Anda.</p>
+        </div>
+        <a href="#penawaran" class="btn btn-brand">Buat brief seminar kit</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 11: #biaya — Bandingkan biaya awal dan cost per use -->
+  <section id="biaya" class="section-space">
+    <div class="container">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-12 col-lg-6">
+          <span class="badge-accent mb-2">Perencanaan anggaran</span>
+          <h2 class="section-title mb-3">Bandingkan biaya awal dan cost per use</h2>
+          <p class="text-muted fs-6 mb-4" style="line-height: 1.8;">
+            <strong>Cost per use</strong> adalah perkiraan biaya per kali penggunaan: biaya pembuatan per tas dibagi jumlah pemakaian. Kerangka ini membantu mempertimbangkan manfaat penggunaan ulang, tetapi bukan angka ROI promosi yang pasti.
+          </p>
+          <div class="p-4 rounded-4 bg-surface-alt border-start border-4 border-success mb-3">
+            <strong class="text-dark d-block mb-1">Rumus sederhana</strong>
+            <p class="fs-5 fw-bold text-brand mb-2">Cost per use = biaya per tas ÷ jumlah pemakaian</p>
+            <p class="small text-muted mb-0 fst-italic">
+              Contoh ilustratif, bukan harga penawaran: tas A seharga Rp15.000 dipakai 3 kali → Rp5.000/pakai; tas B seharga Rp45.000 dipakai 15 kali → Rp3.000/pakai. Jumlah pemakaian hanyalah asumsi skenario.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="card p-4 p-md-5 rounded-4 bg-white border shadow-sm">
+            <h3 class="h5 fw-bold text-dark mb-3">Jangan hanya membandingkan harga satuan</h3>
+            <ul class="text-muted small ps-3 mb-3 d-flex flex-column gap-2" style="line-height: 1.7;">
+              <li>Material dan gramasi sesuai spesifikasi</li>
+              <li>Ukuran jadi, gusset, panjang tali dan penguatan jahitan</li>
+              <li>Teknik serta luas cetak logo</li>
+              <li>Jumlah unit dan kebutuhan cadangan</li>
+              <li>Proses sampel, quality control, packing dan pengiriman</li>
+              <li>Estimasi tanggal barang diterima sebelum hari acara</li>
+            </ul>
+            <p class="small text-muted mb-0">
+              Strategi yang dapat dipertimbangkan adalah membagi spesifikasi tas berdasarkan kelompok peserta—misalnya tas standar untuk peserta umum dan versi berbeda untuk narasumber.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 12: #proses — 6 langkah memesan tote bag seminar custom -->
+  <section id="proses" class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="max-w-75 mb-5">
+        <span class="badge-accent mb-2">Alur pengadaan B2B</span>
+        <h2 class="section-title mb-3">6 langkah memesan tote bag seminar custom</h2>
+        <p class="text-muted fs-6" style="line-height: 1.8;">
+          Gunakan alur ini sebagai checklist pembelian. Ketentuan DP, sampel, jadwal produksi, dan pengiriman mengikuti penawaran serta persetujuan kedua pihak, bukan ketentuan otomatis untuk setiap pesanan.
+        </p>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">01</span>
+            <h3 class="h5 fw-bold mb-2">Kirim brief</h3>
+            <p class="text-muted small mb-0">
+              Sampaikan jenis acara, jumlah, target ukuran, bahan, branding, kota tujuan, dan tanggal dibutuhkan.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">02</span>
+            <h3 class="h5 fw-bold mb-2">Tinjau penawaran</h3>
+            <p class="text-muted small mb-0">
+              Periksa rincian material, ukuran jadi, metode cetak, biaya, pengerjaan dan ruang lingkup layanan.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">03</span>
+            <h3 class="h5 fw-bold mb-2">Setujui mockup</h3>
+            <p class="text-muted small mb-0">
+              Konfirmasi tata letak logo, warna, serta detail teknis; evaluasi sampel jika disepakati.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">04</span>
+            <h3 class="h5 fw-bold mb-2">Konfirmasi order</h3>
+            <p class="text-muted small mb-0">
+              Setujui dokumen pesanan dan ketentuan pembayaran sebelum pekerjaan produksi dimulai.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">05</span>
+            <h3 class="h5 fw-bold mb-2">Produksi &amp; QC</h3>
+            <p class="text-muted small mb-0">
+              Periksa konsistensi cetak, ukuran, jahitan, jumlah, dan kondisi produk sesuai spesifikasi.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 p-4 rounded-4 bg-white border shadow-sm">
+            <span class="display-6 fw-bold text-accent mb-2" style="color: var(--brand-accent, #C18755);">06</span>
+            <h3 class="h5 fw-bold mb-2">Pengiriman</h3>
+            <p class="text-muted small mb-0">
+              Sepakati packing, alamat, penerima, serta waktu buffer untuk distribusi pada hari acara.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mb-0">
+        <a href="/cara-pesan/" class="fw-bold text-brand small text-decoration-none">
+          Baca alur pemesanan tote bag custom secara lengkap →
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 13: Tips perawatan tote bag canvas & Evaluasi vendor -->
+  <section class="section-space">
+    <div class="container">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-12 col-lg-6">
+          <span class="badge-accent mb-2">Kualitas setelah acara</span>
+          <h2 class="section-title mb-3">Tips perawatan tote bag canvas</h2>
+          <p class="text-muted fs-6 mb-4" style="line-height: 1.8;">
+            Agar tas memiliki peluang digunakan lebih lama, sertakan petunjuk perawatan yang sesuai dengan kain dan metode cetaknya. Untuk kanvas secara umum:
+          </p>
+          <ul class="text-muted small ps-3 mb-0 d-flex flex-column gap-2" style="line-height: 1.8;">
+            <li>Bersihkan noda ringan dengan kain atau sikat berbulu lembut.</li>
+            <li>Uji sabun lembut pada area kecil sebelum membersihkan seluruh tas.</li>
+            <li>Hindari pemutih atau gosokan keras di atas area cetak.</li>
+            <li>Ikuti petunjuk produk jika tersedia dan angin-anginkan sampai kering.</li>
+            <li>Jangan mengasumsikan semua tas kanvas aman dicuci dengan mesin.</li>
+          </ul>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="card p-4 p-md-5 rounded-4 bg-white border shadow-sm">
+            <div class="ratio ratio-16x9 rounded-3 overflow-hidden border mb-3">
+              <img 
+                src="/media/foto-seminar.jpg" 
+                alt="Dokumentasi pesanan dan produksi tote bag seminar" 
+                width="800" 
+                height="450" 
+                class="w-100 h-100 object-fit-cover"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="h5 fw-bold text-dark mb-3">Cara mengevaluasi vendor tote bag seminar</h3>
+            <ul class="text-muted small ps-3 mb-4 d-flex flex-column gap-2" style="line-height: 1.7;">
+              <li>Mintalah contoh material dan spesifikasi tertulis.</li>
+              <li>Periksa foto portofolio yang relevan, bukan hanya gambar ilustrasi.</li>
+              <li>Pastikan alur revisi mockup dan pemeriksaan sampel.</li>
+              <li>Konfirmasi kapasitas dan jadwal sebelum menyetujui deadline.</li>
+              <li>Tanyakan mekanisme pemeriksaan jumlah dan penanganan ketidaksesuaian.</li>
+            </ul>
+            <a href="/portofolio/" class="fw-bold text-brand small text-decoration-none">
+              Lihat portofolio yang dipublikasikan ToteBag →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 14: #faq — FAQ tote bag seminar custom -->
+  <section id="faq" class="section-space bg-surface-alt">
+    <div class="container">
+      <div class="max-w-75 mb-4 text-center mx-auto">
+        <span class="badge-accent mb-2">Jawaban singkat</span>
+        <h2 class="section-title mb-3">FAQ tote bag seminar custom</h2>
+        <p class="text-muted fs-6">
+          Pertanyaan yang sering muncul saat panitia dan tim pengadaan memilih tote bag seminar.
+        </p>
+      </div>
+
+      <div class="max-w-75 mx-auto">
+        <div class="faq-accordion-wrapper d-flex flex-column gap-3 mb-3">
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Apa bahan tote bag terbaik untuk seminar?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Bahan terbaik bergantung pada jenis acara dan isi tas. Canvas cocok untuk penggunaan berulang dan kesan premium, blacu untuk tampilan natural, spunbond untuk kebutuhan distribusi ringan dalam jumlah besar, dan drill untuk tampilan yang lebih rapi.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Berapa ukuran tote bag seminar yang ideal?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Untuk dokumen A4, pilih ukuran tas yang memberikan ruang tambahan di luar dimensi kertas 21 × 29,7 cm. Ukuran contoh 30 × 35 cm atau 35 × 40 cm dapat dipertimbangkan, dengan gusset jika membawa tumbler atau beberapa barang tebal. Ukur seluruh isi terlebih dahulu.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Apakah tote bag seminar bisa diberi logo acara?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Tote bag seminar dapat direncanakan dengan logo perusahaan atau acara menggunakan sablon, DTF, atau bordir sesuai material, desain, ukuran cetak, dan hasil konfirmasi vendor.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Apa isi paket seminar kit dengan tote bag?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Paket seminar kit dapat berisi tote bag custom, notebook atau blocknote, pulpen, lanyard dan ID card, serta tumbler. Isi dipilih berdasarkan kebutuhan peserta, jenis acara, dan anggaran.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Berapa harga tote bag seminar custom?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Harga ditentukan oleh jenis bahan, ukuran, jumlah pesanan, desain cetak, aksesori, dan jadwal pengerjaan. Mintalah penawaran tertulis berdasarkan spesifikasi yang sama agar pilihan vendor dapat dibandingkan.
+            </p>
+          </details>
+
+          <details class="p-3 p-md-4 rounded-4 bg-white border shadow-sm">
+            <summary class="fw-bold text-dark fs-6" style="cursor: pointer;">
+              Bagaimana memesan tote bag seminar sebelum tanggal acara?
+            </summary>
+            <p class="text-muted small mt-3 mb-0" style="line-height: 1.75;">
+              Siapkan jumlah peserta, spesifikasi bahan dan ukuran, file logo, lokasi pengiriman, serta tanggal acara. Kirim brief ke vendor, tinjau penawaran dan mockup, lalu konfirmasi sampel jika diperlukan sebelum persetujuan produksi.
+            </p>
+          </details>
+        </div>
+        <p class="text-center small text-muted fst-italic mb-0">
+          FAQ schema tidak menjamin tampilan FAQ rich results di Google.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 15: #penawaran — Diskusikan tote bag seminar custom + Form WhatsApp Brief -->
+  <section id="penawaran" class="section-space text-white" style="background-color: var(--brand-primary, #173F38);">
+    <div class="container">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-12 col-lg-5">
+          <span class="badge bg-warning text-dark mb-2 fw-bold">Siap untuk acara Anda?</span>
+          <h2 class="section-title text-white mb-3" style="font-size: clamp(1.8rem, 3.2vw, 2.5rem);">
+            Diskusikan tote bag seminar custom yang sesuai kebutuhan
+          </h2>
+          <p class="mb-4" style="color: #d5e6de; line-height: 1.75;">
+            Berbasis di Malang, ToteBag menyediakan kanal konsultasi pengadaan tote bag untuk kebutuhan perusahaan, instansi, kampus, dan event. Isi brief singkat; hasilnya akan disusun sebagai pesan WhatsApp agar permintaan penawaran lebih jelas.
+          </p>
+          <ul class="ps-3 mb-4 d-flex flex-column gap-2 small" style="color: #d5e6de; line-height: 1.7;">
+            <li>Informasikan perkiraan jumlah dan tanggal acara.</li>
+            <li>Sesuaikan pilihan material dengan isi seminar kit.</li>
+            <li>Minta konfirmasi spesifikasi, kelayakan jadwal, serta penawaran tertulis.</li>
+          </ul>
+          <p class="small mb-0">
+            <strong>WhatsApp:</strong> 
+            <a href="https://wa.me/6282131087971" class="text-white text-decoration-underline fw-bold ms-1" target="_blank" rel="noopener noreferrer">
+              +62 821-3108-7971
+            </a>
+          </p>
+        </div>
+
+        <div class="col-12 col-lg-7">
+          <div class="card p-4 p-md-5 rounded-4 bg-white text-dark shadow-sm">
+            <h3 class="h5 fw-bold mb-1">Brief pemesanan cepat</h3>
+            <p class="small text-muted mb-4">
+              Data hanya digunakan untuk menyusun pesan WhatsApp di perangkat Anda. Form ini tidak mengirim data ke server website.
+            </p>
+
+            <form id="rfqSeminarForm" novalidate>
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <label for="rfq-nama" class="form-label small fw-bold mb-1">Nama / instansi <span class="text-danger">*</span></label>
+                  <input 
+                    type="text" 
+                    id="rfq-nama" 
+                    name="nama" 
+                    class="form-control form-control-sm" 
+                    placeholder="Contoh: Panitia Seminar ABC" 
+                    maxlength="100" 
+                    required 
+                    autocomplete="organization"
+                  />
+                  <div class="invalid-feedback small">Harap isi nama atau instansi pemesan.</div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <label for="rfq-acara" class="form-label small fw-bold mb-1">Jenis acara <span class="text-danger">*</span></label>
+                  <select id="rfq-acara" name="acara" class="form-select form-select-sm" required>
+                    <option value="">Pilih acara</option>
+                    <option value="Seminar kampus">Seminar kampus</option>
+                    <option value="Seminar perusahaan">Seminar perusahaan</option>
+                    <option value="Workshop">Workshop</option>
+                    <option value="Diklat / bimtek">Diklat / bimtek</option>
+                    <option value="Expo / pameran">Expo / pameran</option>
+                    <option value="Konferensi">Konferensi</option>
+                    <option value="Lainnya">Lainnya</option>
+                  </select>
+                  <div class="invalid-feedback small">Pilih salah satu jenis acara.</div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <label for="rfq-jumlah" class="form-label small fw-bold mb-1">Jumlah perkiraan (pcs) <span class="text-danger">*</span></label>
+                  <input 
+                    type="number" 
+                    id="rfq-jumlah" 
+                    name="jumlah" 
+                    class="form-control form-control-sm" 
+                    placeholder="Contoh: 100" 
+                    min="1" 
+                    max="1000000" 
+                    step="1" 
+                    required 
+                  />
+                  <div class="invalid-feedback small">Masukkan perkiraan jumlah minimal 1 pcs.</div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <label for="rfq-bahan" class="form-label small fw-bold mb-1">Bahan pilihan</label>
+                  <select id="rfq-bahan" name="bahan" class="form-select form-select-sm">
+                    <option value="Perlu rekomendasi" selected>Perlu rekomendasi</option>
+                    <option value="Canvas">Canvas</option>
+                    <option value="Blacu">Blacu</option>
+                    <option value="Spunbond">Spunbond</option>
+                    <option value="Drill">Drill</option>
+                    <option value="Polyester">Polyester</option>
+                    <option value="Lainnya">Lainnya</option>
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <label for="rfq-tanggal" class="form-label small fw-bold mb-1">Tanggal acara</label>
+                  <input 
+                    type="date" 
+                    id="rfq-tanggal" 
+                    name="tanggal" 
+                    class="form-control form-control-sm" 
+                  />
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <label for="rfq-kota" class="form-label small fw-bold mb-1">Kota pengiriman</label>
+                  <input 
+                    type="text" 
+                    id="rfq-kota" 
+                    name="kota" 
+                    class="form-control form-control-sm" 
+                    placeholder="Contoh: Malang" 
+                    maxlength="80" 
+                  />
+                </div>
+
+                <div class="col-12">
+                  <label for="rfq-catatan" class="form-label small fw-bold mb-1">Isi tas / spesifikasi / catatan</label>
+                  <textarea 
+                    id="rfq-catatan" 
+                    name="catatan" 
+                    rows="3" 
+                    class="form-control form-control-sm" 
+                    placeholder="Contoh: A4, notebook, tumbler, cetak logo 1 sisi, ingin ada resleting" 
+                    maxlength="700"
+                  ></textarea>
+                </div>
+
+                <div class="col-12 mt-3">
+                  <button type="submit" class="btn btn-brand w-100 py-2 fw-bold">
+                    Susun Pesan &amp; Buka WhatsApp
+                  </button>
+                  <p class="small text-muted text-center mt-2 mb-0">
+                    WhatsApp akan terbuka dengan pesan yang bisa diperiksa sebelum dikirim.
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 16: Halaman Terkait -->
+  <section class="section-space py-5">
+    <div class="container">
+      <div class="max-w-75 mb-4">
+        <h2 class="h4 fw-bold mb-1 text-dark">Jelajahi halaman terkait</h2>
+        <p class="text-muted small mb-0">Panduan lanjutan untuk melengkapi keputusan pembelian Anda.</p>
+      </div>
+      <nav class="d-flex flex-wrap gap-2" aria-label="Halaman terkait">
+        <a href="/produk/tote-bag-canvas/" class="badge bg-light text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Tote Bag Canvas Custom
+        </a>
+        <a href="/produk/tote-bag-blacu/" class="badge bg-light text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Tote Bag Blacu Custom
+        </a>
+        <a href="/produk/tote-bag-spunbond/" class="badge bg-light text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Tote Bag Spunbond Custom
+        </a>
+        <a href="/cara-pesan/" class="badge bg-light text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Cara Pemesanan
+        </a>
+        <a href="/portofolio/" class="badge bg-light text-dark border text-decoration-none px-3 py-2 rounded-pill fs-6 fw-normal">
+          Portofolio Tote Bag
+        </a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Sticky Mobile CTA Bar -->
+  <aside class="seminar-sticky-cta d-block d-md-none fixed-bottom p-2 bg-white border-top shadow" aria-label="Aksi cepat pemesanan">
+    <a href="#penawaran" class="btn btn-brand w-100 fw-bold py-2">
+      Minta Penawaran Tote Bag Seminar
+    </a>
+  </aside>
 </BaseLayout>
+
+<style>
+  /* Hero Styling */
+  .hero-seminar {
+    background: linear-gradient(135deg, rgba(242, 245, 237, 0.7), rgba(252, 248, 239, 0.9));
+    border-radius: 1.5rem;
+  }
+
+  /* Quick Nav Pills */
+  .quick-nav a {
+    transition: all 0.2s ease;
+  }
+
+  .quick-nav a:hover {
+    background-color: var(--brand-primary, #173F38) !important;
+    color: #ffffff !important;
+  }
+
+  .quick-nav a.badge-cta {
+    background-color: var(--brand-primary, #173F38) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--brand-primary, #173F38);
+    font-weight: 600;
+  }
+
+  .quick-nav a.badge-cta:hover {
+    background-color: var(--brand-primary-hover, #0E2E29) !important;
+    border-color: var(--brand-primary-hover, #0E2E29);
+    transform: translateY(-1px);
+  }
+
+  /* FAQ Accordion Details / Summary */
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details summary {
+    list-style: none;
+    position: relative;
+    padding-right: 28px;
+    user-select: none;
+  }
+
+  details summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--brand-primary, #173F38);
+    transition: transform 0.2s ease;
+  }
+
+  details[open] summary::after {
+    content: "−";
+  }
+
+  details:focus-within {
+    border-color: var(--brand-primary, #173F38) !important;
+  }
+
+  /* Sticky Mobile Bar & Layout offset */
+  @media (max-width: 620px) {
+    body {
+      padding-bottom: 65px;
+    }
+
+    .seminar-sticky-cta {
+      z-index: 1020;
+    }
+
+    :global(.floating-wa-btn) {
+      bottom: 70px !important;
+    }
+  }
+
+  /* Quick Nav Pills */
+  .quick-nav a {
+    transition: all 0.2s ease;
+  }
+
+  .quick-nav a:hover {
+    background-color: var(--brand-primary, #173F38) !important;
+    color: #ffffff !important;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('rfqSeminarForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+        form.classList.add('was-validated');
+        const firstInvalid = form.querySelector(':invalid');
+        if (firstInvalid) {
+          firstInvalid.focus();
+        }
+        return;
+      }
+
+      form.classList.add('was-validated');
+
+      const data = new FormData(form);
+      const val = function (k) {
+        return String(data.get(k) || '').trim();
+      };
+
+      const nama = val('nama');
+      const acara = val('acara');
+      const jumlah = val('jumlah');
+      const bahan = val('bahan') || 'Perlu rekomendasi';
+      const tanggal = val('tanggal') || 'Belum ditentukan';
+      const kota = val('kota') || 'Belum ditentukan';
+      const catatan = val('catatan') || 'Perlu diskusi';
+
+      const lines = [
+        'Halo tim ToteBag.web.id, saya ingin konsultasi tote bag seminar custom.',
+        '',
+        'Nama/instansi: ' + nama,
+        'Jenis acara: ' + acara,
+        'Perkiraan jumlah: ' + jumlah + ' pcs',
+        'Bahan: ' + bahan,
+        'Tanggal acara: ' + tanggal,
+        'Kota pengiriman: ' + kota,
+        'Spesifikasi/catatan: ' + catatan,
+        '',
+        'Mohon informasi opsi bahan, ukuran, penawaran, dan estimasi jadwal pengerjaan. Terima kasih.',
+        'Referensi: https://totebag.web.id/tote-bag-seminar/'
+      ];
+
+      const text = lines.join('\n');
+      const waUrl = 'https://wa.me/6282131087971?text=' + encodeURIComponent(text);
+
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    });
+  })();
+</script>
