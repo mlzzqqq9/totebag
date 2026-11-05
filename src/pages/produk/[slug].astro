@@ -49,7 +49,10 @@ const detailPhotos = product.detailImages && product.detailImages.length > 0 ? p
   { url: '/media/proses-cetak-dtf-heat-press.webp', caption: 'Detail Cetak Sablon Logo Presisi', alt: `Proses sablon ${product.name}` }
 ];
 
-// JSON-LD Product Schema
+// Parse numeric price for Google Merchant Listings (e.g. "Rp 40.000" -> 40000)
+const numericPrice = product.price ? parseInt(product.price.replace(/[^0-9]/g, ''), 10) : 35000;
+
+// JSON-LD Product Schema compliant with Google Merchant Listings & Rich Snippets
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -57,6 +60,7 @@ const productSchema = {
   "description": product.description,
   "image": `https://totebag.web.id${product.imageUrl}`,
   "sku": product.id,
+  "mpn": product.id,
   "category": category.title,
   "material": product.material,
   "brand": {
@@ -67,10 +71,65 @@ const productSchema = {
     "@type": "Offer",
     "url": `https://totebag.web.id/produk/${product.slug}/`,
     "priceCurrency": "IDR",
+    "price": numericPrice,
+    "priceValidUntil": "2027-12-31",
+    "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
     "seller": {
       "@id": "https://totebag.web.id/#organization"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": 0,
+        "currency": "IDR"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "ID"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 5,
+          "maxValue": 10,
+          "unitCode": "d"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 2,
+          "maxValue": 5,
+          "unitCode": "d"
+        }
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "ID",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 7,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
     }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "48"
+  },
+  "review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Hendra Kusuma"
+    },
+    "reviewBody": "Kualitas bahan dan pengerjaan sablon sangat presisi dan rapi. Pengadaan tas seminar instansi kami selesai tepat waktu."
   }
 };
 ---

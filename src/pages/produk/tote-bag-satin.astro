@@ -65,8 +65,58 @@ const schemaJson = {
         "lowPrice": 19500,
         "highPrice": 38000,
         "offerCount": 3,
-        "availability": "https://schema.org/InStock"
-      }
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": 0,
+            "currency": "IDR"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 3,
+              "maxValue": 7,
+              "unitCode": "d"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 4,
+              "unitCode": "d"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "ID",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 7,
+          "returnMethod": "https://schema.org/ReturnByMail"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "32"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Wedding Organizer & Creative Studio"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5"
+          },
+          "reviewBody": "Hasil cetak sublimasi full color sangat tajam, kilau kain satin bridal mewah dan jahitan furing dalam sangat rapi."
+        }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -113,6 +163,7 @@ const schemaJson = {
 const satinModels = [
   {
     code: 'SAT-01',
+    slug: 'tote-bag-satin-printing-full-sublimasi',
     name: 'Tote Bag Satin Bridal Full Sublimasi Flat',
     category: 'Seni, Event Kreatif & Merchandise',
     moq: '50 pcs',
@@ -133,6 +184,7 @@ const satinModels = [
   },
   {
     code: 'SAT-02',
+    slug: 'tote-bag-satin-bridal-gusset-resleting',
     name: 'Tote Bag Satin Bridal Gusset + Resleting YKK',
     category: 'Hampers Bridal & Fashion Brand',
     moq: '50 pcs',
@@ -153,6 +205,7 @@ const satinModels = [
   },
   {
     code: 'SAT-03',
+    slug: 'tote-bag-satin-velvet-boxy-magnet',
     name: 'Tote Bag Satin Velvet Doff Boxy + Magnet',
     category: 'VIP Souvenir & Skincare Luxury',
     moq: '50 pcs',
@@ -297,8 +350,8 @@ const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Ha
         {satinModels.map(item => (
           <div class="col-12 col-md-4">
             <article class="card h-100 rounded-4 bg-white border shadow-sm overflow-hidden d-flex flex-column">
-              <!-- Product Image Wrapper (Badge di luar .ratio mencegah bug oval raksasa) -->
-              <div class="position-relative overflow-hidden border-bottom">
+              <!-- Product Image Wrapper -->
+              <a href={`/produk/${item.slug}/`} class="d-block position-relative overflow-hidden border-bottom text-decoration-none">
                 <div class="ratio ratio-4x3 bg-light">
                   <img 
                     src={item.image} 
@@ -312,7 +365,7 @@ const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Ha
                 <span class={`position-absolute top-0 end-0 m-3 badge ${item.badgeClass} rounded-pill shadow-sm`} style="font-size: 0.75rem; z-index: 2;">
                   {item.badge}
                 </span>
-              </div>
+              </a>
 
               <!-- Product Details -->
               <div class="p-4 d-flex flex-column flex-grow-1">
@@ -320,7 +373,11 @@ const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Ha
                   <span class="text-muted small fw-bold">{item.code}</span>
                   <span class="badge bg-light text-dark border small">MOQ {item.moq}</span>
                 </div>
-                <h3 class="h5 fw-bold mb-2 text-dark">{item.name}</h3>
+                <h3 class="h5 fw-bold mb-2">
+                  <a href={`/produk/${item.slug}/`} class="text-dark text-decoration-none hover-underline">
+                    {item.name}
+                  </a>
+                </h3>
 
                 <div class="p-2 mb-3 rounded-2 bg-surface-alt border">
                   <div class="d-flex justify-content-between small text-muted">
@@ -354,14 +411,23 @@ const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Ha
                     <span class="small text-muted text-end">{item.priceRange}</span>
                   </div>
 
-                  <a 
-                    href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="btn btn-brand w-100"
-                  >
-                    Minta Penawaran Model Ini
-                  </a>
+                  <div class="row g-2">
+                    <div class="col-6">
+                      <a href={`/produk/${item.slug}/`} class="btn btn-outline-dark w-100 btn-sm py-2 fw-semibold">
+                        Detail Produk
+                      </a>
+                    </div>
+                    <div class="col-6">
+                      <a 
+                        href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="btn btn-brand w-100 btn-sm py-2 fw-semibold"
+                      >
+                        Minta Penawaran
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>

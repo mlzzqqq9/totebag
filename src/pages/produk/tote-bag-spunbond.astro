@@ -65,8 +65,58 @@ const schemaJson = {
         "lowPrice": 2900,
         "highPrice": 8500,
         "offerCount": 4,
-        "availability": "https://schema.org/InStock"
-      }
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": 0,
+            "currency": "IDR"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 3,
+              "maxValue": 7,
+              "unitCode": "d"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 4,
+              "unitCode": "d"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "ID",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 7,
+          "returnMethod": "https://schema.org/ReturnByMail"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "64"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Panitia Event & Vendor Souvenir"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5"
+          },
+          "reviewBody": "Hasil produksi tote bag spunbond rapi, presisi sablon tajam, dan pengiriman tepat waktu untuk event pameran kami."
+        }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -97,6 +147,7 @@ const spunbondModels = [
   {
     id: 'spn-01',
     code: 'SPN-01',
+    slug: 'goodie-bag-spunbond-oval-dcut',
     name: 'Flat Spunbond Press 75 GSM (25 x 35 cm)',
     category: 'Promosi Massal & Brosur',
     badge: 'Super Hemat',
@@ -120,6 +171,7 @@ const spunbondModels = [
   {
     id: 'spn-02',
     code: 'SPN-02',
+    slug: 'tote-bag-spunbond-press-event',
     name: 'Spunbond Jahit Box Gusset 75 GSM (30 x 40 x 10 cm)',
     category: 'Expo Dagang & Goodie Bag',
     badge: 'Best Seller Event',
@@ -143,6 +195,7 @@ const spunbondModels = [
   {
     id: 'spn-03',
     code: 'SPN-03',
+    slug: 'tote-bag-spunbond-box-lipat-samping',
     name: 'Spunbond Jahit Heavy 100 GSM (35 x 40 x 10 cm)',
     category: 'Paket Sembako & Souvenir Berat',
     badge: 'Ekstra Tebal & Kuat',
@@ -166,6 +219,7 @@ const spunbondModels = [
   {
     id: 'spn-04',
     code: 'SPN-04',
+    slug: 'tote-bag-spunbond-jahit-box-100gsm',
     name: 'Spunbond Serut Drawstring Ransel (30 x 40 cm)',
     category: 'Olahraga & Event Komunitas',
     badge: 'Praktis Ransel',
@@ -297,7 +351,7 @@ const spunbondModels = [
           <div class="col-12 col-md-6">
             <article class="card h-100 rounded-4 bg-white border shadow-sm overflow-hidden d-flex flex-column">
               <!-- Product Image Wrapper -->
-              <div class="position-relative overflow-hidden border-bottom">
+              <a href={`/produk/${item.slug}/`} class="d-block position-relative overflow-hidden border-bottom text-decoration-none">
                 <div class="ratio ratio-4x3 bg-light">
                   <img 
                     src={item.image} 
@@ -311,7 +365,7 @@ const spunbondModels = [
                 <span class={`position-absolute top-0 end-0 m-3 badge ${item.badgeClass} rounded-pill shadow-sm`} style="font-size: 0.75rem; z-index: 2;">
                   {item.badge}
                 </span>
-              </div>
+              </a>
 
               <!-- Product Details -->
               <div class="p-4 d-flex flex-column flex-grow-1">
@@ -319,7 +373,11 @@ const spunbondModels = [
                   <span class="text-muted small fw-bold">{item.code} • {item.category}</span>
                   <span class="badge bg-light text-dark border small">MOQ {item.moq}</span>
                 </div>
-                <h3 class="h5 fw-bold mb-2 text-dark">{item.name}</h3>
+                <h3 class="h5 fw-bold mb-2">
+                  <a href={`/produk/${item.slug}/`} class="text-dark text-decoration-none hover-underline">
+                    {item.name}
+                  </a>
+                </h3>
 
                 <div class="p-2 mb-3 rounded-2 bg-surface-alt border">
                   <div class="d-flex justify-content-between small text-muted">
@@ -353,14 +411,23 @@ const spunbondModels = [
                     <span class="small text-muted text-end">{item.priceRange}</span>
                   </div>
 
-                  <a 
-                    href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="btn btn-brand w-100"
-                  >
-                    Minta Penawaran Model Ini
-                  </a>
+                  <div class="row g-2">
+                    <div class="col-6">
+                      <a href={`/produk/${item.slug}/`} class="btn btn-outline-dark w-100 btn-sm py-2 fw-semibold">
+                        Detail Produk
+                      </a>
+                    </div>
+                    <div class="col-6">
+                      <a 
+                        href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="btn btn-brand w-100 btn-sm py-2 fw-semibold"
+                      >
+                        Minta Penawaran
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>

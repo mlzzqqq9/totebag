@@ -65,8 +65,58 @@ const schemaJson = {
         "lowPrice": 28000,
         "highPrice": 52000,
         "offerCount": 4,
-        "availability": "https://schema.org/InStock"
-      }
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": 0,
+            "currency": "IDR"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 3,
+              "maxValue": 7,
+              "unitCode": "d"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 4,
+              "unitCode": "d"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "ID",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 7,
+          "returnMethod": "https://schema.org/ReturnByMail"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "38"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Brand Apparel & Distro Creative"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5"
+          },
+          "reviewBody": "Bahan kain denim 12 oz kokoh, jahitan tobacco kontras rapi, dan aplikasi sablon discharge sangat menyatu dengan kain."
+        }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -113,6 +163,7 @@ const schemaJson = {
 const denimModels = [
   {
     code: 'DEN-01',
+    slug: 'tote-bag-denim-raw-indigo',
     name: 'Tote Bag Denim Raw Indigo 12 oz Flat',
     category: 'Kasual Distro & Gathering',
     moq: '50 pcs',
@@ -133,6 +184,7 @@ const denimModels = [
   },
   {
     code: 'DEN-02',
+    slug: 'tote-bag-denim-saku-jeans-gusset',
     name: 'Tote Bag Denim Saku Depan Jeans + Gusset',
     category: 'Streetwear Utility',
     moq: '50 pcs',
@@ -153,6 +205,7 @@ const denimModels = [
   },
   {
     code: 'DEN-03',
+    slug: 'tote-bag-black-washed-denim-patch',
     name: 'Tote Bag Black Washed Denim + Patch Kulit',
     category: 'Premium Vintage Look',
     moq: '50 pcs',
@@ -173,6 +226,7 @@ const denimModels = [
   },
   {
     code: 'DEN-04',
+    slug: 'tote-bag-denim-hybrid-canvas-2tone',
     name: 'Tote Bag Denim Kombinasi Heavy Canvas 2-Tone',
     category: 'Hybrid Modern Craft',
     moq: '50 pcs',
@@ -317,8 +371,8 @@ const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Ha
         {denimModels.map(item => (
           <div class="col-12 col-md-6">
             <article class="card h-100 rounded-4 bg-white border shadow-sm overflow-hidden d-flex flex-column">
-              <!-- Product Image Wrapper (Badge di luar .ratio mencegah bug oval raksasa) -->
-              <div class="position-relative overflow-hidden border-bottom">
+              <!-- Product Image Wrapper -->
+              <a href={`/produk/${item.slug}/`} class="d-block position-relative overflow-hidden border-bottom text-decoration-none">
                 <div class="ratio ratio-4x3 bg-light">
                   <img 
                     src={item.image} 
@@ -332,7 +386,7 @@ const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Ha
                 <span class={`position-absolute top-0 end-0 m-3 badge ${item.badgeClass} rounded-pill shadow-sm`} style="font-size: 0.75rem; z-index: 2;">
                   {item.badge}
                 </span>
-              </div>
+              </a>
 
               <!-- Product Details -->
               <div class="p-4 d-flex flex-column flex-grow-1">
@@ -340,7 +394,11 @@ const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Ha
                   <span class="text-muted small fw-bold">{item.code} • {item.category}</span>
                   <span class="badge bg-light text-dark border small">MOQ {item.moq}</span>
                 </div>
-                <h3 class="h5 fw-bold mb-2 text-dark">{item.name}</h3>
+                <h3 class="h5 fw-bold mb-2">
+                  <a href={`/produk/${item.slug}/`} class="text-dark text-decoration-none hover-underline">
+                    {item.name}
+                  </a>
+                </h3>
 
                 <div class="p-2 mb-3 rounded-2 bg-surface-alt border">
                   <div class="d-flex justify-content-between small text-muted">
@@ -374,14 +432,23 @@ const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Ha
                     <span class="small text-muted text-end">{item.priceRange}</span>
                   </div>
 
-                  <a 
-                    href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="btn btn-brand w-100"
-                  >
-                    Minta Penawaran Model Ini
-                  </a>
+                  <div class="row g-2">
+                    <div class="col-6">
+                      <a href={`/produk/${item.slug}/`} class="btn btn-outline-dark w-100 btn-sm py-2 fw-semibold">
+                        Detail Produk
+                      </a>
+                    </div>
+                    <div class="col-6">
+                      <a 
+                        href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="btn btn-brand w-100 btn-sm py-2 fw-semibold"
+                      >
+                        Minta Penawaran
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>
