@@ -1,131 +1,610 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
-import ProductCard from '@/components/ui/ProductCard.astro';
-import FAQAccordion from '@/components/ui/FAQAccordion.astro';
-import { categories, products, corporateFaqs, getWhatsAppUrl } from '@/data/siteData';
-
-const category = categories.find(c => c.slug === 'tote-bag-dinir-cordura') || categories[0];
-const categoryProducts = products.filter(p => p.categorySlug === 'tote-bag-dinir-cordura');
-const categoryFaqs = corporateFaqs;
 
 const breadcrumbs = [
   { name: 'Beranda', url: '/' },
   { name: 'Katalog Produk', url: '/produk/' },
-  { name: category.title, url: `/produk/${category.slug}/` }
+  { name: 'Tote Bag Dinir & Cordura', url: '/produk/tote-bag-dinir-cordura/' }
 ];
 
-const categoryWaUrl = getWhatsAppUrl({
-  categoryName: category.title,
-  sourcePage: `/produk/${category.slug}/`
-});
+const schemaJson = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://totebag.web.id/produk/tote-bag-dinir-cordura/#webpage",
+      "url": "https://totebag.web.id/produk/tote-bag-dinir-cordura/",
+      "name": "Tote Bag Dinir D300, D600 & Cordura Custom: Katalog Model & Harga Pabrik | ToteBag",
+      "description": "Katalog tote bag bahan dinir D300, D600, dan cordura nilon tahan air untuk kebutuhan safety campaign, tambang, outdoor, dan merchandise korporat kokoh. Mulai Rp 28.000, MOQ 50 pcs.",
+      "inLanguage": "id-ID",
+      "isPartOf": {
+        "@id": "https://totebag.web.id/#website"
+      },
+      "breadcrumb": {
+        "@id": "https://totebag.web.id/produk/tote-bag-dinir-cordura/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://totebag.web.id/produk/tote-bag-dinir-cordura/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://totebag.web.id/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Katalog Produk",
+          "item": "https://totebag.web.id/produk/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tote Bag Dinir & Cordura",
+          "item": "https://totebag.web.id/produk/tote-bag-dinir-cordura/"
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://totebag.web.id/produk/tote-bag-dinir-cordura/#product",
+      "name": "Tote Bag Dinir & Cordura Custom",
+      "image": "https://totebag.web.id/media/tote-bag-cordura.webp",
+      "description": "Pabrik konveksi tote bag bahan Dinir D300, D600, dan kain Cordura coating tahan air untuk perlengkapan outdoor, kontraktor, industri, dan merchandise kedinasan.",
+      "brand": {
+        "@type": "Brand",
+        "name": "ToteBag"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "IDR",
+        "lowPrice": 21000,
+        "highPrice": 48000,
+        "offerCount": 4,
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://totebag.web.id/produk/tote-bag-dinir-cordura/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Apakah bahan Dinir dan Cordura tahan air?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ya. Kain Dinir D300, D600, dan Cordura memiliki lapisan coating PVC/PU di bagian dalam yang menahan cipratan air hujan ringan, sehingga berkas dokumen dan laptop di dalamnya tetap terlindungi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa minimal order (MOQ) untuk tote bag Dinir dan Cordura?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimal pemesanan standar adalah 50 pcs per desain. Kami juga melayani pesanan ratusan hingga ribuan pcs untuk pengadaan korporat dengan harga grosir pabrik."
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const dinirModels = [
+  {
+    id: 'din-01',
+    code: 'DIN-01',
+    name: 'Dinir D300 Resleting Standard (30 x 40 cm)',
+    category: 'Diklat & Bimtek Instansi',
+    badge: 'Ekonomis Tangguh',
+    badgeClass: 'bg-primary text-white',
+    price: 'Rp 28.000',
+    priceRange: 'Rp 21.000 - Rp 28.000',
+    moq: '50 pcs',
+    image: '/media/foto-dinir.jpg',
+    material: 'Polyester Dinir D300 Water Repellent',
+    dimensions: '30 x 40 cm (Flat vertikal)',
+    target: 'Pelatihan dinas, sertifikasi kompetensi, seminar teknis kementerian, dan rapat kerja tahunan.',
+    features: [
+      'Lapisan coating tahan air melindungi map dokumen',
+      'Penutup ritsleting menjaga isi tas tidak tercecer',
+      'Tali webbing polyester tebal 3.8 cm kuat di bahu',
+      'Sablon rubber tebal 1-2 warna kontras tajam',
+      'Kapasitas beban aman hingga 6-8 kg'
+    ],
+    waMessage: 'Halo ToteBag, saya tertarik memesan Model DIN-01 (Dinir D300 Resleting Standard).'
+  },
+  {
+    id: 'din-02',
+    code: 'DIN-02',
+    name: 'Dinir D600 Gusset Heavy-Duty (35 x 40 x 10 cm)',
+    category: 'Safety Campaign & Industri',
+    badge: 'Heavy-Duty Industrial',
+    badgeClass: 'bg-dark text-white',
+    price: 'Rp 34.000',
+    priceRange: 'Rp 26.500 - Rp 34.000',
+    moq: '50 pcs',
+    image: '/media/foto-cordura.jpg',
+    material: 'Polyester Dinir D600 Super Tebal',
+    dimensions: '35 x 40 x 10 cm (Bottom & Side Gusset)',
+    target: 'Kontraktor proyek, safety campaign K3 pertambangan, pabrik manufaktur, logistik armada.',
+    features: [
+      'Kerapatan benang 600 Denier ekstra tebal anti robek gesekan',
+      'Alas bawah dan samping 10 cm muat perlengkapan kerja berat',
+      'Jahitan double-stitch di seluruh sambungan tumpu tali',
+      'Opsi saku depan serbaguna dengan resleting',
+      'Kapasitas beban uji hingga 10-12 kg'
+    ],
+    waMessage: 'Halo ToteBag, mohon penawaran untuk Model DIN-02 (Dinir D600 Gusset Heavy-Duty).'
+  },
+  {
+    id: 'cor-01',
+    code: 'COR-01',
+    name: 'Cordura Tactical Splashproof (35 x 42 x 10 cm)',
+    category: 'Outdoor & Tactical Merchandise',
+    badge: 'Best Seller Tactical',
+    badgeClass: 'bg-success text-white',
+    price: 'Rp 42.000',
+    priceRange: 'Rp 34.000 - Rp 42.000',
+    moq: '50 pcs',
+    image: '/media/tote-bag-cordura.webp',
+    material: 'Kain Cordura Nilon Asli (Waterproof Coating)',
+    dimensions: '35 x 42 x 10 cm',
+    target: 'Komunitas adventure, merchandise otomotif, apparel outdoor, corporate gift premium.',
+    features: [
+      'Serat nilon Cordura original sangat ulet dan kedap air',
+      'Resleting waterproof dengan tarikan paracord tactical',
+      'Tali webbing nilon standar militer anti putus',
+      'Bordir komputer timbul atau sablon plastisol presisi',
+      'Kapasitas beban uji lab hingga 15 kg'
+    ],
+    waMessage: 'Halo ToteBag, saya ingin konsultasi Model COR-01 (Cordura Tactical Splashproof).'
+  },
+  {
+    id: 'cor-02',
+    code: 'COR-02',
+    name: 'Cordura Multi-Pocket Executive Laptop Bag',
+    category: 'Tas Kerja & Eksekutif Lapangan',
+    badge: 'Multi-Kompartemen',
+    badgeClass: 'bg-warning text-dark',
+    price: 'Rp 48.000',
+    priceRange: 'Rp 39.500 - Rp 48.000',
+    moq: '50 pcs',
+    image: '/media/tote-bag-cordura.webp',
+    material: 'Cordura Nilon + Lapisan Busa Pelindung',
+    dimensions: '38 x 42 x 12 cm',
+    target: 'Tas kerja engineer lapangan, konsultan proyek, surveyor, merchandise BUMN.',
+    features: [
+      'Kompartemen khusus laptop 14-15.6 inch berlapis busa empuk',
+      'Dua saku depan bersekat untuk charger, mouse, dan buku catatan',
+      'Dual handle: Tali jinjing tebal + tali selempang lepas-pasang',
+      'Alas bawah kokoh tahan gesekan permukaan kasar',
+      'Kapasitas beban maksimal hingga 15 kg'
+    ],
+    waMessage: 'Halo ToteBag, mohon penawaran Model COR-02 (Cordura Multi-Pocket Executive Laptop Bag).'
+  }
+];
 ---
 
 <BaseLayout
-  title={`${category.title} — Solusi Tangguh & Tahan Air`}
-  description="Penyedia tote bag bahan dinir D300, D600, dan cordura nilon tahan air untuk kebutuhan safety campaign, tambang, outdoor, dan merchandise korporat kokoh."
-  canonicalUrl={`https://totebag.web.id/produk/${category.slug}/`}
-  categoryName={category.title}
+  title="Tote Bag Dinir D300, D600 & Cordura Custom: Katalog Model & Harga Pabrik"
+  description="Katalog tote bag bahan dinir D300, D600, dan cordura nilon tahan air untuk kebutuhan safety campaign, tambang, outdoor, dan merchandise korporat kokoh. Mulai Rp 28.000, MOQ 50 pcs."
+  canonicalUrl="https://totebag.web.id/produk/tote-bag-dinir-cordura/"
+  ogImage="https://totebag.web.id/media/tote-bag-cordura.webp"
+  jsonLd={schemaJson}
 >
+  <!-- Topbar Announcement Strip -->
+  <aside class="dinir-topbar py-2 text-center text-white small" style="background-color: var(--brand-primary, #173F38);" aria-label="Informasi konveksi dinir dan cordura">
+    <div class="container">
+      Konveksi Tote Bag Dinir D300, D600 &amp; Cordura Tahan Air • Jahitan Double-Stitch Standar Industri • Kirim Seluruh Indonesia
+    </div>
+  </aside>
+
+  <!-- Breadcrumbs & Quick-Nav In-Page Navigation -->
   <div class="container pt-3">
     <Breadcrumbs items={breadcrumbs} />
+    <nav class="quick-nav d-none d-md-flex flex-wrap gap-2 pt-2 pb-1" aria-label="Navigasi cepat halaman dinir cordura">
+      <span class="small fw-semibold text-muted align-self-center me-1">Lompat ke:</span>
+      <a href="#katalog-produk" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Katalog Model &amp; Harga</a>
+      <a href="#tabel-harga" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Tabel Harga Grosir</a>
+      <a href="#keunggulan" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Keunggulan Material</a>
+      <a href="#faq" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">FAQ</a>
+      <a href="#penawaran" class="badge badge-cta bg-brand text-white text-decoration-none px-3 py-2 rounded-pill shadow-sm">Minta Penawaran</a>
+    </nav>
   </div>
 
-  <section class="section-space-sm pt-2">
+  <!-- Hero Header Section -->
+  <section class="section-space-sm pt-3 pb-4 hero-dinir" id="konten">
     <div class="container">
-      <div class="row align-items-center g-5">
+      <div class="row align-items-center g-4 g-lg-5">
         <div class="col-12 col-lg-7">
-          <span class="badge-accent mb-2">KATEGORI MATERIAL</span>
-          <h1 class="hero-title mb-3">{category.title}</h1>
-          <p class="lead text-muted fs-5 mb-4">{category.tagline}</p>
-          <p class="text-muted mb-4" style="line-height: 1.7;">{category.overview}</p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href={categoryWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg">
-              Konsultasi Dinir &amp; Cordura via WA
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge-accent">KATALOG PRODUK &amp; KONVEKSI OUTDOOR</span>
+          </div>
+          <h1 class="hero-title mb-3">
+            Tote Bag Dinir D300, D600 &amp; Cordura Custom: Tangguh, Tahan Air &amp; Heavy-Duty
+          </h1>
+
+          <p class="lead text-muted fs-5 mb-3" style="line-height: 1.7;">
+            Pilihan tas merchandise paling kokoh untuk medan kerja aktif, proyek kontraktor, industri tambang, dan pelatihan kedinasan. Dilapisi coating tahan air dengan opsi resleting YKK dan kompartemen laptop berbusa empuk.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#katalog-produk" class="btn btn-brand btn-lg">
+              Lihat 4 Model Produk ↓
             </a>
-            <a href="/harga-tote-bag-custom/" class="btn btn-brand-outline btn-lg">
-              Hitung Estimasi Anggaran
+            <a href="#penawaran" class="btn btn-brand-outline btn-lg">
+              Konsultasi WhatsApp
             </a>
+          </div>
+
+          <div class="d-flex flex-wrap gap-3 text-muted small">
+            <span><strong class="text-success">✓</strong> Mulai Rp 28.000 / pcs (MOQ 50 pcs)</span>
+            <span><strong class="text-success">✓</strong> Lapisan Coating Tahan Cipratan Air</span>
+            <span><strong class="text-success">✓</strong> Mampu Menahan Beban 10-15 kg</span>
+            <span><strong class="text-success">✓</strong> Sablon Rubber Tebal &amp; Bordir Komputer</span>
           </div>
         </div>
 
         <div class="col-12 col-lg-5">
-          <div class="rounded-4 overflow-hidden border shadow-sm ratio ratio-4x3">
-            <img 
-              src={category.imageUrl} 
-              alt={category.title} 
-              class="w-100 h-100 object-fit-cover" 
-              loading="eager"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pilihan Produk Kategori -->
-  <section class="section-space pt-0">
-    <div class="container">
-      <div class="d-flex align-items-center justify-content-between mb-4">
-        <div>
-          <h2 class="h3 fw-bold mb-1">Pilihan Model {category.shortName}</h2>
-          <p class="text-muted small mb-0">Spesifikasi material tangguh berstandar industri.</p>
-        </div>
-      </div>
-
-      <div class="row g-4 mb-5">
-        {categoryProducts.map(prod => (
-          <div class="col-12 col-sm-6 col-lg-4">
-            <ProductCard product={prod} />
-          </div>
-        ))}
-      </div>
-
-      <!-- Detail Karakteristik Bahan -->
-      <div class="p-4 p-md-5 rounded-4 bg-light border mb-5">
-        <div class="row g-4 align-items-center">
-          <div class="col-12 col-lg-6">
-            <h3 class="h4 fw-bold mb-3">Keunggulan Bahan Dinir &amp; Cordura</h3>
-            <p class="text-muted small mb-4" style="line-height: 1.8;">
-              {category.materialDescription}
-            </p>
-            <ul class="list-unstyled d-flex flex-column gap-2 mb-0 small text-muted">
-              {category.benefits.map(b => (
-                <li class="d-flex align-items-center gap-2">
-                  <span class="badge rounded-circle bg-success-subtle text-success p-1">✓</span>
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div class="col-12 col-lg-6">
-            <div class="p-4 rounded-3 bg-white border">
-              <div class="fw-bold text-dark mb-2">Peruntukan Utama:</div>
-              <div class="d-flex flex-wrap gap-2 mb-4">
-                {category.recommendedUses.map(use => (
-                  <span class="badge bg-light text-dark border px-3 py-2">{use}</span>
-                ))}
-              </div>
-              <div class="pt-3 border-top">
-                <a href={categoryWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand w-100">
-                  Minta Sampel Kain Dinir / Cordura
-                </a>
+          <div class="position-relative">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
+              <img 
+                src="/media/tote-bag-cordura.webp" 
+                alt="Tote bag cordura tactical tahan air warna hitam dengan saku dan resleting kuat" 
+                width="800" 
+                height="600" 
+                class="w-100 h-100 object-fit-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+            <div class="position-absolute bottom-0 end-0 m-3 px-3 py-2 bg-white rounded-3 shadow-sm border text-dark d-none d-sm-block" style="max-width: 250px; z-index: 5;">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle p-1 bg-success text-white" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px;">✓</span>
+                <div>
+                  <strong class="d-block text-brand fw-bold" style="font-size: 0.85rem; line-height: 1.2;">Water Repellent</strong>
+                  <span class="text-muted" style="font-size: 0.75rem; line-height: 1.2;">Uji Beban 15 kg • Anti Robek</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- FAQ Kategori -->
-      {categoryFaqs.length > 0 && (
-        <div class="max-w-75 mx-auto">
-          <div class="text-center mb-4">
-            <h2 class="h4 fw-bold mb-2">FAQ Pemesanan {category.shortName}</h2>
-            <p class="text-muted small">Pertanyaan umum seputar waktu pengerjaan dan minimal order.</p>
-          </div>
-          <FAQAccordion items={categoryFaqs} defaultOpen={0} />
-        </div>
-      )}
     </div>
   </section>
+
+  <!-- MARKETPLACE CATALOG SECTION (Tampil Langsung di Depan) -->
+  <section class="section-space pt-2 pb-5" id="katalog-produk">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+        <div>
+          <span class="badge-accent mb-2">PILIHAN MODEL SIAP ORDER</span>
+          <h2 class="section-title mb-1">Katalog Model Tote Bag Dinir &amp; Cordura</h2>
+          <p class="text-muted small mb-0">Klik tombol penawaran pada model yang sesuai untuk langsung mengirimkan brief ke tim sales kami.</p>
+        </div>
+        <div class="mt-2 mt-md-0">
+          <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small">MOQ Standar: 50 Pcs per Desain</span>
+        </div>
+      </div>
+
+      <!-- Grid 4 Model Marketplace Cards -->
+      <div class="row g-4 mb-5">
+        {dinirModels.map(item => (
+          <div class="col-12 col-md-6">
+            <article class="card h-100 rounded-4 bg-white border shadow-sm overflow-hidden d-flex flex-column">
+              <!-- Product Image Wrapper -->
+              <div class="position-relative overflow-hidden border-bottom">
+                <div class="ratio ratio-4x3 bg-light">
+                  <img 
+                    src={item.image} 
+                    alt={`${item.name} bahan dinir cordura custom logo`}
+                    width="600" 
+                    height="450" 
+                    class="w-100 h-100 object-fit-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <span class={`position-absolute top-0 end-0 m-3 badge ${item.badgeClass} rounded-pill shadow-sm`} style="font-size: 0.75rem; z-index: 2;">
+                  {item.badge}
+                </span>
+              </div>
+
+              <!-- Product Details -->
+              <div class="p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="text-muted small fw-bold">{item.code} • {item.category}</span>
+                  <span class="badge bg-light text-dark border small">MOQ {item.moq}</span>
+                </div>
+                <h3 class="h5 fw-bold mb-2 text-dark">{item.name}</h3>
+
+                <div class="p-2 mb-3 rounded-2 bg-surface-alt border">
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Bahan Material:</span>
+                    <strong class="text-dark">{item.material}</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Ukuran Standar:</span>
+                    <strong class="text-dark">{item.dimensions}</strong>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="text-muted small fw-bold mb-1">Spesifikasi Fitur:</div>
+                  <ul class="list-unstyled small text-muted mb-0 d-flex flex-column gap-1">
+                    {item.features.map(f => (
+                      <li class="d-flex align-items-start gap-1">
+                        <span class="text-success fw-bold">✓</span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-auto pt-3 border-top">
+                  <div class="d-flex justify-content-between align-items-baseline mb-3">
+                    <div>
+                      <span class="text-muted" style="font-size: 0.75rem;">Mulai dari:</span>
+                      <div class="h4 fw-bold text-brand mb-0">{item.price} <small class="text-muted fw-normal" style="font-size: 0.75rem;">/ pcs</small></div>
+                    </div>
+                    <span class="small text-muted text-end">{item.priceRange}</span>
+                  </div>
+
+                  <a 
+                    href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn btn-brand w-100"
+                  >
+                    Minta Penawaran Model Ini
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+
+      <!-- Tabel Skala Harga Grosir Dinir & Cordura -->
+      <div class="p-4 p-lg-5 rounded-4 bg-white border shadow-sm mb-4" id="tabel-harga">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+          <div>
+            <h3 class="h4 fw-bold mb-1">Tabel Skala Harga Grosir Dinir &amp; Cordura</h3>
+            <p class="text-muted small mb-0">Harga satuan semakin hemat mengikuti kuantiti pesanan pengadaan korporat.</p>
+          </div>
+          <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill mt-2 mt-md-0">Pabrik Konveksi Langsung</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-specs align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Model &amp; Spesifikasi Bahan</th>
+                <th scope="col" class="text-center">50 - 99 Pcs</th>
+                <th scope="col" class="text-center">100 - 299 Pcs</th>
+                <th scope="col" class="text-center">300 - 499 Pcs</th>
+                <th scope="col" class="text-center bg-success-subtle">500 - 999 Pcs</th>
+                <th scope="col" class="text-center bg-success text-white">1.000+ Pcs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>DIN-01</strong> Dinir D300 Resleting Standard (30 x 40 cm)</td>
+                <td class="text-center fw-bold">Rp 28.000</td>
+                <td class="text-center">Rp 25.000</td>
+                <td class="text-center">Rp 23.500</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 22.000</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 21.000</td>
+              </tr>
+              <tr>
+                <td><strong>DIN-02</strong> Dinir D600 Gusset Heavy-Duty (35 x 40 x 10 cm)</td>
+                <td class="text-center fw-bold">Rp 34.000</td>
+                <td class="text-center">Rp 31.000</td>
+                <td class="text-center">Rp 29.000</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 27.500</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 26.500</td>
+              </tr>
+              <tr>
+                <td><strong>COR-01</strong> Cordura Tactical Splashproof (35 x 42 x 10 cm)</td>
+                <td class="text-center fw-bold">Rp 42.000</td>
+                <td class="text-center">Rp 38.500</td>
+                <td class="text-center">Rp 36.500</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 35.000</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 34.000</td>
+              </tr>
+              <tr>
+                <td><strong>COR-02</strong> Cordura Multi-Pocket Executive Laptop Bag</td>
+                <td class="text-center fw-bold">Rp 48.000</td>
+                <td class="text-center">Rp 44.500</td>
+                <td class="text-center">Rp 42.000</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 40.500</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 39.500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-3 mb-0">
+          *Harga sudah termasuk sablon rubber 1 warna atau bordir logo standar. Penambahan saku khusus atau bordir bidang besar dapat dikonfirmasi saat pengajuan mockup.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEUNGGULAN MATERIAL -->
+  <section class="section-space bg-surface-alt" id="keunggulan">
+    <div class="container">
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">KARAKTERISTIK KAIN</span>
+        <h2 class="section-title mb-2">Keunggulan Material Dinir &amp; Cordura</h2>
+        <p class="text-muted small mb-0">
+          Dirancang untuk kebutuhan kerja berat yang menuntut tas tahan gesekan dan tahan air.
+        </p>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">1. Lapisan Coating Tahan Air</strong>
+            <p class="small text-muted mb-0">Bagian belakang kain dilapisi PVC atau polyurethane yang mencegah rembesan air hujan, melindungi laptop dan berkas penting saat beraktivitas outdoor.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">2. Ketahanan Gesek Ekstrem</strong>
+            <p class="small text-muted mb-0">Anyaman nilon dan polyester berkerapatan tinggi tidak mudah sobek terkena sudut peralatan kerja, meja kasar, atau gesekan lantai proyek.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">3. Warna Solid Maskulin</strong>
+            <p class="small text-muted mb-0">Pilihan warna tegas seperti hitam pekat, navy blue, abu tua, dan hijau army sangat pas untuk citra profesional instansi teknik dan industri.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section-space" id="faq">
+    <div class="container">
+      <div class="max-w-75 mx-auto text-center mb-4">
+        <span class="badge-accent mb-2">PERTANYAAN UMUM</span>
+        <h2 class="section-title mb-2">FAQ Tote Bag Dinir &amp; Cordura</h2>
+        <p class="section-subtitle mx-auto">Jawaban pertanyaan teknis seputar bahan polyester dan nilon outdoor.</p>
+      </div>
+
+      <div class="max-w-75 mx-auto">
+        <div class="accordion accordion-custom" id="dinirFaqAccordion">
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-d-1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-d-collapse-1" aria-expanded="true" aria-controls="faq-d-collapse-1">
+                Apa perbedaan bahan Dinir D300, Dinir D600, dan Cordura?
+              </button>
+            </h3>
+            <div id="faq-d-collapse-1" class="accordion-collapse collapse show" aria-labelledby="faq-d-1" data-bs-parent="#dinirFaqAccordion">
+              <div class="accordion-body">
+                Dinir D300 berbahan serat polyester sedang dengan lapisan tahan air, sangat pas untuk tas diklat ekonomis. Dinir D600 memiliki serat benang lebih besar dan tebal, sangat kokoh untuk beban berat. Sedangkan Cordura terbuat dari serat nilon premium dengan ketahanan gesek dan keawetan tertinggi setara tas militer.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-d-2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-d-collapse-2" aria-expanded="false" aria-controls="faq-d-collapse-2">
+                Teknik cetak logo apa yang paling cocok untuk bahan Dinir dan Cordura?
+              </button>
+            </h3>
+            <div id="faq-d-collapse-2" class="accordion-collapse collapse" aria-labelledby="faq-d-2" data-bs-parent="#dinirFaqAccordion">
+              <div class="accordion-body">
+                Untuk Dinir D300 dan D600, sablon manual pasta rubber tebal sangat awet dan kontras. Untuk bahan Cordura, kami sangat merekomendasikan bordir komputer presisi untuk kesan mewah dan tahan selamanya.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM KONSULTASI / RFQ WHATSAPP (Direct & Clean) -->
+  <section class="section-space bg-surface-alt" id="penawaran">
+    <div class="container">
+      <div class="max-w-75 mx-auto p-4 p-lg-5 rounded-4 bg-white border shadow-sm">
+        <div class="text-center mb-4">
+          <span class="badge-accent mb-2">KONSULTASI &amp; PERMINTAAN PENAWARAN</span>
+          <h2 class="h3 fw-bold mb-2">Dapatkan Penawaran Resmi Tote Bag Dinir &amp; Cordura</h2>
+          <p class="text-muted small mb-0">
+            Isi spesifikasi kebutuhan Anda untuk terhubung langsung dengan tim sales ToteBag via WhatsApp.
+          </p>
+        </div>
+
+        <form id="dinirRfqForm" class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="rfqModelD" class="form-label">Pilihan Model Material</label>
+            <select id="rfqModelD" class="form-select" required>
+              <option value="DIN-02 (Dinir D600 Gusset Heavy-Duty)" selected>DIN-02: Dinir D600 Gusset Heavy-Duty (Best Seller)</option>
+              <option value="DIN-01 (Dinir D300 Resleting Standard)">DIN-01: Dinir D300 Resleting Standard</option>
+              <option value="COR-01 (Cordura Tactical Splashproof)">COR-01: Cordura Tactical Splashproof</option>
+              <option value="COR-02 (Cordura Multi-Pocket Executive Laptop)">COR-02: Cordura Multi-Pocket Executive Laptop</option>
+              <option value="Custom Model Spesifikasi Sendiri">Custom Model / Ukuran Khusus</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqQtyD" class="form-label">Estimasi Kuantiti Pesanan</label>
+            <select id="rfqQtyD" class="form-select" required>
+              <option value="50 - 99 pcs">50 - 99 pcs (MOQ 50 pcs)</option>
+              <option value="100 - 299 pcs" selected>100 - 299 pcs (Paling Umum)</option>
+              <option value="300 - 499 pcs">300 - 499 pcs</option>
+              <option value="500 - 999 pcs">500 - 999 pcs</option>
+              <option value="1.000+ pcs">1.000+ pcs (Harga Grosir Terbaik)</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqPrintD" class="form-label">Teknik Logo</label>
+            <select id="rfqPrintD" class="form-select">
+              <option value="Sablon Rubber Tebal">Sablon Rubber Tebal (Awet &amp; Kontras)</option>
+              <option value="Bordir Komputer Presisi">Bordir Komputer Presisi (Timbul &amp; Mewah)</option>
+              <option value="Cetak DTF Full Color">Cetak DTF Full Color</option>
+              <option value="Polos Tanpa Cetak">Polos Tanpa Cetak (Plain Bag)</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqDeadlineD" class="form-label">Tanggal Rencana Pemakaian</label>
+            <input type="text" id="rfqDeadlineD" class="form-control" placeholder="Contoh: 25 November 2026 atau 2 minggu lagi" />
+          </div>
+
+          <div class="col-12">
+            <label for="rfqCityD" class="form-label">Kota Tujuan Pengiriman</label>
+            <input type="text" id="rfqCityD" class="form-control" placeholder="Contoh: Balikpapan, Jakarta, Surabaya, Timika, dll" />
+          </div>
+
+          <div class="col-12 text-center pt-2">
+            <button type="submit" class="btn btn-brand btn-lg w-100 shadow-sm py-3" style="font-size: 1.05rem;">
+              Kirim Brief &amp; Minta Penawaran Resmi via WhatsApp
+            </button>
+            <p class="text-muted small mt-2 mb-0">
+              Tim sales kami akan membalas dengan kalkulasi harga resmi dan mockup digital gratis.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script Penanganan Form RFQ ke WhatsApp (Zero Emojis, Zero Em-Dashes) -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('dinirRfqForm');
+      if (!form) return;
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const model = document.getElementById('rfqModelD')?.value || 'DIN-02';
+        const qty = document.getElementById('rfqQtyD')?.value || '100 pcs';
+        const print = document.getElementById('rfqPrintD')?.value || 'Sablon Rubber';
+        const deadline = document.getElementById('rfqDeadlineD')?.value || 'Segera';
+        const city = document.getElementById('rfqCityD')?.value || 'Malang';
+
+        const messageText = 
+`Halo Tim ToteBag.web.id, saya ingin meminta penawaran resmi untuk Tote Bag Dinir & Cordura Custom:
+
+*Model Material:* ${model}
+*Estimasi Kuantiti:* ${qty}
+*Teknik Logo:* ${print}
+*Rencana Penggunaan:* ${deadline}
+*Tujuan Kirim:* ${city}
+
+Mohon informasi kalkulasi harga terbaik dan prosedur sampel mockup. Terima kasih!`;
+
+        const waUrl = `https://wa.me/6282131087971?text=${encodeURIComponent(messageText)}`;
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      });
+    });
+  </script>
 </BaseLayout>

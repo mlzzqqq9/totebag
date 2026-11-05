@@ -1,141 +1,631 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
-import ProductCard from '@/components/ui/ProductCard.astro';
-import FAQAccordion from '@/components/ui/FAQAccordion.astro';
-import { categories, products, blacuFaqs, getWhatsAppUrl } from '@/data/siteData';
-
-const category = categories.find(c => c.slug === 'tote-bag-blacu')!;
-const categoryProducts = products.filter(p => p.categorySlug === 'tote-bag-blacu');
-const categoryFaqs = blacuFaqs;
 
 const breadcrumbs = [
   { name: 'Beranda', url: '/' },
   { name: 'Katalog Produk', url: '/produk/' },
-  { name: category.title, url: `/produk/${category.slug}/` }
+  { name: 'Tote Bag Blacu Custom', url: '/produk/tote-bag-blacu/' }
 ];
 
-const categoryWaUrl = getWhatsAppUrl({
-  categoryName: category.title,
-  sourcePage: `/produk/${category.slug}/`
-});
+const schemaJson = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://totebag.web.id/produk/tote-bag-blacu/#webpage",
+      "url": "https://totebag.web.id/produk/tote-bag-blacu/",
+      "name": "Tote Bag Blacu Custom Seminar & Event: Katalog Model & Harga Pabrik | ToteBag",
+      "description": "Katalog tote bag blacu custom langsung dari konveksi workshop Malang. Pilihan bahan blacu super grade A, jahitan kuat, sablon manual atau DTF, harga mulai Rp 12.000, MOQ 50 pcs.",
+      "inLanguage": "id-ID",
+      "isPartOf": {
+        "@id": "https://totebag.web.id/#website"
+      },
+      "breadcrumb": {
+        "@id": "https://totebag.web.id/produk/tote-bag-blacu/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://totebag.web.id/produk/tote-bag-blacu/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://totebag.web.id/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Katalog Produk",
+          "item": "https://totebag.web.id/produk/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tote Bag Blacu Custom",
+          "item": "https://totebag.web.id/produk/tote-bag-blacu/"
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://totebag.web.id/produk/tote-bag-blacu/#product",
+      "name": "Tote Bag Blacu Custom Seminar & Event",
+      "image": "https://totebag.web.id/media/tote-bag-blacu-polos.webp",
+      "description": "Konveksi tote bag blacu super grade A untuk seminar kampus, workshop pelatihan, dan souvenir ramah lingkungan. Jahitan rapi dan sablon awet.",
+      "brand": {
+        "@type": "Brand",
+        "name": "ToteBag"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "IDR",
+        "lowPrice": 8500,
+        "highPrice": 18500,
+        "offerCount": 4,
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://totebag.web.id/produk/tote-bag-blacu/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Apa keunggulan kain blacu dibandingkan bahan spunbond?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kain blacu terbuat dari serat kapas alami tenun bertekstur rapat, sehingga jauh lebih kuat, tidak mudah robek, dan dapat dicuci berulang kali. Berbeda dengan spunbond yang terbuat dari polypropylene plastik sintetis tipis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa minimal order (MOQ) tote bag blacu custom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimal order standar adalah 50 pcs per desain untuk efisiensi biaya pembuatan plat sablon. Untuk kuantiti 100, 300, hingga 1.000+ pcs, harga satuan akan jauh lebih hemat."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah sablon pada kain blacu mudah luntur saat dicuci?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tidak. Kami menggunakan pasta sablon rubber berkualitas tinggi dan finishing curing pemanas. Tinta mengikat serat kapas alami secara permanen dan tahan dicuci berulang kali."
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const blacuModels = [
+  {
+    id: 'bla-01',
+    code: 'BLA-01',
+    name: 'Flat Classic Blacu Super (30 x 40 cm)',
+    category: 'Seminar Kampus & Event',
+    badge: 'Paling Populer',
+    badgeClass: 'bg-success text-white',
+    price: 'Rp 12.000',
+    priceRange: 'Rp 8.500 - Rp 12.000',
+    moq: '50 pcs',
+    image: '/media/tote-bag-blacu-polos.webp',
+    material: 'Blacu Super Grade A (Tenunan Rapat)',
+    dimensions: '30 x 40 cm (Flat vertikal muat map A4)',
+    target: 'Seminar nasional, ospek mahasiswa, dies natalis, pelatihan guru, dan souvenir buku.',
+    features: [
+      'Bahan Blacu Super Grade A warna broken white alami',
+      'Muat dokumen A4, stopmap folio, dan notebook',
+      'Tali jinjing webbing katun senada 3 cm (panjang 60 cm)',
+      'Sablon manual rubber 1-2 warna presisi',
+      'Kapasitas beban aman hingga 4-5 kg'
+    ],
+    waMessage: 'Halo ToteBag, saya tertarik memesan Model BLA-01 (Flat Classic Blacu Super 30x40 cm).'
+  },
+  {
+    id: 'bla-02',
+    code: 'BLA-02',
+    name: 'Blacu Gusset Alas Bawah (35 x 40 x 8 cm)',
+    category: 'Workshop & Paket Seminar Kit',
+    badge: 'Daya Muat Lega',
+    badgeClass: 'bg-primary text-white',
+    price: 'Rp 15.500',
+    priceRange: 'Rp 11.500 - Rp 15.500',
+    moq: '50 pcs',
+    image: '/media/portfolio-blacu-350pcs.webp',
+    material: 'Blacu Super Greige Tebal',
+    dimensions: '35 x 40 x 8 cm (Bottom Gusset)',
+    target: 'Workshop perusahaan, bimtek kedinasan, seminar kit lengkap dengan tumbler dan snack box.',
+    features: [
+      'Alas bawah 8 cm memberi ruang ekstra tanpa sesak',
+      'Muat tumbler minum tegak, binder tebal, dan box makan',
+      'Tali webbing katun tebal dengan jahitan silang penguat',
+      'Opsi penutup perekat velcro atau kancing jepret',
+      'Kapasitas beban uji hingga 7 kg'
+    ],
+    waMessage: 'Halo ToteBag, mohon penawaran untuk Model BLA-02 (Blacu Gusset Alas Bawah 35x40x8 cm).'
+  },
+  {
+    id: 'bla-03',
+    code: 'BLA-03',
+    name: 'Blacu Kombinasi Saku Depan Fungsional',
+    category: 'Merchandise Butik & Komunitas',
+    badge: 'Praktis & Trendi',
+    badgeClass: 'bg-secondary text-white',
+    price: 'Rp 17.000',
+    priceRange: 'Rp 13.000 - Rp 17.000',
+    moq: '50 pcs',
+    image: '/media/foto-blacu.jpg',
+    material: 'Blacu Super Grade A + Saku Depan',
+    dimensions: '32 x 38 x 8 cm',
+    target: 'Goodybag butik fashion, merchandise kafe, souvenir gathering alumni, event pameran seni.',
+    features: [
+      'Saku tempel di bagian luar untuk pulpen, HP, dan kartu nama',
+      'Desain modern dengan sentuhan estetika minimalis',
+      'Kombinasi sablon logo di badan tas dan saku depan',
+      'Jahitan tepi obras ganda rapi tidak berserabut',
+      'Mudah dilipat dan ringan dibawa bepergian'
+    ],
+    waMessage: 'Halo ToteBag, saya ingin konsultasi Model BLA-03 (Blacu Kombinasi Saku Depan).'
+  },
+  {
+    id: 'bla-04',
+    code: 'BLA-04',
+    name: 'Blacu Resleting YKK & Kancing Magnet',
+    category: 'Corporate Merchandise & Ritel',
+    badge: 'Keamanan Ekstra',
+    badgeClass: 'bg-dark text-white',
+    price: 'Rp 18.500',
+    priceRange: 'Rp 14.500 - Rp 18.500',
+    moq: '50 pcs',
+    image: '/media/tote-bag-blacu-sablon.webp',
+    material: 'Blacu Super Rapat + Resleting YKK',
+    dimensions: '35 x 40 cm',
+    target: 'Souvenir kantor, merchandise organisasi, tas belanja harian dengan keamanan isi tas.',
+    features: [
+      'Resleting YKK anti-macet menjaga berkas aman dari tumpahan',
+      'Opsi kancing magnet neodinium rapi di bagian dalam',
+      'Jahitan double-stitch di seluruh sambungan beban tali',
+      'Pilihan cetak sablon rubber atau DTF full color',
+      'Daya tahan pakai hingga puluhan kali pemakaian'
+    ],
+    waMessage: 'Halo ToteBag, mohon penawaran Model BLA-04 (Blacu Resleting YKK).'
+  }
+];
 ---
 
 <BaseLayout
-  title={`${category.title} — Pilihan Alami untuk Seminar & Event`}
-  description="Penyedia tote bag blacu super grade A untuk seminar kampus, workshop, dan souvenir natural. Biaya efisien, jahitan rapi, dan sablon presisi."
-  canonicalUrl={`https://totebag.web.id/produk/${category.slug}/`}
-  categoryName={category.title}
+  title="Tote Bag Blacu Custom Seminar & Event: Katalog Model & Harga Pabrik"
+  description="Katalog tote bag blacu custom langsung dari konveksi workshop Malang. Pilihan bahan blacu super grade A, jahitan kuat, sablon manual atau DTF, harga mulai Rp 12.000, MOQ 50 pcs."
+  canonicalUrl="https://totebag.web.id/produk/tote-bag-blacu/"
+  ogImage="https://totebag.web.id/media/tote-bag-blacu-polos.webp"
+  jsonLd={schemaJson}
 >
+  <!-- Topbar Announcement Strip -->
+  <aside class="blacu-topbar py-2 text-center text-white small" style="background-color: var(--brand-primary, #173F38);" aria-label="Informasi konveksi blacu">
+    <div class="container">
+      Konveksi Tote Bag Blacu Super Grade A • Serat Kapas Alami Bernapas • Garansi Sablon Presisi &amp; Kirim Seluruh Indonesia
+    </div>
+  </aside>
+
+  <!-- Breadcrumbs & Quick-Nav In-Page Navigation -->
   <div class="container pt-3">
     <Breadcrumbs items={breadcrumbs} />
+    <nav class="quick-nav d-none d-md-flex flex-wrap gap-2 pt-2 pb-1" aria-label="Navigasi cepat halaman blacu">
+      <span class="small fw-semibold text-muted align-self-center me-1">Lompat ke:</span>
+      <a href="#katalog-produk" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Katalog Model &amp; Harga</a>
+      <a href="#tabel-harga" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Tabel Harga Grosir</a>
+      <a href="#keunggulan" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Karakteristik Blacu</a>
+      <a href="#faq" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">FAQ</a>
+      <a href="#penawaran" class="badge badge-cta bg-brand text-white text-decoration-none px-3 py-2 rounded-pill shadow-sm">Minta Penawaran</a>
+    </nav>
   </div>
 
-  <section class="section-space-sm pt-2">
+  <!-- Hero Header Section -->
+  <section class="section-space-sm pt-3 pb-4 hero-blacu" id="konten">
     <div class="container">
-      <div class="row align-items-center g-5">
+      <div class="row align-items-center g-4 g-lg-5">
         <div class="col-12 col-lg-7">
-          <span class="badge-accent mb-2">KATEGORI MATERIAL</span>
-          <h1 class="hero-title mb-3">{category.title}</h1>
-          <p class="lead text-muted fs-5 mb-4">
-            {category.tagline}
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge-accent">KATALOG PRODUK &amp; KONVEKSI BLACU</span>
+          </div>
+          <h1 class="hero-title mb-3">
+            Tote Bag Blacu Custom: Pilihan Model, Ukuran &amp; Harga Pabrik
+          </h1>
+
+          <p class="lead text-muted fs-5 mb-3" style="line-height: 1.7;">
+            Tote bag blacu super grade A dengan serat katun alami warna broken white hangat. Pilihan paling populer untuk seminar nasional, workshop kampus, dan souvenir instansi yang menginginkan tas bernuansa alami, rapi, dan sangat efisien biaya.
           </p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href={categoryWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg">
-              Minta Penawaran Tote Bag Blacu
+
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#katalog-produk" class="btn btn-brand btn-lg">
+              Lihat 4 Model Produk ↓
             </a>
-            <a href="/tote-bag-seminar/" class="btn btn-brand-outline btn-lg">
-              Solusi Seminar Kit
+            <a href="#penawaran" class="btn btn-brand-outline btn-lg">
+              Konsultasi WhatsApp
             </a>
           </div>
+
+          <div class="d-flex flex-wrap gap-3 text-muted small">
+            <span><strong class="text-success">✓</strong> Mulai Rp 12.000 / pcs (MOQ 50 pcs)</span>
+            <span><strong class="text-success">✓</strong> Blacu Super Grade A Tenunan Rapat</span>
+            <span><strong class="text-success">✓</strong> Muat Stopmap A4 &amp; Binder Seminar</span>
+            <span><strong class="text-success">✓</strong> Sablon Manual Rubber &amp; DTF Tajam</span>
+          </div>
         </div>
+
         <div class="col-12 col-lg-5">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
-            <img 
-              src={category.imageUrl} 
-              alt="Tote Bag Blacu Custom Seminar" 
-              width="600" 
-              height="450" 
-              class="w-100 h-100 object-fit-cover"
-            />
+          <div class="position-relative">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
+              <img 
+                src="/media/tote-bag-blacu-polos.webp" 
+                alt="Tote bag blacu polos warna broken white alami untuk seminar dan event" 
+                width="800" 
+                height="600" 
+                class="w-100 h-100 object-fit-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+            <div class="position-absolute bottom-0 end-0 m-3 px-3 py-2 bg-white rounded-3 shadow-sm border text-dark d-none d-sm-block" style="max-width: 250px; z-index: 5;">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle p-1 bg-success text-white" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px;">✓</span>
+                <div>
+                  <strong class="d-block text-brand fw-bold" style="font-size: 0.85rem; line-height: 1.2;">Blacu Super Grade A</strong>
+                  <span class="text-muted" style="font-size: 0.75rem; line-height: 1.2;">Serat Rapat • Tidak Menerawang</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section-space bg-surface-alt">
+  <!-- MARKETPLACE CATALOG SECTION (Tampil Langsung di Depan) -->
+  <section class="section-space pt-2 pb-5" id="katalog-produk">
     <div class="container">
-      <div class="row g-5">
-        <div class="col-12 col-lg-6">
-          <h2 class="section-title mb-3">Keunggulan &amp; Karakteristik Blacu Super</h2>
-          <p class="text-muted mb-3">{category.overview}</p>
-          <p class="text-muted mb-4">{category.materialDescription}</p>
-
-          <h3 class="h5 fw-bold mb-3">Kelebihan Utama Kain Blacu:</h3>
-          <ul class="list-unstyled d-flex flex-column gap-2 text-muted">
-            {category.benefits.map(b => (
-              <li class="d-flex align-items-start gap-2">
-                <span class="badge rounded-circle bg-success text-white p-1">✓</span>
-                <span class="fw-medium text-dark">{b}</span>
-              </li>
-            ))}
-          </ul>
+      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+        <div>
+          <span class="badge-accent mb-2">PILIHAN MODEL SIAP ORDER</span>
+          <h2 class="section-title mb-1">Katalog Model Tote Bag Blacu</h2>
+          <p class="text-muted small mb-0">Semua model diproduksi langsung di workshop konveksi kami di Malang dengan garansi pengerjaan rapi.</p>
         </div>
+        <div class="mt-2 mt-md-0">
+          <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small">MOQ Standar: 50 Pcs per Desain</span>
+        </div>
+      </div>
 
-        <div class="col-12 col-lg-6">
-          <div class="p-4 p-lg-5 rounded-4 bg-white border h-100">
-            <h3 class="h4 fw-bold mb-3">Kesesuaian Penggunaan</h3>
-            <p class="text-muted small mb-4">
-              Kain blacu sangat pas untuk acara yang mengusung tema kesederhanaan, alam, maupun efisiensi anggaran:
-            </p>
-            <div class="row g-3">
-              {category.recommendedUses.map(use => (
-                <div class="col-12 col-sm-6">
-                  <div class="p-3 rounded-3 bg-light border">
-                    <div class="fw-bold text-dark small">{use}</div>
+      <!-- Grid 4 Model Marketplace Cards -->
+      <div class="row g-4 mb-5">
+        {blacuModels.map(item => (
+          <div class="col-12 col-md-6">
+            <article class="card h-100 rounded-4 bg-white border shadow-sm overflow-hidden d-flex flex-column">
+              <!-- Product Image Wrapper -->
+              <div class="position-relative overflow-hidden border-bottom">
+                <div class="ratio ratio-4x3 bg-light">
+                  <img 
+                    src={item.image} 
+                    alt={`${item.name} bahan blacu super custom logo`}
+                    width="600" 
+                    height="450" 
+                    class="w-100 h-100 object-fit-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <span class={`position-absolute top-0 end-0 m-3 badge ${item.badgeClass} rounded-pill shadow-sm`} style="font-size: 0.75rem; z-index: 2;">
+                  {item.badge}
+                </span>
+              </div>
+
+              <!-- Product Details -->
+              <div class="p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="text-muted small fw-bold">{item.code} • {item.category}</span>
+                  <span class="badge bg-light text-dark border small">MOQ {item.moq}</span>
+                </div>
+                <h3 class="h5 fw-bold mb-2 text-dark">{item.name}</h3>
+
+                <div class="p-2 mb-3 rounded-2 bg-surface-alt border">
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Bahan Kain:</span>
+                    <strong class="text-dark">{item.material}</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Ukuran Standar:</span>
+                    <strong class="text-dark">{item.dimensions}</strong>
                   </div>
                 </div>
-              ))}
-            </div>
 
-            <div class="mt-4 pt-4 border-top">
-              <div class="fw-bold small text-muted mb-1">Catatan Kualitas Blacu Kami:</div>
-              <p class="small text-muted mb-0">Kami hanya menggunakan blacu super grade A dengan tenunan rapat yang tidak mudah berserabut saat dicuci atau dipakai harian.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+                <div class="mb-3">
+                  <div class="text-muted small fw-bold mb-1">Spesifikasi Fitur:</div>
+                  <ul class="list-unstyled small text-muted mb-0 d-flex flex-column gap-1">
+                    {item.features.map(f => (
+                      <li class="d-flex align-items-start gap-1">
+                        <span class="text-success fw-bold">✓</span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-  <section class="section-space">
-    <div class="container">
-      <div class="mb-4">
-        <span class="badge-accent mb-2">PILIHAN MODEL</span>
-        <h2 class="section-title mb-2">Model Tote Bag Blacu</h2>
-        <p class="section-subtitle mb-0">Pilihan model flat standar dan kombinasi saku fungsional.</p>
-      </div>
+                <div class="mt-auto pt-3 border-top">
+                  <div class="d-flex justify-content-between align-items-baseline mb-3">
+                    <div>
+                      <span class="text-muted" style="font-size: 0.75rem;">Mulai dari:</span>
+                      <div class="h4 fw-bold text-brand mb-0">{item.price} <small class="text-muted fw-normal" style="font-size: 0.75rem;">/ pcs</small></div>
+                    </div>
+                    <span class="small text-muted text-end">{item.priceRange}</span>
+                  </div>
 
-      <div class="row g-4">
-        {categoryProducts.map(prod => (
-          <div class="col-12 col-md-6">
-            <ProductCard product={prod} />
+                  <a 
+                    href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn btn-brand w-100"
+                  >
+                    Minta Penawaran Model Ini
+                  </a>
+                </div>
+              </div>
+            </article>
           </div>
         ))}
       </div>
+
+      <!-- Tabel Skala Harga Grosir Blacu -->
+      <div class="p-4 p-lg-5 rounded-4 bg-white border shadow-sm mb-4" id="tabel-harga">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+          <div>
+            <h3 class="h4 fw-bold mb-1">Tabel Skala Harga Grosir Tote Bag Blacu</h3>
+            <p class="text-muted small mb-0">Biaya per pcs semakin hemat seiring bertambahnya volume order berkat efisiensi potong kain dan plat sablon.</p>
+          </div>
+          <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill mt-2 mt-md-0">Pabrik Konveksi Langsung</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-specs align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Model &amp; Spesifikasi Blacu</th>
+                <th scope="col" class="text-center">50 - 99 Pcs</th>
+                <th scope="col" class="text-center">100 - 299 Pcs</th>
+                <th scope="col" class="text-center">300 - 499 Pcs</th>
+                <th scope="col" class="text-center bg-success-subtle">500 - 999 Pcs</th>
+                <th scope="col" class="text-center bg-success text-white">1.000+ Pcs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>BLA-01</strong> Flat Classic Blacu Super (30 x 40 cm)</td>
+                <td class="text-center fw-bold">Rp 12.000</td>
+                <td class="text-center">Rp 10.500</td>
+                <td class="text-center">Rp 9.500</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 9.000</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 8.500</td>
+              </tr>
+              <tr>
+                <td><strong>BLA-02</strong> Blacu Gusset Alas Bawah (35 x 40 x 8 cm)</td>
+                <td class="text-center fw-bold">Rp 15.500</td>
+                <td class="text-center">Rp 13.500</td>
+                <td class="text-center">Rp 12.500</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 12.000</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 11.500</td>
+              </tr>
+              <tr>
+                <td><strong>BLA-03</strong> Blacu Kombinasi Saku Depan Fungsional</td>
+                <td class="text-center fw-bold">Rp 17.000</td>
+                <td class="text-center">Rp 15.000</td>
+                <td class="text-center">Rp 14.000</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 13.500</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 13.000</td>
+              </tr>
+              <tr>
+                <td><strong>BLA-04</strong> Blacu Resleting YKK &amp; Kancing Magnet</td>
+                <td class="text-center fw-bold">Rp 18.500</td>
+                <td class="text-center">Rp 16.500</td>
+                <td class="text-center">Rp 15.500</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 15.000</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 14.500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-3 mb-0">
+          *Harga sudah termasuk sablon manual rubber 1 warna 1 sisi. Penambahan warna sablon atau cetak DTF fullcolor dapat dikonfirmasi saat penyerahan desain.
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="section-space bg-surface-alt">
+  <!-- KARAKTERISTIK BLACU SUPER -->
+  <section class="section-space bg-surface-alt" id="keunggulan">
     <div class="container">
-      <div class="max-w-75 mx-auto mb-4 text-center">
-        <h2 class="section-title mb-2">FAQ Tote Bag Blacu</h2>
-        <p class="section-subtitle mx-auto">Jawaban pertanyaan teknis seputar kain blacu.</p>
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">KARAKTERISTIK KAIN</span>
+        <h2 class="section-title mb-2">Kelebihan Kain Blacu Super Grade A</h2>
+        <p class="text-muted small mb-0">
+          Alasan mengapa kain blacu menjadi pilihan terfavorit untuk seminar kampus dan event bertema ramah lingkungan.
+        </p>
       </div>
-      <div class="max-w-75 mx-auto">
-        <FAQAccordion items={categoryFaqs} accordionId="blacuFaq" />
+
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">1. Serat Kapas Alami Organik</strong>
+            <p class="small text-muted mb-0">Blacu merupakan kain unbleached tanpa pewarna kimiawi sintetis. Memiliki bintik biji kapas alami yang memberi nuansa estetika hangat dan ramah lingkungan.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">2. Efisiensi Biaya Pengadaan</strong>
+            <p class="small text-muted mb-0">Harga pengadaan jauh lebih ekonomis dibanding kanvas namun jauh lebih kuat dan berkelas dibanding kantong spunbond tipis, sehingga sangat pas untuk anggaran kepanitiaan.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">3. Ramah Sablon &amp; Jahitan Rapi</strong>
+            <p class="small text-muted mb-0">Permukaan kain berpori halus menyerap pasta sablon rubber dan tinta DTF secara kuat. Hasil cetakan logo tajam dan tidak mudah terkelupas saat dipakai berulang kali.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section-space" id="faq">
+    <div class="container">
+      <div class="max-w-75 mx-auto text-center mb-4">
+        <span class="badge-accent mb-2">PERTANYAAN UMUM</span>
+        <h2 class="section-title mb-2">FAQ Tote Bag Blacu Custom</h2>
+        <p class="section-subtitle mx-auto">Jawaban pertanyaan teknis seputar kain blacu, sablon, dan jadwal produksi.</p>
+      </div>
+
+      <div class="max-w-75 mx-auto">
+        <div class="accordion accordion-custom" id="blacuFaqAccordion">
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-b-1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b-collapse-1" aria-expanded="true" aria-controls="faq-b-collapse-1">
+                Apakah kain blacu bisa memuat laptop dan stopmap dokumen seminar?
+              </button>
+            </h3>
+            <div id="faq-b-collapse-1" class="accordion-collapse collapse show" aria-labelledby="faq-b-1" data-bs-parent="#blacuFaqAccordion">
+              <div class="accordion-body">
+                Ya. Ukuran standar 30 x 40 cm dirancang pas memuat map dokumen A4 dan binder seminar. Untuk membawa laptop atau tumbler tebal, kami merekomendasikan Model BLA-02 yang memiliki alas gusset bawah 8 cm agar tas lebih lega dan kuat.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-b-2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b-collapse-2" aria-expanded="false" aria-controls="faq-b-collapse-2">
+                Berapa hari waktu pengerjaan untuk pesanan tote bag blacu?
+              </button>
+            </h3>
+            <div id="faq-b-collapse-2" class="accordion-collapse collapse" aria-labelledby="faq-b-2" data-bs-parent="#blacuFaqAccordion">
+              <div class="accordion-body">
+                Waktu produksi standar konveksi kami adalah 5 hingga 8 hari kerja setelah mockup disetujui untuk kuantiti 100-500 pcs. Pesanan express untuk deadline mendesak dapat dikonfirmasikan terlebih dahulu dengan admin kami.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-b-3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b-collapse-3" aria-expanded="false" aria-controls="faq-b-collapse-3">
+                Bisakah memesan tote bag blacu polos tanpa sablon?
+              </button>
+            </h3>
+            <div id="faq-b-collapse-3" class="accordion-collapse collapse" aria-labelledby="faq-b-3" data-bs-parent="#blacuFaqAccordion">
+              <div class="accordion-body">
+                Bisa. Kami melayani pemesanan blacu polos siap pakai dengan harga yang lebih hemat dan waktu kirim lebih cepat.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM KONSULTASI / RFQ WHATSAPP (Direct & Clean) -->
+  <section class="section-space bg-surface-alt" id="penawaran">
+    <div class="container">
+      <div class="max-w-75 mx-auto p-4 p-lg-5 rounded-4 bg-white border shadow-sm">
+        <div class="text-center mb-4">
+          <span class="badge-accent mb-2">KONSULTASI &amp; PERMINTAAN PENAWARAN</span>
+          <h2 class="h3 fw-bold mb-2">Dapatkan Penawaran Resmi Tote Bag Blacu</h2>
+          <p class="text-muted small mb-0">
+            Kirimkan brief kebutuhan Anda untuk terhubung langsung dengan tim sales ToteBag via WhatsApp.
+          </p>
+        </div>
+
+        <form id="blacuRfqForm" class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="rfqModelB" class="form-label">Pilihan Model Blacu</label>
+            <select id="rfqModelB" class="form-select" required>
+              <option value="BLA-01 (Flat Classic Blacu Super 30x40 cm)" selected>BLA-01: Flat Classic Blacu Super (30 x 40 cm)</option>
+              <option value="BLA-02 (Blacu Gusset Alas Bawah 35x40x8 cm)">BLA-02: Blacu Gusset Alas Bawah (35 x 40 x 8 cm)</option>
+              <option value="BLA-03 (Blacu Kombinasi Saku Depan)">BLA-03: Blacu Kombinasi Saku Depan Fungsional</option>
+              <option value="BLA-04 (Blacu Resleting YKK)">BLA-04: Blacu Resleting YKK &amp; Kancing Magnet</option>
+              <option value="Custom Model Spesifikasi Sendiri">Custom Model / Ukuran Khusus</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqQtyB" class="form-label">Estimasi Kuantiti Pesanan</label>
+            <select id="rfqQtyB" class="form-select" required>
+              <option value="50 - 99 pcs">50 - 99 pcs (MOQ 50 pcs)</option>
+              <option value="100 - 299 pcs" selected>100 - 299 pcs (Paling Umum)</option>
+              <option value="300 - 499 pcs">300 - 499 pcs</option>
+              <option value="500 - 999 pcs">500 - 999 pcs</option>
+              <option value="1.000+ pcs">1.000+ pcs (Harga Grosir Terbaik)</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqPrintB" class="form-label">Teknik Sablon / Cetak Logo</label>
+            <select id="rfqPrintB" class="form-select">
+              <option value="Sablon Manual Rubber 1 Warna">Sablon Manual Rubber 1 Warna (Hemat &amp; Awet)</option>
+              <option value="Sablon Manual Rubber 2-3 Warna">Sablon Manual Rubber 2-3 Warna</option>
+              <option value="Cetak DTF Full Color">Cetak DTF Full Color (Gradasi Tajam)</option>
+              <option value="Polos Tanpa Sablon">Polos Tanpa Sablon (Plain Bag)</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqDeadlineB" class="form-label">Tanggal Acara / Dibutuhkan</label>
+            <input type="text" id="rfqDeadlineB" class="form-control" placeholder="Contoh: 20 November 2026 atau 10 hari lagi" />
+          </div>
+
+          <div class="col-12">
+            <label for="rfqCityB" class="form-label">Kota Tujuan Pengiriman</label>
+            <input type="text" id="rfqCityB" class="form-control" placeholder="Contoh: Malang, Surabaya, Yogyakarta, Jakarta, dll" />
+          </div>
+
+          <div class="col-12 text-center pt-2">
+            <button type="submit" class="btn btn-brand btn-lg w-100 shadow-sm py-3" style="font-size: 1.05rem;">
+              Kirim Brief &amp; Minta Penawaran Resmi via WhatsApp
+            </button>
+            <p class="text-muted small mt-2 mb-0">
+              Tim sales kami akan membalas dengan kalkulasi harga resmi dan mockup digital gratis.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script Penanganan Form RFQ ke WhatsApp (Zero Emojis, Zero Em-Dashes) -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('blacuRfqForm');
+      if (!form) return;
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const model = document.getElementById('rfqModelB')?.value || 'BLA-01';
+        const qty = document.getElementById('rfqQtyB')?.value || '100 pcs';
+        const print = document.getElementById('rfqPrintB')?.value || 'Sablon Rubber';
+        const deadline = document.getElementById('rfqDeadlineB')?.value || 'Segera';
+        const city = document.getElementById('rfqCityB')?.value || 'Malang';
+
+        const messageText = 
+`Halo Tim ToteBag.web.id, saya ingin meminta penawaran resmi untuk Tote Bag Blacu Custom:
+
+*Model Blacu:* ${model}
+*Estimasi Kuantiti:* ${qty}
+*Teknik Logo:* ${print}
+*Rencana Penggunaan:* ${deadline}
+*Tujuan Kirim:* ${city}
+
+Mohon informasi kalkulasi harga terbaik dan prosedur sampel mockup. Terima kasih!`;
+
+        const waUrl = `https://wa.me/6282131087971?text=${encodeURIComponent(messageText)}`;
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      });
+    });
+  </script>
 </BaseLayout>

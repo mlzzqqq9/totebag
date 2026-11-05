@@ -166,7 +166,7 @@ const schemaJson = {
       <a href="#custom" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Teknik Logo</a>
       <a href="#proses" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Cara Pesan</a>
       <a href="#faq" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">FAQ</a>
-      <a href="#penawaran" class="badge badge-cta text-decoration-none px-3 py-2 rounded-pill">Minta Penawaran ↗</a>
+      <a href="#penawaran" class="badge badge-cta bg-brand text-white text-decoration-none px-3 py-2 rounded-pill shadow-sm">Minta Penawaran</a>
     </nav>
   </div>
 
@@ -186,7 +186,7 @@ const schemaJson = {
           </p>
           <div class="d-flex flex-wrap gap-3 mb-4">
             <a href="#penawaran" class="btn btn-brand btn-lg">
-              Minta penawaran custom ↗
+              Minta penawaran custom
             </a>
             <a href="#bahan" class="btn btn-brand-outline btn-lg">
               Bandingkan bahan ↓
@@ -213,9 +213,14 @@ const schemaJson = {
               />
             </div>
             <!-- Floating Spec Tag -->
-            <div class="position-absolute bottom-0 end-0 m-3 p-3 bg-white rounded-3 shadow border small text-dark d-none d-sm-block" style="max-width: 220px; z-index: 2;">
-              <strong class="d-block mb-1 text-brand fw-bold">Mulai dari brief</strong>
-              <span class="text-muted small lh-sm d-block">Jumlah • bahan • logo • deadline acara</span>
+            <div class="position-absolute bottom-0 end-0 m-3 px-3 py-2 bg-white rounded-3 shadow-sm border text-dark d-none d-sm-block" style="max-width: 240px; z-index: 5;">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle p-1 bg-success text-white" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px;">✓</span>
+                <div>
+                  <strong class="d-block text-brand fw-bold" style="font-size: 0.85rem; line-height: 1.2;">Mulai dari brief</strong>
+                  <span class="text-muted" style="font-size: 0.75rem; line-height: 1.2;">Jumlah • bahan • logo • deadline</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -223,7 +228,7 @@ const schemaJson = {
     </div>
   </section>
 
-  <!-- Section 04: #layanan — Solusi pemesanan tote bag untuk kebutuhan bisnis dan acara -->
+  <!-- Section 04: #layanan - Solusi pemesanan tote bag untuk kebutuhan bisnis dan acara -->
   <section class="section-space pt-4 pb-5" id="layanan">
     <div class="container">
       <div class="max-w-75 mb-5">
@@ -310,7 +315,7 @@ const schemaJson = {
     </div>
   </section>
 
-  <!-- Section 05: #bahan — Pilih bahan tote bag custom berdasarkan fungsi, bukan tren semata -->
+  <!-- Section 05: #bahan - Pilih bahan tote bag custom berdasarkan fungsi, bukan tren semata -->
   <section class="section-space bg-surface-alt" id="bahan">
     <div class="container">
       <div class="max-w-75 mb-4">
@@ -386,7 +391,7 @@ const schemaJson = {
     </div>
   </section>
 
-  <!-- Section 06: #custom — Sablon manual, DTF, transfer, atau bordir: mana yang paling tepat? -->
+  <!-- Section 06: #custom - Sablon manual, DTF, transfer, atau bordir: mana yang paling tepat? -->
   <section class="section-space" id="custom">
     <div class="container">
       <div class="max-w-75 mb-5">
@@ -487,7 +492,7 @@ const schemaJson = {
     </div>
   </section>
 
-  <!-- Section 08: #proses — Proses pemesanan tote bag custom: dari brief sampai pengiriman -->
+  <!-- Section 08: #proses - Proses pemesanan tote bag custom: dari brief sampai pengiriman -->
   <section class="section-space" id="proses">
     <div class="container">
       <div class="max-w-75 mb-5">
@@ -586,13 +591,13 @@ const schemaJson = {
           </p>
         </div>
         <a href="#penawaran" class="btn btn-warning text-dark fw-bold btn-lg align-self-start align-self-lg-center text-nowrap">
-          Buat brief dan minta quotation ↗
+          Buat brief dan minta quotation
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Section 10: #penawaran — RFQ Formulir WhatsApp -->
+  <!-- Section 10: #penawaran - RFQ Formulir WhatsApp -->
   <section class="section-space bg-surface-alt" id="penawaran">
     <div class="container">
       <div class="max-w-75 mb-4">
@@ -709,7 +714,7 @@ const schemaJson = {
 
             <div class="col-12 d-flex flex-wrap align-items-center gap-3 mt-3">
               <button type="submit" class="btn btn-brand py-2 px-4 fw-bold">
-                Kirim brief ke WhatsApp ↗
+                Kirim brief ke WhatsApp
               </button>
               <a href="https://wa.me/6282131087971" target="_blank" rel="noopener noreferrer" class="btn btn-brand-outline py-2 px-3">
                 Chat langsung tanpa formulir
@@ -727,7 +732,7 @@ const schemaJson = {
     </div>
   </section>
 
-  <!-- Section 11: #faq — FAQ tentang vendor tote bag custom di Malang -->
+  <!-- Section 11: #faq - FAQ tentang vendor tote bag custom di Malang -->
   <section class="section-space" id="faq">
     <div class="container">
       <div class="max-w-75 mb-5 text-center mx-auto">
@@ -857,7 +862,7 @@ const schemaJson = {
   <!-- Mobile Sticky CTA Bar -->
   <aside class="malang-sticky-cta d-block d-md-none fixed-bottom p-2 bg-white border-top shadow" aria-label="Aksi cepat pemesanan">
     <a href="#penawaran" class="btn btn-brand w-100 fw-bold py-2">
-      Minta Penawaran Tote Bag Custom ↗
+      Minta Penawaran Tote Bag Custom
     </a>
   </aside>
 </BaseLayout>

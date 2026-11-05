@@ -1,121 +1,274 @@
 ---
-// src/pages/produk/tote-bag-satin.astro
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
-import ProductCard from '../../components/ui/ProductCard.astro';
-import FAQAccordion from '../../components/ui/FAQAccordion.astro';
-import { categories, products, satinFaqs, getWhatsAppUrl } from '../../data/siteData';
-
-const category = categories.find(c => c.slug === 'tote-bag-satin')!;
-const categoryProducts = products.filter(p => p.categorySlug === 'tote-bag-satin');
-const categoryFaqs = satinFaqs;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
 
 const breadcrumbs = [
   { name: 'Beranda', url: '/' },
   { name: 'Katalog Produk', url: '/produk/' },
-  { name: category.title, url: `/produk/${category.slug}/` }
+  { name: 'Tote Bag Satin Full Print Sublimasi', url: '/produk/tote-bag-satin/' }
 ];
 
-const categoryWaUrl = getWhatsAppUrl({
-  categoryName: category.title,
-  sourcePage: `/produk/${category.slug}/`
-});
+const schemaJson = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://totebag.web.id/produk/tote-bag-satin/#webpage",
+      "url": "https://totebag.web.id/produk/tote-bag-satin/",
+      "name": "Tote Bag Satin Full Print Sublimasi: Katalog Model & Harga Pabrik | ToteBag",
+      "description": "Katalog tote bag satin printing sublimasi digital CMYK full color dari workshop konveksi Malang. Cetak gradasi foto tanpa batasan warna, bahan satin bridal berkilau mewah, dilapisi furing dalam. Harga mulai Rp 25.000, MOQ 50 pcs.",
+      "inLanguage": "id-ID",
+      "isPartOf": {
+        "@id": "https://totebag.web.id/#website"
+      },
+      "breadcrumb": {
+        "@id": "https://totebag.web.id/produk/tote-bag-satin/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://totebag.web.id/produk/tote-bag-satin/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://totebag.web.id/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Katalog Produk",
+          "item": "https://totebag.web.id/produk/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tote Bag Satin Full Print Sublimasi",
+          "item": "https://totebag.web.id/produk/tote-bag-satin/"
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://totebag.web.id/produk/tote-bag-satin/#product",
+      "name": "Tote Bag Satin Full Print Sublimasi CMYK",
+      "image": "https://totebag.web.id/media/tote-bag-satin.webp",
+      "description": "Konveksi tote bag satin sublimasi beresolusi 300 DPI untuk souvenir pernikahan bridal, merchandise brand kecantikan, museum seni, dan promosi full color.",
+      "brand": {
+        "@type": "Brand",
+        "name": "ToteBag"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "IDR",
+        "lowPrice": 19500,
+        "highPrice": 38000,
+        "offerCount": 3,
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://totebag.web.id/produk/tote-bag-satin/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Apakah cetak sublimasi pada kain satin bisa luntur saat dicuci?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sama sekali tidak. Proses sublimasi digital menggunakan suhu 200°C yang mengubah tinta padat langsung menjadi gas dan menyatu secara molekuler ke dalam serat poliester satin. Warna tidak akan mengelupas, retak, atau luntur meski dicuci berkali-kali."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah ada batasan jumlah warna atau gradasi desain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tidak ada batasan. Teknologi cetak sublimasi digital mendukung spektrum warna CMYK penuh, termasuk gradasi lembut, detail foto manusia, lukisan cat air, dan ilustrasi digital beresolusi tinggi tanpa biaya tambahan per warna."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah tas satin ini dilengkapi furing dalam?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ya, seluruh varian tote bag satin kami sudah dilengkapi dengan lapisan furing dalam (puring) spunbond atau katun halus. Furing berfungsi menyembunyikan sisa jahitan dalam tas dan menambah kekokohan struktur tas saat diisi barang."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa minimal order (MOQ) tote bag satin sublimasi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimal pemesanan adalah 50 pcs per desain untuk memastikan efisiensi setting mesin cetak sublimasi format lebar."
+          }
+        }
+      ]
+    }
+  ]
+};
+
+// Data Model Marketplace Satin
+const satinModels = [
+  {
+    code: 'SAT-01',
+    name: 'Tote Bag Satin Bridal Full Sublimasi Flat',
+    category: 'Seni, Event Kreatif & Merchandise',
+    moq: '50 pcs',
+    price: 'Rp 25.000',
+    priceRange: 'Skala 500+ pcs: Rp 19.500',
+    material: 'Satin Bridal Premium + Lapis Furing Spunbond',
+    dimensions: '35 cm x 40 cm (Flat)',
+    image: '/media/tote-bag-satin.webp',
+    badge: 'Full Print CMYK Depan-Belakang',
+    badgeClass: 'bg-primary text-white',
+    features: [
+      'Cetak sublimasi 300 DPI tajam tanpa batasan warna & gradasi',
+      'Permukaan berkilau halus elegan khas satin bridal',
+      'Tali satin senada lapis jahit kokoh panjang 55 cm',
+      'Dilapisi furing dalam rapi bebas benang obras lepas'
+    ],
+    waMessage: 'Halo Tim ToteBag.web.id, saya tertarik memesan Tote Bag Satin Bridal Full Sublimasi Flat (SAT-01). Mohon info penawaran harga dan mockup desain.'
+  },
+  {
+    code: 'SAT-02',
+    name: 'Tote Bag Satin Bridal Gusset + Resleting YKK',
+    category: 'Hampers Bridal & Fashion Brand',
+    moq: '50 pcs',
+    price: 'Rp 32.000',
+    priceRange: 'Skala 500+ pcs: Rp 25.000',
+    material: 'Satin Bridal + Gusset Alas 8 cm + Furing Halus',
+    dimensions: '35 cm x 40 cm x 8 cm (Semi Gusset)',
+    image: '/media/tote-bag-satin.webp',
+    badge: 'Resleting Logam + Alas Lebar',
+    badgeClass: 'bg-success text-white',
+    features: [
+      'Penutup resleting atas menjamin keamanan isi tas',
+      'Alas bervolume muat hampers, kosmetik, atau souvenir',
+      'Warna cetak meresap serat poliester tidak kaku',
+      'Bisa kombinasi tali webbing katun herringbone atau satin'
+    ],
+    waMessage: 'Halo Tim ToteBag.web.id, tolong hitungkan biaya produksi Tote Bag Satin Bridal Gusset + Resleting YKK (SAT-02) untuk acara kami.'
+  },
+  {
+    code: 'SAT-03',
+    name: 'Tote Bag Satin Velvet Doff Boxy + Magnet',
+    category: 'VIP Souvenir & Skincare Luxury',
+    moq: '50 pcs',
+    price: 'Rp 38.000',
+    priceRange: 'Skala 500+ pcs: Rp 30.500',
+    material: 'Satin Velvet Matte + Lapis Busa Hati Kokoh',
+    dimensions: '30 cm x 35 cm x 10 cm (Boxy Stand-up)',
+    image: '/media/tote-bag-satin.webp',
+    badge: 'Velvet Matte Stand-Up Bag',
+    badgeClass: 'bg-dark text-white',
+    features: [
+      'Bahan satin velvet matte tidak silau dengan sentuhan lembut',
+      'Lapisan spon/busa hati di dalam membuat tas bisa berdiri tegak',
+      'Kancing penutup magnetik snap nikel kuat',
+      'Sangat cocok untuk paket launching produk skincare & kosmetik'
+    ],
+    waMessage: 'Halo Tim ToteBag.web.id, saya ingin konsultasi spesifikasi Tote Bag Satin Velvet Doff Boxy + Magnet (SAT-03).'
+  }
+];
+
+// Tabel Harga Bertingkat Grosir Satin
+const wholesaleTiers = [
+  { tier: '50 - 99 pcs', sat01: 'Rp 25.000', sat02: 'Rp 32.000', sat03: 'Rp 38.000' },
+  { tier: '100 - 299 pcs', sat01: 'Rp 22.500', sat02: 'Rp 28.500', sat03: 'Rp 34.000' },
+  { tier: '300 - 499 pcs', sat01: 'Rp 20.500', sat02: 'Rp 26.500', sat03: 'Rp 32.000' },
+  { tier: '500+ pcs', sat01: 'Rp 19.500', sat02: 'Rp 25.000', sat03: 'Rp 30.500' }
+];
+
+const categoryWaUrl = `https://wa.me/6282131087971?text=${encodeURIComponent('Halo Tim ToteBag.web.id, saya ingin berkonsultasi mengenai pemesanan Tote Bag Satin Full Print Sublimasi untuk kebutuhan suvenir pameran / bridal.')}`;
 ---
 
 <BaseLayout
-  title={`${category.title} — Cetak Sublimasi Full Color Tajam`}
-  description="Konveksi tote bag satin printing sublimasi full-color tanpa batas gradasi. Permukaan halus mengkilap mewah, warna awet tahan cuci untuk pameran seni & suvenir."
-  canonicalUrl={`https://totebag.web.id/produk/${category.slug}/`}
-  categoryName={category.title}
+  title="Tote Bag Satin Full Print Sublimasi: Katalog Model & Harga Grosir Pabrik | ToteBag"
+  description="Katalog tote bag satin printing sublimasi digital CMYK full-color dari workshop Malang. Cetak gradasi foto tanpa batas warna, bahan satin bridal berkilau mewah, dilapisi furing dalam. Harga mulai Rp 25.000, MOQ 50 pcs."
+  canonicalUrl="https://totebag.web.id/produk/tote-bag-satin/"
+  categoryName="Satin Full Print"
+  jsonLd={schemaJson}
 >
   <div class="container pt-3">
     <Breadcrumbs items={breadcrumbs} />
   </div>
 
-  <!-- Hero Header -->
+  <!-- HERO SECTION MARKETPLACE -->
   <section class="section-space-sm pt-2">
     <div class="container">
       <div class="row align-items-center g-5">
         <div class="col-12 col-lg-7">
-          <span class="badge-accent mb-2">KATEGORI MATERIAL</span>
-          <h1 class="hero-title mb-3">{category.title}</h1>
-          <p class="lead text-muted fs-5 mb-4">
-            {category.tagline}
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge-accent">PRODUSEN TOTE BAG SATIN</span>
+            <span class="badge bg-light text-dark border">Digital Sublimasi CMYK</span>
+          </div>
+
+          <h1 class="hero-title mb-3" style="font-size: clamp(2rem, 3.5vw, 2.85rem);">
+            Tote Bag Satin Full Print Sublimasi High Definition
+          </h1>
+
+          <p class="lead text-muted fs-5 mb-4" style="line-height: 1.6;">
+            Solusi tote bag bagi Anda yang membutuhkan cetak desain full-color, gradasi foto tanpa batas, dan ilustrasi artistik rumit. Menggunakan bahan kain satin bridal berkilau elegan, dilengkapi furing kokoh, dan tinta sublimasi yang menyatu ke serat poliester tanpa luntur.
           </p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href={categoryWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg">
-              Minta Penawaran Tote Bag Satin
+
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#katalog-produk" class="btn btn-brand btn-lg shadow-sm">
+              Lihat Katalog &amp; Harga Model
             </a>
-            <a href="/cara-pesan/" class="btn btn-brand-outline btn-lg">
-              Alur Pemesanan
+            <a href="#tabel-harga" class="btn btn-brand-outline btn-lg">
+              Tabel Skala Grosir
+            </a>
+            <a href={categoryWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline-success btn-lg d-inline-flex align-items-center gap-2">
+              Konsultasi WhatsApp
             </a>
           </div>
-        </div>
-        <div class="col-12 col-lg-5">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
-            <img 
-              src={category.imageUrl} 
-              alt={`Tote Bag Satin Full Print Sublimasi Custom B2B`} 
-              width="600" 
-              height="450" 
-              class="w-100 h-100 object-fit-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Overview & Benefits -->
-  <section class="section-space bg-surface-alt">
-    <div class="container">
-      <div class="row g-5">
-        <div class="col-12 col-lg-6">
-          <h2 class="section-title mb-3">Karakteristik &amp; Keunggulan Kain Satin Printing</h2>
-          <p class="text-muted mb-3">
-            {category.overview}
-          </p>
-          <p class="text-muted mb-4">
-            {category.materialDescription}
-          </p>
-
-          <h3 class="h5 fw-bold mb-3">Kelebihan Utama Bahan Satin Sublimasi:</h3>
-          <ul class="list-unstyled d-flex flex-column gap-2 text-muted">
-            {category.benefits.map(b => (
-              <li class="d-flex align-items-start gap-2">
-                <span class="badge rounded-circle bg-success text-white p-1">✓</span>
-                <span class="fw-medium text-dark">{b}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="col-12 col-lg-6">
-          <div class="p-4 p-lg-5 rounded-4 bg-white border h-100">
-            <h3 class="h4 fw-bold mb-3">Rekomendasi Penggunaan</h3>
-            <p class="text-muted small mb-4">
-              Satin sublimasi adalah opsi nomor satu untuk desain ilustrasi artistik yang membutuhkan akurasi warna tinggi dan efek gradasi tanpa batas:
-            </p>
-            <div class="row g-3">
-              {category.recommendedUses.map(use => (
-                <div class="col-12 col-sm-6">
-                  <div class="p-3 rounded-3 bg-light border h-100">
-                    <span class="fw-semibold text-dark small">{use}</span>
-                  </div>
-                </div>
-              ))}
+          <!-- Feature Pills -->
+          <div class="row g-2 pt-2 border-top">
+            <div class="col-6 col-sm-3">
+              <div class="d-flex align-items-center gap-2 small text-dark fw-medium">
+                <span class="text-success fw-bold">✓</span> Full Color 300 DPI
+              </div>
             </div>
+            <div class="col-6 col-sm-3">
+              <div class="d-flex align-items-center gap-2 small text-dark fw-medium">
+                <span class="text-success fw-bold">✓</span> Tinta Bebas Luntur
+              </div>
+            </div>
+            <div class="col-6 col-sm-3">
+              <div class="d-flex align-items-center gap-2 small text-dark fw-medium">
+                <span class="text-success fw-bold">✓</span> Lapis Furing Rapi
+              </div>
+            </div>
+            <div class="col-6 col-sm-3">
+              <div class="d-flex align-items-center gap-2 small text-dark fw-medium">
+                <span class="text-success fw-bold">✓</span> Mulai Rp 25.000/pcs
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <div class="mt-4 pt-3 border-top">
-              <div class="d-flex align-items-center gap-3">
-                <div class="p-2 rounded bg-success bg-opacity-10 text-success">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 1a2 2 0 0 1 2 2v2H6V3a2 2 0 0 1 2-2m3 4V3a3 3 0 1 0-6 0v2H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5z"/>
-                  </svg>
-                </div>
+        <div class="col-12 col-lg-5">
+          <div class="position-relative">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
+              <img 
+                src="/media/tote-bag-satin.webp" 
+                alt="Tote bag satin full print sublimasi warna cerah resolusi tinggi" 
+                width="800" 
+                height="600" 
+                class="w-100 h-100 object-fit-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+            <div class="position-absolute bottom-0 end-0 m-3 px-3 py-2 bg-white rounded-3 shadow-sm border text-dark d-none d-sm-block" style="max-width: 250px; z-index: 5;">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle p-1 bg-success text-white" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px;">✓</span>
                 <div>
-                  <div class="fw-bold small text-dark">Sublimasi 300 DPI Bebas Luntur</div>
-                  <div class="text-muted small">Tinta menyatu ke serat poliester, dilapisi furing kokoh di bagian dalam.</div>
+                  <strong class="d-block text-brand fw-bold" style="font-size: 0.85rem; line-height: 1.2;">Satin Bridal Halus</strong>
+                  <span class="text-muted" style="font-size: 0.75rem; line-height: 1.2;">Kilau Mewah • Tinta Sublimasi Permanen</span>
                 </div>
               </div>
             </div>
@@ -125,38 +278,294 @@ const categoryWaUrl = getWhatsAppUrl({
     </div>
   </section>
 
-  <!-- Pilihan Produk / Model -->
-  <section class="section-space">
+  <!-- MARKETPLACE CATALOG SECTION (Tampil Langsung di Depan) -->
+  <section class="section-space pt-2 pb-5" id="katalog-produk">
     <div class="container">
-      <div class="text-center max-w-75 mx-auto mb-5">
-        <span class="badge-accent mb-2">MODEL PRODUK</span>
-        <h2 class="section-title mb-3">Pilihan Model Tote Bag Satin Full Print</h2>
-        <p class="section-subtitle mx-auto">
-          Tersedia format tote bag full print depan-belakang, kombinasi aksen tali satin senada, hingga opsi resleting emas eksklusif.
-        </p>
+      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+        <div>
+          <span class="badge-accent mb-2">PILIHAN MODEL SIAP ORDER</span>
+          <h2 class="section-title mb-1">Katalog Model Tote Bag Satin Full Print</h2>
+          <p class="text-muted small mb-0">Cetak sublimasi presisi resolusi tinggi dengan lapisan furing rapi di setiap produk.</p>
+        </div>
+        <div class="mt-2 mt-md-0">
+          <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small">MOQ Standar: 50 Pcs per Desain</span>
+        </div>
       </div>
 
-      <div class="row g-4">
-        {categoryProducts.map(product => (
-          <div class="col-12 col-md-6 col-lg-4">
-            <ProductCard product={product} />
+      <!-- Grid Model Marketplace Cards -->
+      <div class="row g-4 mb-5">
+        {satinModels.map(item => (
+          <div class="col-12 col-md-4">
+            <article class="card h-100 rounded-4 bg-white border shadow-sm overflow-hidden d-flex flex-column">
+              <!-- Product Image Wrapper (Badge di luar .ratio mencegah bug oval raksasa) -->
+              <div class="position-relative overflow-hidden border-bottom">
+                <div class="ratio ratio-4x3 bg-light">
+                  <img 
+                    src={item.image} 
+                    alt={`${item.name} full print sublimasi`}
+                    width="600" 
+                    height="450" 
+                    class="w-100 h-100 object-fit-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <span class={`position-absolute top-0 end-0 m-3 badge ${item.badgeClass} rounded-pill shadow-sm`} style="font-size: 0.75rem; z-index: 2;">
+                  {item.badge}
+                </span>
+              </div>
+
+              <!-- Product Details -->
+              <div class="p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="text-muted small fw-bold">{item.code}</span>
+                  <span class="badge bg-light text-dark border small">MOQ {item.moq}</span>
+                </div>
+                <h3 class="h5 fw-bold mb-2 text-dark">{item.name}</h3>
+
+                <div class="p-2 mb-3 rounded-2 bg-surface-alt border">
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Bahan Kain:</span>
+                    <strong class="text-dark">{item.material}</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Ukuran Standar:</span>
+                    <strong class="text-dark">{item.dimensions}</strong>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="text-muted small fw-bold mb-1">Spesifikasi Fitur:</div>
+                  <ul class="list-unstyled small text-muted mb-0 d-flex flex-column gap-1">
+                    {item.features.map(f => (
+                      <li class="d-flex align-items-start gap-1">
+                        <span class="text-success fw-bold">✓</span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-auto pt-3 border-top">
+                  <div class="d-flex justify-content-between align-items-baseline mb-3">
+                    <div>
+                      <span class="text-muted" style="font-size: 0.75rem;">Mulai dari:</span>
+                      <div class="h4 fw-bold text-brand mb-0">{item.price} <small class="text-muted fw-normal" style="font-size: 0.75rem;">/ pcs</small></div>
+                    </div>
+                    <span class="small text-muted text-end">{item.priceRange}</span>
+                  </div>
+
+                  <a 
+                    href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn btn-brand w-100"
+                  >
+                    Minta Penawaran Model Ini
+                  </a>
+                </div>
+              </div>
+            </article>
           </div>
         ))}
+      </div>
+
+      <!-- Tabel Skala Harga Grosir Satin -->
+      <div class="p-4 p-lg-5 rounded-4 bg-white border shadow-sm mb-4" id="tabel-harga">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+          <div>
+            <span class="badge-accent mb-2">TRANSPARANSI B2B</span>
+            <h3 class="h4 fw-bold mb-1">Tabel Skala Harga Grosir Tote Bag Satin Sublimasi</h3>
+            <p class="text-muted small mb-0">Estimasi harga satuan mencakup cetak sublimasi full color depan-belakang dan furing dalam. Sudah bebas biaya film/plat cetak.</p>
+          </div>
+          <div class="mt-2 mt-md-0">
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill small">Bebas Batasan Warna</span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle mb-0 text-center">
+            <thead class="table-light">
+              <tr>
+                <th scope="col" class="text-start py-3" style="min-width: 170px;">Jumlah Pesanan (Qty)</th>
+                <th scope="col" class="py-3">SAT-01 (Flat Full Print)</th>
+                <th scope="col" class="py-3">SAT-02 (Gusset + Resleting YKK)</th>
+                <th scope="col" class="py-3">SAT-03 (Velvet Matte Boxy)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {wholesaleTiers.map(row => (
+                <tr>
+                  <td class="text-start fw-bold text-dark py-3">{row.tier}</td>
+                  <td class="fw-semibold text-brand">{row.sat01}</td>
+                  <td>{row.sat02}</td>
+                  <td>{row.sat03}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-3 p-3 rounded-3 bg-surface-alt border small text-muted">
+          <strong>Keterangan Pemesanan Satin Sublimasi:</strong>
+          <ul class="mb-0 mt-1 ps-3">
+            <li>Harga sudah mencakup biaya cetak sublimasi digital full color seluruh permukaan kain (tanpa batas warna).</li>
+            <li>File desain direkomendasikan dalam resolusi minimal 300 DPI dengan profil warna CMYK (format PDF, TIFF, atau PSD).</li>
+            <li>Waktu produksi berkisar 5 hingga 10 hari kerja setelah approval layout digital.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- FORM PENGAJUAN PENAWARAN (RFQ Cepat Langsung ke WhatsApp) -->
+  <section class="section-space" id="penawaran">
+    <div class="container">
+      <div class="max-w-75 mx-auto bg-white p-4 p-lg-5 rounded-4 border shadow-sm">
+        <div class="text-center mb-4">
+          <span class="badge-accent mb-2">QUICK QUOTATION</span>
+          <h2 class="h3 fw-bold mb-2">Minta Penawaran Tote Bag Satin Full Print</h2>
+          <p class="text-muted small">Pilih model dan sertakan rencana acara Anda. Tim kami akan menyiapkan estimasi kalkulasi harga resmi dan mockup visual gratis.</p>
+        </div>
+
+        <form id="satinRfqForm" class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="rfqModelS" class="form-label">Pilihan Model Satin</label>
+            <select id="rfqModelS" class="form-select">
+              <option value="SAT-01: Tote Bag Satin Bridal Flat Full Sublimasi (Mulai Rp 25.000)">SAT-01: Flat Full Sublimasi (Mulai Rp 25.000)</option>
+              <option value="SAT-02: Tote Bag Satin Bridal Gusset + Resleting YKK (Mulai Rp 32.000)">SAT-02: Gusset + Resleting YKK (Mulai Rp 32.000)</option>
+              <option value="SAT-03: Tote Bag Satin Velvet Doff Boxy + Magnet (Mulai Rp 38.000)">SAT-03: Velvet Doff Boxy Magnet (Mulai Rp 38.000)</option>
+              <option value="Custom Model Spesifikasi Khusus">Custom Model / Ukuran Khusus Sendiri</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqQtyS" class="form-label">Estimasi Jumlah Pesanan</label>
+            <select id="rfqQtyS" class="form-select">
+              <option value="50 pcs (Minimal Order)">50 pcs (Minimal Order)</option>
+              <option value="100 pcs">100 pcs</option>
+              <option value="200 pcs">200 pcs</option>
+              <option value="300 pcs">300 pcs</option>
+              <option value="500 pcs atau lebih">500+ pcs (Grosir)</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqDeadlineS" class="form-label">Kebutuhan Tanggal / Deadline Acara</label>
+            <input type="text" id="rfqDeadlineS" class="form-control" placeholder="Contoh: 10 hari lagi, akhir bulan ini, dll" />
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqCityS" class="form-label">Kota Tujuan Pengiriman</label>
+            <input type="text" id="rfqCityS" class="form-control" placeholder="Contoh: Malang, Surabaya, Denpasar, Jakarta, dll" />
+          </div>
+
+          <div class="col-12 text-center pt-2">
+            <button type="submit" class="btn btn-brand btn-lg w-100 shadow-sm py-3" style="font-size: 1.05rem;">
+              Kirim Brief &amp; Minta Penawaran Resmi via WhatsApp
+            </button>
+            <p class="text-muted small mt-2 mb-0">
+              Tim sales kami akan merespons cepat dengan simulasi harga dan panduan file cetak.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
   <section class="section-space-sm bg-surface-alt">
     <div class="container">
       <div class="max-w-75 mx-auto">
         <div class="text-center mb-4">
           <span class="badge-accent mb-2">TANYA JAWAB</span>
-          <h2 class="section-title mb-2">Pertanyaan Seputar Tote Bag Satin Full Print</h2>
-          <p class="text-muted small">Seputar ketahanan cuci tinta sublimasi, format file desain, dan lapisan furing.</p>
+          <h2 class="section-title mb-2">Pertanyaan Seputar Tote Bag Satin Sublimasi</h2>
+          <p class="text-muted small">Informasi teknis cetak sublimasi, ketahanan cuci, dan format desain.</p>
         </div>
-        <FAQAccordion items={categoryFaqs} />
+
+        <div class="accordion" id="faqAccordionSatin">
+          <div class="accordion-item border rounded-3 mb-2 overflow-hidden shadow-none">
+            <h3 class="accordion-header" id="headingS1">
+              <button class="accordion-button collapsed fw-semibold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseS1" aria-expanded="false" aria-controls="collapseS1">
+                Apakah cetak sublimasi pada kain satin bisa luntur saat dicuci?
+              </button>
+            </h3>
+            <div id="collapseS1" class="accordion-collapse collapse" aria-labelledby="headingS1" data-bs-parent="#faqAccordionSatin">
+              <div class="accordion-body text-muted small" style="line-height: 1.7;">
+                Sama sekali tidak. Proses sublimasi digital menggunakan suhu 200°C yang mengubah tinta padat langsung menjadi gas dan menyatu secara molekuler ke dalam serat poliester satin. Warna tidak akan mengelupas, retak, atau luntur meski dicuci berkali-kali.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border rounded-3 mb-2 overflow-hidden shadow-none">
+            <h3 class="accordion-header" id="headingS2">
+              <button class="accordion-button collapsed fw-semibold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseS2" aria-expanded="false" aria-controls="collapseS2">
+                Apakah ada batasan jumlah warna atau gradasi desain?
+              </button>
+            </h3>
+            <div id="collapseS2" class="accordion-collapse collapse" aria-labelledby="headingS2" data-bs-parent="#faqAccordionSatin">
+              <div class="accordion-body text-muted small" style="line-height: 1.7;">
+                Tidak ada batasan. Teknologi cetak sublimasi digital mendukung spektrum warna CMYK penuh, termasuk gradasi lembut, detail foto manusia, lukisan cat air, dan ilustrasi digital beresolusi tinggi tanpa biaya tambahan per warna.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border rounded-3 mb-2 overflow-hidden shadow-none">
+            <h3 class="accordion-header" id="headingS3">
+              <button class="accordion-button collapsed fw-semibold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseS3" aria-expanded="false" aria-controls="collapseS3">
+                Apakah tas satin ini dilengkapi furing dalam?
+              </button>
+            </h3>
+            <div id="collapseS3" class="accordion-collapse collapse" aria-labelledby="headingS3" data-bs-parent="#faqAccordionSatin">
+              <div class="accordion-body text-muted small" style="line-height: 1.7;">
+                Ya, seluruh varian tote bag satin kami sudah dilengkapi dengan lapisan furing dalam (puring) spunbond atau katun halus. Furing berfungsi menyembunyikan sisa jahitan dalam tas dan menambah kekokohan struktur tas saat diisi barang.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border rounded-3 mb-2 overflow-hidden shadow-none">
+            <h3 class="accordion-header" id="headingS4">
+              <button class="accordion-button collapsed fw-semibold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseS4" aria-expanded="false" aria-controls="collapseS4">
+                Berapa minimal order (MOQ) tote bag satin sublimasi?
+              </button>
+            </h3>
+            <div id="collapseS4" class="accordion-collapse collapse" aria-labelledby="headingS4" data-bs-parent="#faqAccordionSatin">
+              <div class="accordion-body text-muted small" style="line-height: 1.7;">
+                Minimal pemesanan adalah 50 pcs per desain untuk memastikan efisiensi setting mesin cetak sublimasi format lebar.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Script Form WhatsApp Handler -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('satinRfqForm');
+      if (!form) return;
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const model = document.getElementById('rfqModelS')?.value || 'SAT-01';
+        const qty = document.getElementById('rfqQtyS')?.value || '50 pcs';
+        const deadline = document.getElementById('rfqDeadlineS')?.value || 'Segera';
+        const city = document.getElementById('rfqCityS')?.value || 'Malang';
+
+        const messageText = 
+`Halo Tim ToteBag.web.id, saya ingin meminta penawaran resmi untuk Tote Bag Satin Full Print Sublimasi:
+
+*Model Satin:* ${model}
+*Estimasi Kuantiti:* ${qty}
+*Rencana Penggunaan:* ${deadline}
+*Tujuan Kirim:* ${city}
+
+Mohon informasi kalkulasi harga terbaik dan prosedur sampel mockup. Terima kasih!`;
+
+        const waUrl = `https://wa.me/6282131087971?text=${encodeURIComponent(messageText)}`;
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      });
+    });
+  </script>
 </BaseLayout>

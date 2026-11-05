@@ -1,121 +1,273 @@
 ---
-// src/pages/produk/tote-bag-mika.astro
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
-import ProductCard from '../../components/ui/ProductCard.astro';
-import FAQAccordion from '../../components/ui/FAQAccordion.astro';
-import { categories, products, mikaFaqs, getWhatsAppUrl } from '../../data/siteData';
-
-const category = categories.find(c => c.slug === 'tote-bag-mika')!;
-const categoryProducts = products.filter(p => p.categorySlug === 'tote-bag-mika');
-const categoryFaqs = mikaFaqs;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
 
 const breadcrumbs = [
   { name: 'Beranda', url: '/' },
   { name: 'Katalog Produk', url: '/produk/' },
-  { name: category.title, url: `/produk/${category.slug}/` }
+  { name: 'Tote Bag Mika Transparan', url: '/produk/tote-bag-mika/' }
 ];
 
-const categoryWaUrl = getWhatsAppUrl({
-  categoryName: category.title,
-  sourcePage: `/produk/${category.slug}/`
-});
+const schemaJson = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://totebag.web.id/produk/tote-bag-mika/#webpage",
+      "url": "https://totebag.web.id/produk/tote-bag-mika/",
+      "name": "Tote Bag Mika Transparan PVC Custom: Katalog Model & Harga Pabrik | ToteBag",
+      "description": "Katalog tote bag mika transparan PVC custom bening kedap air untuk hampers skincare, goodie bag konser, dan merchandise estetik. Mulai Rp 18.000, MOQ 50 pcs.",
+      "inLanguage": "id-ID",
+      "isPartOf": {
+        "@id": "https://totebag.web.id/#website"
+      },
+      "breadcrumb": {
+        "@id": "https://totebag.web.id/produk/tote-bag-mika/#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://totebag.web.id/produk/tote-bag-mika/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://totebag.web.id/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Katalog Produk",
+          "item": "https://totebag.web.id/produk/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tote Bag Mika Transparan",
+          "item": "https://totebag.web.id/produk/tote-bag-mika/"
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://totebag.web.id/produk/tote-bag-mika/#product",
+      "name": "Tote Bag Mika Transparan PVC Custom",
+      "image": "https://totebag.web.id/media/tote-bag-mika.webp",
+      "description": "Konveksi tote bag mika PVC transparan tebal 0.30 - 0.70 mm, kedap air dan kokoh untuk merchandise konser musik, hampers wedding, dan packaging kosmetik.",
+      "brand": {
+        "@type": "Brand",
+        "name": "ToteBag"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "IDR",
+        "lowPrice": 13500,
+        "highPrice": 33000,
+        "offerCount": 4,
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://totebag.web.id/produk/tote-bag-mika/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Apakah bahan mika PVC mudah menguning atau letoi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tidak. Kami menggunakan mika PVC grade premium anti-yellowing dengan ketebalan 0.30 mm hingga 0.50 mm yang tetap jernih kristal dan memiliki struktur mandiri yang kokoh."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa minimal pemesanan tote bag mika custom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimal pemesanan standar adalah 50 pcs per desain dengan sablon logo 1-3 warna atau cetak fullcolor UV printing."
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const mikaModels = [
+  {
+    id: 'mik-01',
+    code: 'MIK-01',
+    name: 'Flat Mika Bening 0.30 mm (25 x 35 cm)',
+    category: 'Merchandise Konser & Event',
+    badge: 'Ekonomis Bening',
+    badgeClass: 'bg-info text-dark',
+    price: 'Rp 18.000',
+    priceRange: 'Rp 13.500 - Rp 18.000',
+    moq: '50 pcs',
+    image: '/media/tote-bag-mika.webp',
+    material: 'Mika PVC Bening Transparan 0.30 mm',
+    dimensions: '25 x 35 cm (Flat)',
+    target: 'Konser musik, festival seni, goodie bag pameran kecantikan, souvenir photocard idol.',
+    features: [
+      'Mika kristal jernih 100% tembus pandang',
+      'Tali jinjing mika atau webbing katun warna kontras',
+      'Jahitan bisban keliling rapi anti robek',
+      'Sablon sablon manual atau UV print tajam',
+      'Kapasitas beban aman hingga 3-4 kg'
+    ],
+    waMessage: 'Halo ToteBag, saya tertarik order Model MIK-01 (Flat Mika Bening 0.30 mm).'
+  },
+  {
+    id: 'mik-02',
+    code: 'MIK-02',
+    name: 'Box Gusset Mika Tebal 0.50 mm (30 x 38 x 10 cm)',
+    category: 'Hampers Skincare & Wedding',
+    badge: 'Best Seller Hampers',
+    badgeClass: 'bg-success text-white',
+    price: 'Rp 24.000',
+    priceRange: 'Rp 17.500 - Rp 24.000',
+    moq: '50 pcs',
+    image: '/media/foto-mika.jpg',
+    material: 'Mika PVC Stand-up Tebal 0.50 mm',
+    dimensions: '30 x 38 x 10 cm (Bottom & Side Gusset)',
+    target: 'Packaging skincare, hampers pernikahan, gift set kosmetik, souvenir hotel mewah.',
+    features: [
+      'Ketebalan 0.50 mm sangat kokoh berdiri tegak di meja',
+      'Alas bawah 10 cm muat toples kue, botol serum, dan box hampers',
+      'Kedap air 100% dan sangat mudah dibersihkan dari tumpahan cairan',
+      'Tali pegangan selang sintetis atau webbing nylon lembut',
+      'Kapasitas beban uji hingga 6-8 kg'
+    ],
+    waMessage: 'Halo ToteBag, mohon penawaran untuk Model MIK-02 (Box Gusset Mika Tebal 0.50 mm).'
+  },
+  {
+    id: 'mik-03',
+    code: 'MIK-03',
+    name: 'Mika Kombinasi List Canvas / Kulit Sintetis',
+    category: 'Retail Fashion & Butik',
+    badge: 'Kombinasi Elegan',
+    badgeClass: 'bg-primary text-white',
+    price: 'Rp 29.000',
+    priceRange: 'Rp 22.000 - Rp 29.000',
+    moq: '50 pcs',
+    image: '/media/tote-bag-mika.webp',
+    material: 'Mika Transparan + Aksen Kain Canvas Twill / Kulit',
+    dimensions: '32 x 40 x 10 cm',
+    target: 'Packaging butik pakaian, brand retail komersial, hampers lebaran modern.',
+    features: [
+      'Perpaduan mika transparan bening dengan alas dan lis kain kanvas',
+      'Menampilkan isi barang namun tetap berkesan hangat dan natural',
+      'Tali jinjing webbing kanvas tebal dengan jahitan silang',
+      'Opsi kancing magnet neodinium di bagian atas',
+      'Kapasitas beban aman hingga 8 kg'
+    ],
+    waMessage: 'Halo ToteBag, saya ingin konsultasi Model MIK-03 (Mika Kombinasi List Canvas).'
+  },
+  {
+    id: 'mik-04',
+    code: 'MIK-04',
+    name: 'Mika Resleting YKK & Saku Pouch Dalam',
+    category: 'Work Bag & Kosmetik Travel',
+    badge: 'Keamanan Ekstra',
+    badgeClass: 'bg-dark text-white',
+    price: 'Rp 33.000',
+    priceRange: 'Rp 25.500 - Rp 33.000',
+    moq: '50 pcs',
+    image: '/media/foto-mika.jpg',
+    material: 'Mika Tebal 0.50 mm + Resleting YKK + Pouch Kanvas',
+    dimensions: '35 x 40 x 12 cm',
+    target: 'Tas kerja modern, tas renang / gym, travel kosmetik anti air, souvenir eksklusif.',
+    features: [
+      'Dilengkapi resleting YKK anti-macet menjaga isi tas tidak tumpah',
+      'Termasuk pouch kain kanvas di bagian dalam untuk privasi dompet dan HP',
+      'Tahan air total, ideal untuk area pantai, kolam renang, dan musim hujan',
+      'Jahitan ganda dengan bisban penguat di semua sambungan',
+      'Kapasitas beban uji hingga 10 kg'
+    ],
+    waMessage: 'Halo ToteBag, mohon penawaran Model MIK-04 (Mika Resleting YKK).'
+  }
+];
 ---
 
 <BaseLayout
-  title={`${category.title} — Bening Estetik, Kedap Air & Eksklusif`}
-  description="Penyedia tote bag mika transparan PVC custom untuk goodie bag konser, hampers skincare, pameran seni, dan merchandise modern. Ketebalan 0.50 mm kokoh tahan air."
-  canonicalUrl={`https://totebag.web.id/produk/${category.slug}/`}
-  categoryName={category.title}
+  title="Tote Bag Mika Transparan PVC Custom: Katalog Model & Harga Pabrik"
+  description="Katalog tote bag mika transparan PVC custom bening kedap air untuk hampers skincare, goodie bag konser, dan merchandise estetik. Mulai Rp 18.000, MOQ 50 pcs."
+  canonicalUrl="https://totebag.web.id/produk/tote-bag-mika/"
+  ogImage="https://totebag.web.id/media/tote-bag-mika.webp"
+  jsonLd={schemaJson}
 >
+  <!-- Topbar Announcement Strip -->
+  <aside class="mika-topbar py-2 text-center text-white small" style="background-color: var(--brand-primary, #173F38);" aria-label="Informasi konveksi mika">
+    <div class="container">
+      Konveksi Tote Bag Mika Transparan PVC Tebal 0.30 - 0.70 mm • Kedap Air 100% • Kirim Seluruh Indonesia
+    </div>
+  </aside>
+
+  <!-- Breadcrumbs & Quick-Nav In-Page Navigation -->
   <div class="container pt-3">
     <Breadcrumbs items={breadcrumbs} />
+    <nav class="quick-nav d-none d-md-flex flex-wrap gap-2 pt-2 pb-1" aria-label="Navigasi cepat halaman mika">
+      <span class="small fw-semibold text-muted align-self-center me-1">Lompat ke:</span>
+      <a href="#katalog-produk" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Katalog Model &amp; Harga</a>
+      <a href="#tabel-harga" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Tabel Harga Grosir</a>
+      <a href="#keunggulan" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">Karakteristik Mika</a>
+      <a href="#faq" class="badge bg-white text-dark border text-decoration-none px-3 py-2 rounded-pill">FAQ</a>
+      <a href="#penawaran" class="badge badge-cta bg-brand text-white text-decoration-none px-3 py-2 rounded-pill shadow-sm">Minta Penawaran</a>
+    </nav>
   </div>
 
-  <!-- Hero Header -->
-  <section class="section-space-sm pt-2">
+  <!-- Hero Header Section -->
+  <section class="section-space-sm pt-3 pb-4 hero-mika" id="konten">
     <div class="container">
-      <div class="row align-items-center g-5">
+      <div class="row align-items-center g-4 g-lg-5">
         <div class="col-12 col-lg-7">
-          <span class="badge-accent mb-2">KATEGORI MATERIAL</span>
-          <h1 class="hero-title mb-3">{category.title}</h1>
-          <p class="lead text-muted fs-5 mb-4">
-            {category.tagline}
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge-accent">KATALOG PRODUK &amp; KONVEKSI MIKA PVC</span>
+          </div>
+          <h1 class="hero-title mb-3">
+            Tote Bag Mika Transparan Custom: Bening Kristal, Kedap Air &amp; Estetik
+          </h1>
+
+          <p class="lead text-muted fs-5 mb-3" style="line-height: 1.7;">
+            Pilihan tas transparan modern untuk hampers skincare, goodie bag konser musik, packaging butik, dan merchandise premium. Menggunakan bahan mika PVC murni tebal 0.30 hingga 0.50 mm yang kokoh berdiri dan tidak mudah menguning.
           </p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href={categoryWaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand btn-lg">
-              Minta Penawaran Tote Bag Mika
+
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#katalog-produk" class="btn btn-brand btn-lg">
+              Lihat 4 Model Produk ↓
             </a>
-            <a href="/cara-pesan/" class="btn btn-brand-outline btn-lg">
-              Alur Pemesanan
+            <a href="#penawaran" class="btn btn-brand-outline btn-lg">
+              Konsultasi WhatsApp
             </a>
           </div>
+
+          <div class="d-flex flex-wrap gap-3 text-muted small">
+            <span><strong class="text-success">✓</strong> Mulai Rp 18.000 / pcs (MOQ 50 pcs)</span>
+            <span><strong class="text-success">✓</strong> Ketebalan 0.30 - 0.70 mm Kokoh</span>
+            <span><strong class="text-success">✓</strong> Tahan Air 100% &amp; Mudah Dilap</span>
+            <span><strong class="text-success">✓</strong> Sablon &amp; UV Printing Warna Tajam</span>
+          </div>
         </div>
+
         <div class="col-12 col-lg-5">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
-            <img 
-              src={category.imageUrl} 
-              alt={`Tote Bag Mika Transparan PVC Custom B2B`} 
-              width="600" 
-              height="450" 
-              class="w-100 h-100 object-fit-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Overview & Benefits -->
-  <section class="section-space bg-surface-alt">
-    <div class="container">
-      <div class="row g-5">
-        <div class="col-12 col-lg-6">
-          <h2 class="section-title mb-3">Karakteristik &amp; Keunggulan Mika Transparan</h2>
-          <p class="text-muted mb-3">
-            {category.overview}
-          </p>
-          <p class="text-muted mb-4">
-            {category.materialDescription}
-          </p>
-
-          <h3 class="h5 fw-bold mb-3">Kelebihan Utama Bahan Mika PVC:</h3>
-          <ul class="list-unstyled d-flex flex-column gap-2 text-muted">
-            {category.benefits.map(b => (
-              <li class="d-flex align-items-start gap-2">
-                <span class="badge rounded-circle bg-success text-white p-1">✓</span>
-                <span class="fw-medium text-dark">{b}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="col-12 col-lg-6">
-          <div class="p-4 p-lg-5 rounded-4 bg-white border h-100">
-            <h3 class="h4 fw-bold mb-3">Rekomendasi Penggunaan</h3>
-            <p class="text-muted small mb-4">
-              Mika transparan adalah solusi ideal bagi brand yang ingin menonjolkan visual produk di dalamnya dengan gaya modern dan perlindungan tahan air 100%:
-            </p>
-            <div class="row g-3">
-              {category.recommendedUses.map(use => (
-                <div class="col-12 col-sm-6">
-                  <div class="p-3 rounded-3 bg-light border h-100">
-                    <span class="fw-semibold text-dark small">{use}</span>
-                  </div>
-                </div>
-              ))}
+          <div class="position-relative">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden border shadow-sm">
+              <img 
+                src="/media/tote-bag-mika.webp" 
+                alt="Tote bag mika transparan bening dengan sablon logo presisi untuk hampers dan event" 
+                width="800" 
+                height="600" 
+                class="w-100 h-100 object-fit-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
             </div>
-
-            <div class="mt-4 pt-3 border-top">
-              <div class="d-flex align-items-center gap-3">
-                <div class="p-2 rounded bg-success bg-opacity-10 text-success">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 1a2 2 0 0 1 2 2v2H6V3a2 2 0 0 1 2-2m3 4V3a3 3 0 1 0-6 0v2H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5z"/>
-                  </svg>
-                </div>
+            <div class="position-absolute bottom-0 end-0 m-3 px-3 py-2 bg-white rounded-3 shadow-sm border text-dark d-none d-sm-block" style="max-width: 250px; z-index: 5;">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge rounded-circle p-1 bg-success text-white" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px;">✓</span>
                 <div>
-                  <div class="fw-bold small text-dark">Ketebalan Teruji 0.50 mm - 0.70 mm</div>
-                  <div class="text-muted small">Kokoh berdiri, tidak letoi, jahitan bisban keliling kuat.</div>
+                  <strong class="d-block text-brand fw-bold" style="font-size: 0.85rem; line-height: 1.2;">Mika PVC Kristal</strong>
+                  <span class="text-muted" style="font-size: 0.75rem; line-height: 1.2;">Kedap Air 100% • Anti Menguning</span>
                 </div>
               </div>
             </div>
@@ -125,38 +277,333 @@ const categoryWaUrl = getWhatsAppUrl({
     </div>
   </section>
 
-  <!-- Pilihan Produk / Model -->
-  <section class="section-space">
+  <!-- MARKETPLACE CATALOG SECTION (Tampil Langsung di Depan) -->
+  <section class="section-space pt-2 pb-5" id="katalog-produk">
     <div class="container">
-      <div class="text-center max-w-75 mx-auto mb-5">
-        <span class="badge-accent mb-2">MODEL PRODUK</span>
-        <h2 class="section-title mb-3">Pilihan Model Tote Bag Mika</h2>
-        <p class="section-subtitle mx-auto">
-          Tersedia format flat tote bag, beralas gusset kotak, hingga kombinasi list kain canvas warna custom.
-        </p>
+      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+        <div>
+          <span class="badge-accent mb-2">PILIHAN MODEL SIAP ORDER</span>
+          <h2 class="section-title mb-1">Katalog Model Tote Bag Mika</h2>
+          <p class="text-muted small mb-0">Klik tombol penawaran pada model yang sesuai untuk langsung mengirimkan brief ke tim sales kami.</p>
+        </div>
+        <div class="mt-2 mt-md-0">
+          <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small">MOQ Standar: 50 Pcs per Desain</span>
+        </div>
       </div>
 
-      <div class="row g-4">
-        {categoryProducts.map(product => (
-          <div class="col-12 col-md-6 col-lg-4">
-            <ProductCard product={product} />
+      <!-- Grid 4 Model Marketplace Cards -->
+      <div class="row g-4 mb-5">
+        {mikaModels.map(item => (
+          <div class="col-12 col-md-6">
+            <article class="card h-100 rounded-4 bg-white border shadow-sm overflow-hidden d-flex flex-column">
+              <!-- Product Image Wrapper -->
+              <div class="position-relative overflow-hidden border-bottom">
+                <div class="ratio ratio-4x3 bg-light">
+                  <img 
+                    src={item.image} 
+                    alt={`${item.name} bahan mika transparan custom logo`}
+                    width="600" 
+                    height="450" 
+                    class="w-100 h-100 object-fit-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <span class={`position-absolute top-0 end-0 m-3 badge ${item.badgeClass} rounded-pill shadow-sm`} style="font-size: 0.75rem; z-index: 2;">
+                  {item.badge}
+                </span>
+              </div>
+
+              <!-- Product Details -->
+              <div class="p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="text-muted small fw-bold">{item.code} • {item.category}</span>
+                  <span class="badge bg-light text-dark border small">MOQ {item.moq}</span>
+                </div>
+                <h3 class="h5 fw-bold mb-2 text-dark">{item.name}</h3>
+
+                <div class="p-2 mb-3 rounded-2 bg-surface-alt border">
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Ketebalan Mika:</span>
+                    <strong class="text-dark">{item.material}</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Ukuran Standar:</span>
+                    <strong class="text-dark">{item.dimensions}</strong>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="text-muted small fw-bold mb-1">Spesifikasi Fitur:</div>
+                  <ul class="list-unstyled small text-muted mb-0 d-flex flex-column gap-1">
+                    {item.features.map(f => (
+                      <li class="d-flex align-items-start gap-1">
+                        <span class="text-success fw-bold">✓</span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-auto pt-3 border-top">
+                  <div class="d-flex justify-content-between align-items-baseline mb-3">
+                    <div>
+                      <span class="text-muted" style="font-size: 0.75rem;">Mulai dari:</span>
+                      <div class="h4 fw-bold text-brand mb-0">{item.price} <small class="text-muted fw-normal" style="font-size: 0.75rem;">/ pcs</small></div>
+                    </div>
+                    <span class="small text-muted text-end">{item.priceRange}</span>
+                  </div>
+
+                  <a 
+                    href={`https://wa.me/6282131087971?text=${encodeURIComponent(item.waMessage)}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn btn-brand w-100"
+                  >
+                    Minta Penawaran Model Ini
+                  </a>
+                </div>
+              </div>
+            </article>
           </div>
         ))}
       </div>
-    </div>
-  </section>
 
-  <!-- FAQ -->
-  <section class="section-space-sm bg-surface-alt">
-    <div class="container">
-      <div class="max-w-75 mx-auto">
-        <div class="text-center mb-4">
-          <span class="badge-accent mb-2">TANYA JAWAB</span>
-          <h2 class="section-title mb-2">Pertanyaan Seputar Tote Bag Mika</h2>
-          <p class="text-muted small">Seputar ketebalan plastik, teknik sablon, dan ketentuan minimal pemesanan.</p>
+      <!-- Tabel Skala Harga Grosir Mika -->
+      <div class="p-4 p-lg-5 rounded-4 bg-white border shadow-sm mb-4" id="tabel-harga">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+          <div>
+            <h3 class="h4 fw-bold mb-1">Tabel Skala Harga Grosir Tote Bag Mika</h3>
+            <p class="text-muted small mb-0">Biaya per pcs semakin hemat seiring bertambahnya kuantiti pesanan.</p>
+          </div>
+          <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill mt-2 mt-md-0">Pabrik Konveksi Langsung</span>
         </div>
-        <FAQAccordion items={categoryFaqs} />
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-specs align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Model &amp; Spesifikasi Mika</th>
+                <th scope="col" class="text-center">50 - 99 Pcs</th>
+                <th scope="col" class="text-center">100 - 299 Pcs</th>
+                <th scope="col" class="text-center">300 - 499 Pcs</th>
+                <th scope="col" class="text-center bg-success-subtle">500 - 999 Pcs</th>
+                <th scope="col" class="text-center bg-success text-white">1.000+ Pcs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>MIK-01</strong> Flat Mika Bening 0.30 mm (25 x 35 cm)</td>
+                <td class="text-center fw-bold">Rp 18.000</td>
+                <td class="text-center">Rp 16.000</td>
+                <td class="text-center">Rp 14.800</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 14.000</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 13.500</td>
+              </tr>
+              <tr>
+                <td><strong>MIK-02</strong> Box Gusset Mika Tebal 0.50 mm (30 x 38 x 10 cm)</td>
+                <td class="text-center fw-bold">Rp 24.000</td>
+                <td class="text-center">Rp 21.000</td>
+                <td class="text-center">Rp 19.500</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 18.200</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 17.500</td>
+              </tr>
+              <tr>
+                <td><strong>MIK-03</strong> Mika Kombinasi List Canvas / Kulit</td>
+                <td class="text-center fw-bold">Rp 29.000</td>
+                <td class="text-center">Rp 26.000</td>
+                <td class="text-center">Rp 24.000</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 22.800</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 22.000</td>
+              </tr>
+              <tr>
+                <td><strong>MIK-04</strong> Mika Resleting YKK &amp; Saku Pouch Dalam</td>
+                <td class="text-center fw-bold">Rp 33.000</td>
+                <td class="text-center">Rp 30.000</td>
+                <td class="text-center">Rp 28.000</td>
+                <td class="text-center bg-success-subtle fw-bold">Rp 26.500</td>
+                <td class="text-center bg-success-subtle text-success fw-bold">Rp 25.500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-3 mb-0">
+          *Harga sudah termasuk sablon 1 warna atau cetak logo UV printing standar.
+        </p>
       </div>
     </div>
   </section>
+
+  <!-- KEUNGGULAN MATERIAL MIKA -->
+  <section class="section-space bg-surface-alt" id="keunggulan">
+    <div class="container">
+      <div class="max-w-75 mb-4">
+        <span class="badge-accent mb-2">KARAKTERISTIK MATERIAL</span>
+        <h2 class="section-title mb-2">Keunggulan Tote Bag Mika PVC</h2>
+        <p class="text-muted small mb-0">
+          Estetika visual modern yang menonjolkan produk di dalamnya dengan perlindungan tahan air maksimal.
+        </p>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">1. Visual Transparan Estetik</strong>
+            <p class="small text-muted mb-0">Mengekspos isi produk secara elegan, sangat cocok untuk packaging hampers kecantikan, parfum, skincare, dan merchandise konser kekinian.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">2. Tahan Air Total 100%</strong>
+            <p class="small text-muted mb-0">Material PVC kedap air sepenuhnya, sangat mudah dibersihkan dari debu atau tumpahan cairan cukup dengan dilap kain basah.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="p-4 rounded-4 bg-white border h-100 shadow-sm">
+            <strong class="text-dark d-block mb-2">3. Struktur Mandiri Kokoh</strong>
+            <p class="small text-muted mb-0">Ketebalan 0.50 mm menjamin tas berdiri tegak saat ditaruh di etalase toko atau meja display tanpa roboh atau terlipat letoi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section-space" id="faq">
+    <div class="container">
+      <div class="max-w-75 mx-auto text-center mb-4">
+        <span class="badge-accent mb-2">PERTANYAAN UMUM</span>
+        <h2 class="section-title mb-2">FAQ Tote Bag Mika</h2>
+        <p class="section-subtitle mx-auto">Jawaban pertanyaan seputar ketebalan mika, sablon, dan jadwal produksi.</p>
+      </div>
+
+      <div class="max-w-75 mx-auto">
+        <div class="accordion accordion-custom" id="mikaFaqAccordion">
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-m-1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-m-collapse-1" aria-expanded="true" aria-controls="faq-m-collapse-1">
+                Apakah sablon pada permukaan mika bisa terkelupas?
+              </button>
+            </h3>
+            <div id="faq-m-collapse-1" class="accordion-collapse collapse show" aria-labelledby="faq-m-1" data-bs-parent="#mikaFaqAccordion">
+              <div class="accordion-body">
+                Tidak jika menggunakan tinta khusus PVC atau mesin UV Flatbed printing berdaya rekat tinggi yang kami gunakan. Tinta mengering permanen di permukaan mika dan tahan goresan harian.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-m-2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-m-collapse-2" aria-expanded="false" aria-controls="faq-m-collapse-2">
+                Berapa hari proses produksi tote bag mika custom?
+              </button>
+            </h3>
+            <div id="faq-m-collapse-2" class="accordion-collapse collapse" aria-labelledby="faq-m-2" data-bs-parent="#mikaFaqAccordion">
+              <div class="accordion-body">
+                Waktu pengerjaan berkisar antara 6 hingga 10 hari kerja setelah mockup disetujui, tergantung pada tingkat kerumitan jahitan lis bisban dan kancing penutup.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM KONSULTASI / RFQ WHATSAPP (Direct & Clean) -->
+  <section class="section-space bg-surface-alt" id="penawaran">
+    <div class="container">
+      <div class="max-w-75 mx-auto p-4 p-lg-5 rounded-4 bg-white border shadow-sm">
+        <div class="text-center mb-4">
+          <span class="badge-accent mb-2">KONSULTASI &amp; PERMINTAAN PENAWARAN</span>
+          <h2 class="h3 fw-bold mb-2">Dapatkan Penawaran Resmi Tote Bag Mika</h2>
+          <p class="text-muted small mb-0">
+            Isi spesifikasi kebutuhan Anda untuk terhubung langsung dengan tim sales ToteBag via WhatsApp.
+          </p>
+        </div>
+
+        <form id="mikaRfqForm" class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="rfqModelM" class="form-label">Pilihan Model Mika</label>
+            <select id="rfqModelM" class="form-select" required>
+              <option value="MIK-02 (Box Gusset Mika Tebal 0.50 mm)" selected>MIK-02: Box Gusset Mika Tebal 0.50 mm (Best Seller)</option>
+              <option value="MIK-01 (Flat Mika Bening 0.30 mm)">MIK-01: Flat Mika Bening 0.30 mm</option>
+              <option value="MIK-03 (Mika Kombinasi List Canvas/Kulit)">MIK-03: Mika Kombinasi List Canvas / Kulit</option>
+              <option value="MIK-04 (Mika Resleting YKK & Pouch)">MIK-04: Mika Resleting YKK &amp; Pouch Dalam</option>
+              <option value="Custom Model Spesifikasi Sendiri">Custom Model / Ukuran Khusus</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqQtyM" class="form-label">Estimasi Kuantiti Pesanan</label>
+            <select id="rfqQtyM" class="form-select" required>
+              <option value="50 - 99 pcs">50 - 99 pcs (MOQ 50 pcs)</option>
+              <option value="100 - 299 pcs" selected>100 - 299 pcs (Paling Umum)</option>
+              <option value="300 - 499 pcs">300 - 499 pcs</option>
+              <option value="500 - 999 pcs">500 - 999 pcs</option>
+              <option value="1.000+ pcs">1.000+ pcs (Harga Grosir Terbaik)</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqPrintM" class="form-label">Teknik Cetak Logo</label>
+            <select id="rfqPrintM" class="form-select">
+              <option value="Sablon 1-2 Warna Khusus PVC">Sablon 1-2 Warna Khusus PVC (Awet)</option>
+              <option value="Cetak UV Flatbed Full Color">Cetak UV Flatbed Full Color Presisi</option>
+              <option value="Polos Tanpa Cetak">Polos Tanpa Cetak (Plain)</option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="rfqDeadlineM" class="form-label">Tanggal Rencana Pemakaian</label>
+            <input type="text" id="rfqDeadlineM" class="form-control" placeholder="Contoh: 20 November 2026 atau 2 minggu lagi" />
+          </div>
+
+          <div class="col-12">
+            <label for="rfqCityM" class="form-label">Kota Tujuan Pengiriman</label>
+            <input type="text" id="rfqCityM" class="form-control" placeholder="Contoh: Jakarta, Surabaya, Bali, Bandung, dll" />
+          </div>
+
+          <div class="col-12 text-center pt-2">
+            <button type="submit" class="btn btn-brand btn-lg w-100 shadow-sm py-3" style="font-size: 1.05rem;">
+              Kirim Brief &amp; Minta Penawaran Resmi via WhatsApp
+            </button>
+            <p class="text-muted small mt-2 mb-0">
+              Tim sales kami akan membalas dengan kalkulasi harga resmi dan mockup digital gratis.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script Penanganan Form RFQ ke WhatsApp (Zero Emojis, Zero Em-Dashes) -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('mikaRfqForm');
+      if (!form) return;
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const model = document.getElementById('rfqModelM')?.value || 'MIK-02';
+        const qty = document.getElementById('rfqQtyM')?.value || '100 pcs';
+        const print = document.getElementById('rfqPrintM')?.value || 'Sablon PVC';
+        const deadline = document.getElementById('rfqDeadlineM')?.value || 'Segera';
+        const city = document.getElementById('rfqCityM')?.value || 'Malang';
+
+        const messageText = 
+`Halo Tim ToteBag.web.id, saya ingin meminta penawaran resmi untuk Tote Bag Mika Transparan Custom:
+
+*Model Mika:* ${model}
+*Estimasi Kuantiti:* ${qty}
+*Teknik Logo:* ${print}
+*Rencana Penggunaan:* ${deadline}
+*Tujuan Kirim:* ${city}
+
+Mohon informasi kalkulasi harga terbaik dan prosedur sampel mockup. Terima kasih!`;
+
+        const waUrl = `https://wa.me/6282131087971?text=${encodeURIComponent(messageText)}`;
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      });
+    });
+  </script>
 </BaseLayout>

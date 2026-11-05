@@ -48,7 +48,7 @@ const cityServiceSchema = {
 ---
 
 <BaseLayout
-  title={`${city.title} — Vendor B2B`}
+  title={`${city.title} | Vendor B2B`}
   description={city.tagline}
   canonicalUrl={`https://totebag.web.id/layanan/${city.slug}/`}
   jsonLd={cityServiceSchema}
@@ -202,7 +202,7 @@ const cityServiceSchema = {
           {city.packingStandard.map(item => (
             <div class="col-12 col-md-6">
               <div class="small text-muted d-flex align-items-center gap-2">
-                <span class="text-success">✔</span>
+                <span class="text-success fw-bold">✓</span>
                 <span>{item}</span>
               </div>
             </div>
