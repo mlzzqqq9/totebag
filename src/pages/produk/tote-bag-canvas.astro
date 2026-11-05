@@ -66,11 +66,27 @@ const schemaJson = {
         "highPrice": 85000,
         "offerCount": 6,
         "priceValidUntil": "2027-12-31",
+        "validFrom": "2025-01-01",
         "availability": "https://schema.org/InStock",
         "shippingDetails": {
           "@type": "OfferShippingDetails",
           "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "IDR" },
-          "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "ID" }
+          "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "ID" },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 3,
+              "maxValue": 7,
+              "unitCode": "d"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 4,
+              "unitCode": "d"
+            }
+          }
         },
         "hasMerchantReturnPolicy": {
           "@type": "MerchantReturnPolicy",
